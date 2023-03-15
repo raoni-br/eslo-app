@@ -833,7 +833,7 @@ resources:
       text: |-
         {
             "email": "raoni@eslo.com.br",
-            "password": "!limaoMeiolimao2limoes",
+            "password": "",
             "rememberMe": true
         }
     parameters: []
@@ -986,7 +986,7 @@ resources:
       backend_api: localhost:3000
       jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YmRjMjQzMC03YTc1LTQ4YjMtYTVlMy1mMDllYjE3ZWQ4NjEiLCJpYXQiOjE2MjMzMjAzMTUsImV4cCI6MTYyNDUyOTkxNX0.cGMlKeK84seguqfdkYdcxKhZ25FY13Jj29vYK1dWuZQ
       rexUrl: https://rex.qa.reallyenglish.global/admin/api/
-      rexToken: b21c3837-570f-463b-99f2-c1117011abd7
+      rexToken: ""
     dataPropertyOrder:
       "&":
         - backend_api

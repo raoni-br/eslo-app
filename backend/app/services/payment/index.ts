@@ -357,7 +357,7 @@ class EsloPaymentGateway {
             throw new Error('Payment gateway webhook key not found');
         }
 
-        return this.paymentGateway.webhooks.constructEvent(body, signature, 'whsec_URvnTE1U9Ze4saB1SzgjgRU7tldTxloB');
+        return this.paymentGateway.webhooks.constructEvent(body, signature, esloConfig.paymentGatewayWebhookKey);
     }
 }
 
