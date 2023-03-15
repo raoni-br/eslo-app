@@ -1,0 +1,5 @@
+.env
+
+backend/app/db/seeders/seeders_data/**/slides
+backend/app/db/seeders/seeders_data/**/book
+backend/app/db/seeders/seeders_data/**/audio

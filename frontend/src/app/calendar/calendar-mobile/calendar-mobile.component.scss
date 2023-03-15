@@ -1,0 +1,114 @@
+@use '~@angular/material' as mat;
+@mixin calendar-mobile-theme($theme) {
+    $primary-50: mat.get-color-from-palette(map-get($theme, primary), 50);
+    $accentColor: map-get($theme, accent);
+    $accent-100: mat.get-color-from-palette($accentColor, 100);
+    $accent-500: mat.get-color-from-palette($accentColor, 500);
+
+    .event-detail {
+        padding: 10px 10px 0 10px;
+    }
+
+    .calendar-change-month {
+        padding: 0 80px;
+    }
+
+    .cal-month-view {
+        .cal-header {
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 300;
+        }
+
+        .cal-today {
+            background-color: unset !important;
+        }
+
+        .cal-day-headers .cal-header.cal-weekend span {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .cal-days {
+            border: none !important;
+        }
+
+        .cal-cell-row {
+            border: none !important;
+
+            &:hover {
+                background-color: unset !important;
+            }
+        }
+
+        .cal-has-events {
+            font-weight: 700 !important;
+        }
+
+        .cal-day-cell {
+            border: none !important;
+
+            &.cal-in-month.cal-has-events {
+                .cal-day-number {
+                    font-weight: 700 !important;
+                    opacity: 1 !important;
+                }
+            }
+
+            &.cal-weekend .cal-day-number {
+                color: unset !important;
+            }
+
+            &.cal-today .cal-day-number {
+                font-size: 1.2em !important;
+            }
+
+            .cal-cell-top {
+                .cal-day-number {
+                    margin: 0 !important;
+                    font-size: 14px;
+                }
+            }
+
+            &:hover {
+                background-color: unset !important;
+            }
+        }
+
+        .cal-cell.cal-day-cell.cal-future.cal-in-month.cal-has-events.cal-open .cal-cell-top .cal-day-number {
+            display: block !important;
+            background-color: $accent-500 !important;
+            color: map-get($accentColor, default-contrast) !important;
+            width: 40px !important;
+            height: 40px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            border-radius: 50% !important;
+            opacity: 1 !important;
+        }
+
+        .cal-day-cell {
+            min-height: 0px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .cal-day-badge {
+            display: none !important;
+        }
+
+        .cal-event {
+            display: none !important;
+        }
+
+        .cal-cell {
+            float: left;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+        }
+    }
+}

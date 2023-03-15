@@ -1,0 +1,31 @@
+@use '~@angular/material' as mat;
+
+.rotate {
+    transform: rotateY(180deg);
+}
+
+@mixin slides-stepper-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+    $background: mat.get-color-from-palette(map-get($theme, background), card);
+
+    $primary-100: mat.get-color-from-palette(map-get($theme, primary), 100);
+
+    .slides-stepper__buttons {
+        z-index: 999998 !important;
+        background-color: $primary-100;
+        border-radius: 14px;
+
+        &--opacity-25 {
+            opacity: 0.25;
+        }
+
+        &--opacity-100 {
+            opacity: 1;
+        }
+
+        &--desktop {
+            position: fixed;
+            top: 82px;
+        }
+    }
+}

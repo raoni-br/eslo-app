@@ -1,0 +1,36 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+@mixin top-bar-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+
+    .top-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: space-between;
+        padding: 10px 20px 0 18px;
+
+        @include mq.layout-bp(gt-xs) {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            padding: 28px 28px 28px 26px;
+        }
+
+        &__center {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            max-height: 104px;
+            margin-top: 8px;
+
+            @include mq.layout-bp(gt-xs) {
+                align-self: none;
+                height: unset;
+                margin-top: 0;
+            }
+        }
+    }
+}

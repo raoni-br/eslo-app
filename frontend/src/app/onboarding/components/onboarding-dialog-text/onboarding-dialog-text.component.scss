@@ -1,0 +1,22 @@
+@use '~@angular/flex-layout/mq' as mq;
+.onboarding-dialog-text {
+    max-width: 317px;
+    &__content {
+        padding: 12px 12px 12px 36px;
+
+        &__text {
+            min-width: 280px;
+
+            @include mq.layout-bp(xs) {
+                max-width: 150px;
+                min-width: 150px;
+            }
+        }
+    }
+
+    @include mq.layout-bp(xs) {
+        position: absolute;
+        bottom: 90px;
+        left: 40%;
+    }
+}

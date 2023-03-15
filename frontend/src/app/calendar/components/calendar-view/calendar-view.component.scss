@@ -1,0 +1,40 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.icon-text {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+}
+
+.day-date {
+    width: 100%;
+    padding: 7px 12px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.day-divider {
+    width: 100%;
+    height: 3px;
+    margin-bottom: 16px;
+}
+
+.calendar-header--mobile {
+    position: absolute;
+    top: 115px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.calendar-container {
+    width: 100%;
+    height: 100%;
+
+    @include mq.layout-bp(xs) {
+        margin-top: 90px;
+        min-width: 1114px;
+    }
+}

@@ -1,0 +1,18 @@
+<ng-container *ngIf="course$ | async as course">
+  <ng-template tpAttach="topBarStart">
+    <app-back-button></app-back-button>
+    <app-top-bar-title [text]="course.label"></app-top-bar-title>
+  </ng-template>
+</ng-container>
+
+<ng-template tpAttach="topBarCenter">
+  <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+</ng-template>
+
+<div *ngIf="currentLevel">
+  <app-lessons-list
+    [lessons]="currentLevel?.lessons"
+    (goToLessonEvent)="goToLesson($event)"
+  ></app-lessons-list>
+</div>
+

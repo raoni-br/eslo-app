@@ -1,0 +1,56 @@
+<div *ngIf="event">
+    <mat-toolbar class="mat-primary m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{event.title}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="pt-16 pb-16" fusePerfectScrollbar>
+        <form name="eventForm" [formGroup]="eventForm" fxLayout="column" fxFlex>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-form-field appearance="outline" class="pb-8 pr-sm-8" fxFlex="50%">
+                    <mat-label>Start</mat-label>
+                    <input matInput type="datetime-local" [value]="startDate" formControlName="startDate">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="pb-8 pr-sm-8" fxFlex="50%">
+                    <mat-label>End</mat-label>
+                    <input matInput type="datetime-local" [value]="endDate" formControlName="endDate">
+                </mat-form-field>   
+            </div>
+            <div fxFlex fxLayout="row">
+                <div fxFlex="50%" fxLayout="column" fxLayoutAlign="start center">
+                    <button
+                        mat-button
+                        color="primary"
+                        aria-label="RESCHEDULE"
+                        [disabled]="eventForm.invalid"
+                        (click)="matDialogRef.close(['save', eventForm])"
+                    >
+                        RESCHEDULE
+                    </button>
+
+                    <span class="warn-500-fg mat-caption" *ngIf="eventForm.invalid">Invalid start/end times</span>
+                </div>
+
+
+                <div fxFlex="50%" fxLayout="column" fxLayoutAlign="start center">
+                    <button
+                        mat-button
+                        color="warn"
+                        aria-label="MARK ABSENT"
+                        (click)="matDialogRef.close(['delete', undefined])"
+                    >
+                        DELETE EVENT
+    
+                    </button>
+
+                    <span class="secondary-text mat-small"><b>(Remove event from calendar)</b></span>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

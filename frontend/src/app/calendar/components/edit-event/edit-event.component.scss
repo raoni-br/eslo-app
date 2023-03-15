@@ -1,0 +1,57 @@
+.mb-16 {
+    margin-bottom: 16px !important;
+}
+
+.mt-8 {
+    margin-top: 8px !important;
+}
+
+.edit-event__delete-button {
+    margin-bottom: 8px;
+}
+
+.pb-20 {
+    padding-bottom: 20px;
+}
+
+.text-fade-color {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.time-field {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 13px;
+    padding: 0 3px 0 10px;
+    position: relative;
+
+    &__input {
+        border: none;
+        outline: none;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 15px;
+        font-family: 'Comfortaa';
+
+        &::-webkit-calendar-picker-indicator {
+            display: none;
+        }
+    }
+
+    &__hint {
+        position: absolute;
+        top: 40px;
+        left: 0;
+    }
+}
+
+.session-finished {
+    cursor: pointer;
+    padding: 16px 10px;
+
+    &__label {
+        font-size: 14px;
+        user-select: none;
+    }
+}

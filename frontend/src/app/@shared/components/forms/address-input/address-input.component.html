@@ -1,0 +1,63 @@
+<form
+  fxLayout.xs="column"
+  fxLayoutGap.xs="12px"
+  [fxLayout.gt-xs]="column ? 'column' : 'row wrap'"
+  [fxFlexAlign.gt-xs]="column ? 'start stretch' : ''"
+  fxLayoutGap.gt-xs="24px"
+  [formGroup]="formAddress"
+>
+  <mat-form-field class="text-default" appearance="outline" fxFlex="30">
+    <mat-label>Number</mat-label>
+    <input matInput formControlName="streetNumber" />
+
+    <mat-error>Number is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="text-default" appearance="outline" fxFlex="30">
+    <mat-label>Postal Code</mat-label>
+    <input
+      matInput
+      formControlName="postalCode"
+      mask="00000-000"
+      [showMaskTyped]="true"
+      [validation]="true"
+      placeHolderCharacter=" "
+      (blur)="getAddress()"
+    />
+
+    <mat-error> Postal Code is required </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="text-default" appearance="outline" fxFlex="30">
+    <mat-label>Street</mat-label>
+    <input matInput formControlName="street" />
+
+    <mat-error>Street is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="text-default" appearance="outline" fxFlex="30">
+    <mat-label>Complement</mat-label>
+    <input matInput formControlName="streetComplement" />
+  </mat-form-field>
+
+  <mat-form-field class="text-default" appearance="outline" fxFlex="30">
+    <mat-label>District</mat-label>
+    <input matInput formControlName="district" />
+
+    <mat-error>District is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="text-default" appearance="outline" fxFlex="30">
+    <mat-label>City</mat-label>
+    <input matInput formControlName="city" />
+
+    <mat-error>City is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="text-default" appearance="outline" fxFlex="30">
+    <mat-label>State</mat-label>
+    <input matInput formControlName="state" mask="SS" [validation]="true" />
+
+    <mat-error>State is required</mat-error>
+  </mat-form-field>
+</form>

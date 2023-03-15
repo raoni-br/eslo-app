@@ -1,0 +1,57 @@
+<div id="lesson-detail-page" class="page-layout fullwidth tabbed">
+  <!-- CENTER -->
+  <div class="center" *ngIf="lesson && lesson.lessonMaterial">
+    <ng-template tpAttach="topBarStart">
+      <app-back-button></app-back-button>
+      <app-top-bar-title [text]="lesson.title"></app-top-bar-title>
+    </ng-template>
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+      <!-- CONTENT -->
+      <div id="lesson-content" class="content" [@.disabled]="true">
+        <mat-tab-group [selectedIndex]="selectedTab">
+          <mat-tab label="Student Book">
+            <div class="tab-content">
+              <app-audio-control-card
+                *ngIf="lesson.lessonMaterial.audio.length > 0"
+                [audioList]="lesson.lessonMaterial.audio"
+              ></app-audio-control-card>
+
+              <app-lesson-media-content
+                [mediaContent]="lesson.lessonMaterial.studentBook"
+                [offsetStepNavigation]="true"
+                (lastStepClick)="goToNextTab()"
+              ></app-lesson-media-content>
+            </div>
+          </mat-tab>
+
+          <mat-tab *ngIf="!classInProgress" label="Script">
+            <div class="tab-content" fusePerfectScrollbar>
+              <app-lesson-media-content
+                [mediaContent]="lesson.lessonMaterial.lectureScript"
+                [offsetStepNavigation]="true"
+                [enableFirstStep]="true"
+                (firstStepClick)="goToPreviousTab()"
+                (lastStepClick)="goToNextTab()"
+              ></app-lesson-media-content>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Slides">
+            <div class="tab-content" fusePerfectScrollbar>
+              <app-lesson-lecture-slides
+                [activities]="lesson.lessonMaterial.activities"
+                (firstStepClick)="goToPreviousTab()"
+                (lastStepClick)="leaveLesson()"
+              ></app-lesson-lecture-slides>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <!-- / CONTENT -->
+    </div>
+    <!-- / CONTENT CARD -->
+  </div>
+  <!-- / CENTER -->
+</div>

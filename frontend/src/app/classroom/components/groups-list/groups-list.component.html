@@ -1,0 +1,37 @@
+<div class="group-list__container">
+  <div *ngFor="let group of groups" class="group-list__container__group">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="16px"
+      (click)="onGroupDetail(group.id)"
+    >
+      <app-avatar [text]="group.name[0]" fontSize="19px"></app-avatar>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxFlex="100%"
+        style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)"
+      >
+        <div
+          fxLayout="column"
+          fxLayoutAlign="start start"
+          class="group-list__container__group__info"
+        >
+          <span class="mat-subheading-1">{{ group.name }}</span>
+          <span class="mat-body-2">
+            {{ group?.level?.module?.program?.label }} - {{ group?.level?.label }}
+          </span>
+        </div>
+        <button
+          mat-icon-button
+          (click)="onGroupEdit(group.id); $event.stopPropagation()"
+          color="primary"
+          class="group-list__container__group__edit-button"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

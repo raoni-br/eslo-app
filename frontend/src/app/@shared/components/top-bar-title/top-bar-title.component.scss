@@ -1,0 +1,18 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+@mixin top-bar-title-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+    .top-bar-title {
+        color: $primary;
+        margin: 0;
+        padding-left: 28px;
+
+        @include mq.layout-bp(gt-xs) {
+            font-weight: normal;
+            font-size: 19px;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+        }
+    }
+}

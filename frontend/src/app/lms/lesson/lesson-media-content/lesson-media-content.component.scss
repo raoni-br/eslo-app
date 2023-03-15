@@ -1,0 +1,25 @@
+
+
+.lesson-content {
+    position: relative;
+    background-color: white;
+    height: 100vh;
+
+    .lesson-step {
+        background-color: white;
+
+        .lesson-step-content {
+            background-color: white;
+        }
+    }
+}
+
+.invisible-image {
+    display: none;
+}
+
+.lesson-image {
+  
+
+    max-width: 150%;
+}

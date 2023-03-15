@@ -1,0 +1,5 @@
+<div *ngFor="let property of dialog.steps">
+  <div *ngIf="property.type === PROPERTY_TYPE.DIALOG_BOX">
+    <app-onboarding-dialog-box [dialogBox]="property"></app-onboarding-dialog-box>
+  </div>
+</div>

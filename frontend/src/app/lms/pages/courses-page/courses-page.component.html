@@ -1,0 +1,9 @@
+<ng-template tpAttach="topBarStart">
+  <app-eslo-letter-logo></app-eslo-letter-logo>
+  <app-top-bar-title text="Courses"></app-top-bar-title>
+</ng-template>
+
+<app-courses-list
+  [courses]="courses$ | async"
+  (courseDetailEvent)="onCourseDetail($event)"
+></app-courses-list>

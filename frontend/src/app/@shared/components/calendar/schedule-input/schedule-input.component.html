@@ -1,0 +1,61 @@
+<div class="wrapper" [class.wrapper--only-read]="onlyRead">
+  <div class="days-buttons" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+    <button
+      mat-icon-button
+      *ngFor="let weekday of weekDays"
+      (click)="onlyRead ? false : onWeekdayChange(weekday)"
+      [ngClass]="selectedWeekdays.length && selectedWeekdays.includes(weekday.weekday) ? 'mat-raised-button' : 'mat-stroked-button'"
+      [color]="selectedWeekdays.length && selectedWeekdays.includes(weekday.weekday) ? 'primary' : ''"
+      [matTooltip]="DAYS[weekday.getJsWeekday()]"
+      [matTooltipPosition]="'above'"
+    >
+      {{ weekday.toString()[0] }}
+    </button>
+  </div>
+  <div *ngIf="!onlyRead" class="days-content">
+    <ng-content select="[daysButtons]"></ng-content>
+  </div>
+
+  <div class="input-times">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="18px">
+      <div class="time-field">
+        <input
+          placeholder="Time"
+          type="time"
+          [ngModel]="eventStart"
+          (ngModelChange)="updateTimeStart($event)"
+          [step]="60 * 15"
+          [min]="startHourAvailability + ':00'"
+          [max]="endHourAvailability + 1 + ':00'"
+          class="time-field__input"
+          [disabled]="onlyRead"
+        />
+        <small class="mat-caption time-field__hint-text">Start time</small>
+        <button mat-icon-button>
+          <mat-icon>schedule</mat-icon>
+        </button>
+      </div>
+
+      <div class="time-field">
+        <input
+          placeholder="Time"
+          type="time"
+          [ngModel]="eventEnd"
+          (ngModelChange)="updateTimeEnd($event)"
+          [step]="60 * 15"
+          [min]="startHourAvailability + ':00'"
+          [max]="endHourAvailability + 1 + ':00'"
+          class="time-field__input"
+          [disabled]="onlyRead"
+        />
+        <small class="mat-caption time-field__hint-text">End time</small>
+        <button mat-icon-button>
+          <mat-icon>schedule</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!onlyRead" class="times-content">
+    <ng-content select="[timesButtons]"></ng-content>
+  </div>
+</div>

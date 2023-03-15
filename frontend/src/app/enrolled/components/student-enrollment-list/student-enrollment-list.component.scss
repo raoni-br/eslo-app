@@ -1,0 +1,9 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.enrollments-list {
+    padding: 1.5rem 0.5rem;
+
+    @include mq.layout-bp(gt-xs) {
+        padding: 2rem;
+    }
+}

@@ -1,0 +1,35 @@
+<app-auth-layout>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="16px"
+    [class.dark-theme]="isMobile"
+  >
+    <!-- Accepted invitation -->
+    <ng-container *ngIf="status === 'accepted'">
+      <mat-icon color="primary">check_box</mat-icon>
+      <div class="mat-title text-default">Bem vindo à eslo!</div>
+      <div class="mat-subheading-1 text-center text-default">
+        <p>Em breve iremos ativar sua matrícula e enviar um email de acesso ao aplicativo.</p>
+      </div>
+    </ng-container>
+
+    <!-- Refused invitation -->
+    <ng-container *ngIf="status === 'rejected'">
+      <mat-icon color="warn">cancel</mat-icon>
+      <div class="mat-title text-default">Convite rejeitado</div>
+      <div class="mat-subheading-1 text-default text-center">
+        <p>Não se preocupe, nós iremos avisar seu professor.</p>
+      </div>
+    </ng-container>
+
+    <!-- Failed invitation link -->
+    <ng-container *ngIf="status === 'failed'">
+      <mat-icon color="accent">warning</mat-icon>
+      <div class="mat-title text-default">Convite inválido</div>
+      <div class="mat-subheading-1 text-default text-center">
+        <p>O link para o convite é inválido ou já foi usado.</p>
+      </div>
+    </ng-container>
+  </div>
+</app-auth-layout>

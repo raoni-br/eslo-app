@@ -1,0 +1,9 @@
+<app-auth-layout>
+  <div authText><p class="mat-headline text-center mb-32 text-default">Sign up</p></div>
+  <app-register-form
+    [defaultEmail]="email"
+    [studentInfo]="studentInfo"
+    (registerEvent)="onRegister($event)"
+    [registerFailed]="registerFailed"
+  ></app-register-form>
+</app-auth-layout>

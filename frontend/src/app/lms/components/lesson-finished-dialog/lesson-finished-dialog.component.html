@@ -1,0 +1,92 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="18px" style="margin-bottom: 32px">
+  <div class="time-field">
+    <input
+      placeholder="Time"
+      type="time"
+      [ngModel]="eventStart"
+      (ngModelChange)="updateTimeStart($event)"
+      [step]="60 * 15"
+      class="time-field__input"
+    />
+    <button mat-icon-button color="primary">
+      <mat-icon>schedule</mat-icon>
+    </button>
+  </div>
+
+  <div class="time-field">
+    <input
+      placeholder="Time"
+      type="time"
+      [ngModel]="eventEnd"
+      (ngModelChange)="updateTimeEnd($event)"
+      [step]="60 * 15"
+      class="time-field__input"
+    />
+    <button mat-icon-button color="primary">
+      <mat-icon>schedule</mat-icon>
+    </button>
+    <span class="time-field__hint mat-caption" *ngIf="minutes > 0">{{
+      minutes | minutesToHours
+    }}</span>
+    <span class="time-field__hint mat-caption" *ngIf="minutes < 0"
+      >End time is less than the start time
+    </span>
+  </div>
+</div>
+
+<div
+  class="session-finished"
+  fxLayout
+  fxLayoutAlign="space-between center"
+  matRipple
+  (click)="lessonFinished = !lessonFinished"
+>
+  <span fxFlex class="mat-body-2 session-finished__label">
+    Lesson
+    {{
+      isGroup
+        ? classInProgress?.studyGroupClassRecord.lesson?.levelOrder
+        : classInProgress?.enrollmentClassRecord.lesson?.levelOrder
+    }}
+    finished?
+  </span>
+  <mat-checkbox [(ngModel)]="lessonFinished" (click)="$event.stopPropagation()"></mat-checkbox>
+</div>
+
+<div *ngIf="isGroup">
+  <p class="mat-subheading-1 text-center">Attendees</p>
+  <mat-selection-list #attendeesList>
+    <mat-list-option
+      *ngFor="let enrollment of classInProgress?.studyGroupClassRecord.studyGroupClassAttendees"
+      [value]="enrollment"
+      selected
+    >
+      <!-- Only inline css works with mat-list-option -->
+      <span
+        style="
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.6);
+          font-family: 'Work Sans';
+          line-height: 20px;
+          letter-spacing: 0.25px;
+        "
+      >
+        {{
+          enrollment?.student?.student?.firstName + ' ' + enrollment?.student?.student?.familyName
+            | titlecase
+        }}
+      </span>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+
+<mat-dialog-actions fxLayout fxLayoutAlign="end center" style="padding-top: 8px">
+  <button
+    mat-button
+    color="primary"
+    (click)="onConfirm()"
+    [disabled]="!eventStart || !eventEnd || minutes < 0 || minutes > 180"
+  >
+    confirm
+  </button>
+</mat-dialog-actions>

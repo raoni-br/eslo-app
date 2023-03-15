@@ -1,0 +1,19 @@
+<form [formGroup]="createAccountForm">
+  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="26px">
+    <mat-form-field appearance="outline" fxFlexAlign="stretch" class="text-default">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" [disableControl]="defaultEmail" />
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      [disabled]="emailControl?.invalid"
+      (click)="onValidateEmail()"
+    >
+      start free trial
+    </button>
+    <a mat-stroked-button color="primary" [routerLink]="'/auth/login'"> login </a>
+  </div>
+</form>

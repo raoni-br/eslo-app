@@ -1,0 +1,37 @@
+<ng-container *ngIf="opened">
+  <div
+    *ngIf="subscriptions"
+    fxLayout.xs="column"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign="center center"
+    class="system-banner__content bg-primary--50"
+    [class.bg-primary--50]="+subscriptions[0]?.freeTrial?.expiringInDays > 0"
+    [class.bg-warn--500]="+subscriptions[0]?.freeTrial?.expiringInDays === 0"
+  >
+    <div fxLayout fxLayoutAlign="center center">
+      <ng-container *ngIf="+subscriptions[0]?.freeTrial?.expiringInDays > 0">
+        <span class="mat-subheading-2">
+          {{ subscriptions[0]?.freeTrial?.expiringInDays }} days remaining on your free trial
+        </span>
+        <mat-icon (click)="opened = false">cancel</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="+subscriptions[0]?.freeTrial?.expiringInDays === 0">
+        <span class="mat-subheading-2 text-warn-contrast--500"> Free trial period expired </span>
+        <mat-icon
+          [class.text-warn-contrast--500]="+subscriptions[0]?.freeTrial?.expiringInDays === 0"
+          (click)="opened = false"
+        >
+          cancel
+        </mat-icon>
+      </ng-container>
+    </div>
+
+    <span
+      *ngIf="+subscriptions[0]?.freeTrial?.expiringInDays > 0"
+      class="activate-button mat-button-text text-primary--500"
+      routerLink="/payment"
+    >
+      activate your subscription
+    </span>
+  </div>
+</ng-container>

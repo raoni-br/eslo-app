@@ -1,0 +1,20 @@
+@mixin lms-theme($theme) {
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    $accent: map-get($theme, accent);
+    $is-dark: map-get($theme, is-dark);
+
+    .accent-border-color {
+        background: map-get($background, background);
+        border-color: map-get($accent, default);
+    }
+
+    .step-index {
+        background: map-get($background, background);
+        border-color: map-get($foreground, divider);
+    }
+
+    .step-background {
+        color: map-get($foreground, secondary-text);
+    }
+}

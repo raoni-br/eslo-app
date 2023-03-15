@@ -1,0 +1,34 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.script-container {
+    padding: 0;
+    position: relative;
+
+    &--has-audio {
+        padding-bottom: 30px;
+    }
+
+    @include mq.layout-bp(gt-xs) {
+        padding: 24px 18px 20vh 18px;
+
+        &--has-audio {
+            padding-bottom: 200px;
+        }
+    }
+
+
+    &__fullscreen-button {
+        position: absolute;
+        bottom: 25px;
+        right: 10px;
+
+        &--has-audio {
+            bottom: 50px;
+        }
+    }
+}
+
+.script-image {
+    margin-top: 24px;
+    max-width: 100%;
+}

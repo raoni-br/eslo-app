@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutAlign="stretch">
+  <mat-form-field appearance="outline">
+    <mat-label>Group name</mat-label>
+    <input matInput [formControl]="groupNameControl" />
+    <mat-hint *ngIf="groupProgramControl.value && groupLevelControl.value">
+      Name suggestion: {{ groupProgramControl.value.name }} - {{ groupLevelControl.value.name }}
+    </mat-hint>
+  </mat-form-field>
+</div>

@@ -1,0 +1,149 @@
+<div class="student-list__container">
+  <div *ngFor="let student of students" [attr.id]="student?.firstName + student?.familyName">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start start"
+      fxLayoutGap="16px"
+      class="student-list__container__student"
+      (click)="
+        student?.enrollments?.length > 1
+          ? onOpenStudentEnrollments(student?.id)
+          : goToEnrollment(student?.enrollments[0])
+      "
+    >
+      <div style="padding-top: 16px">
+        <app-avatar [text]="student?.firstName[0]" fontSize="19px"></app-avatar>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100%">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxFlex="100%"
+          [class.border-bottom]="!student?.opened"
+        >
+          <div
+            fxLayout="column"
+            fxLayoutAlign="start start"
+            class="student-list__container__student__info"
+          >
+            <span class="mat-subheading-1">
+              {{ student?.firstName | titlecase }}
+              {{ student?.familyName | titlecase }}
+              {{
+                student?.enrollments?.length === 1 &&
+                student?.enrollments[0]?.sourceType === 'STUDY_GROUP'
+                  ? '(' + student.enrollments[0]?.studyGroup?.name + ')'
+                  : ''
+              }}
+              {{
+                student?.enrollments?.length === 1 &&
+                student?.enrollments[0]?.status === 'CANCELLED'
+                  ? '(cancelled)'
+                  : ''
+              }}
+            </span>
+
+            <span *ngIf="student?.enrollments?.length === 1" class="mat-body-2">
+              {{ student?.enrollments[0]?.level?.module?.program?.label | titlecase }} -
+              {{ student?.enrollments[0]?.level?.label | titlecase }}
+            </span>
+          </div>
+
+          <div
+            *ngIf="
+              student?.enrollments?.length === 1 && isEnrollmentActive(student?.enrollments[0])
+            "
+          >
+            <button
+              mat-icon-button
+              color="primary"
+              class="student-list__container__student__edit-button"
+              (click)="onEdit(student?.enrollments[0]); $event.stopPropagation()"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+
+          <div
+            *ngIf="
+              student?.enrollments?.length === 1 && student?.enrollments[0]?.status === 'PENDING'
+            "
+          >
+            <button
+              mat-icon-button
+              color="primary"
+              class="student-list__container__student__edit-button"
+              (click)="onCancel(student?.enrollments[0]); $event.stopPropagation()"
+            >
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+
+          <div *ngIf="student?.enrollments?.length > 1">
+            <button
+              mat-icon-button
+              color="primary"
+              class="student-list__container__student__edit-button"
+              (click)="onOpenStudentEnrollments(student?.id); $event.stopPropagation()"
+            >
+              <mat-icon>{{ student?.opened ? 'keyboard_arrow_up' : 'expand_more' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+        <!-- MANY ENROLLMENTS -->
+        <div *ngIf="student?.opened">
+          <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div
+              *ngFor="let enrollment of student?.enrollments; let last = last"
+              fxLayout="row"
+              fxLayoutAlign="space-between center"
+              fxFlex="100%"
+              [class.border-bottom]="last"
+              (click)="goToEnrollment(enrollment)"
+            >
+              <div
+                fxLayout="column"
+                fxLayoutAlign="start start"
+                class="student-list__container__student__info--many-enrollments"
+              >
+                <span class="mat-body-2">
+                  {{ enrollment?.level?.module?.program?.label | titlecase }} -
+                  {{ enrollment?.level?.label | titlecase }}
+                  {{
+                    enrollment?.sourceType === 'STUDY_GROUP'
+                      ? '(' + enrollment?.studyGroup?.name + ')'
+                      : ''
+                  }}
+                  {{ enrollment?.status === 'CANCELLED' ? '(cancelled)' : '' }}
+                </span>
+              </div>
+
+              <div *ngIf="isEnrollmentActive(enrollment)">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  class="student-list__container__student__edit-button"
+                  (click)="onEdit(enrollment); $event.stopPropagation()"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+
+              <div *ngIf="enrollment?.status === 'PENDING'">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  class="student-list__container__student__edit-button"
+                  (click)="onCancel(student?.enrollments[0]); $event.stopPropagation()"
+                >
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- -- MANY ENROLLMENTS -->
+      </div>
+    </div>
+  </div>
+</div>

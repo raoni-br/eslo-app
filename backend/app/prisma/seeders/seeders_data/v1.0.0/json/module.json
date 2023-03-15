@@ -1,0 +1,26 @@
+[
+    {
+        "code": "EE-BSC", 
+        "program_order": "1", 
+        "description": "After this module, you will be able to understand sentences and frequently used expressions related to areas of most immediate relevance(e.g. very basic personal and family information, shopping, local geography,employment). Can communicate in simple and routinetasks requiring a simple and direct exchange of information on familiar and routine matters. Can describe in simple terms aspects of his/her background, immediate environment and matters in areas of immediate need.", 
+        "program_id": "5be68e4a-fcfe-4a99-9ae7-ad459b4482b7", 
+        "id": "bc383eaa-3b77-4937-a7bc-f8a7093516cd", 
+        "name": "Basic"
+    }, 
+    {
+        "code": "EE-IND", 
+        "program_order": "2", 
+        "description": "After this moulde, you will be able to understand the main ideas of complex text on both concrete and abstract topics, including technical discussions in his/her field of specialisation. Can interact with a degree of fluency and spontaneity that makes regular interaction with native speakers quite possible without strain for either party. Can produce clear, detailed text on a wide range of subjects and explain a viewpoint on a topical issue giving the advantages and disadvantages of various options.", 
+        "program_id": "5be68e4a-fcfe-4a99-9ae7-ad459b4482b7", 
+        "id": "2bd97fdf-536d-4b87-8319-b59a55e00552", 
+        "name": "Independent"
+    }, 
+    {
+        "code": "EE-PRO", 
+        "program_order": "3", 
+        "description": "After this module, you will be able to understand a wide range of demanding, longer texts, and recognise implicit meaning. Can express him/herself fluently and spontaneously without much obvious searching for expressions. Can use language flexibly and effectively for social, academic and professional purposes. Can produce clear, well-structured, detailed text on complex subjects, showing controlled use of organisational patterns, connectors and cohesive devices.", 
+        "program_id": "5be68e4a-fcfe-4a99-9ae7-ad459b4482b7", 
+        "id": "47fa9f8a-25d1-4e6f-b415-251fa684c817", 
+        "name": "Proficient"
+    }
+]

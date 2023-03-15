@@ -1,0 +1,391 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+// text colors
+@mixin text-colors-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .text-primary {
+        color: mat.get-color-from-palette($primary);
+    }
+
+    .text-accent {
+        color: mat.get-color-from-palette($accent);
+    }
+
+    .text-warn {
+        color: mat.get-color-from-palette($warn);
+    }
+}
+
+// buttons config
+.mat-button,
+.mat-raised-button,
+.mat-flat-button,
+.mat-stroked-button {
+    text-transform: uppercase;
+    letter-spacing: 1.25px;
+    border-radius: 28px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        margin-bottom: 2.5px;
+        margin-right: 2px;
+    }
+}
+
+@mixin mat-fab-button-theme($theme) {
+    $accent: map-get($theme, accent);
+
+    .mat-fab,
+    .mat-mini-fab {
+        &.accent-200 {
+            background-color: mat.get-color-from-palette($accent, 200);
+            color: mat.get-color-from-palette($accent, '200-contrast');
+        }
+    }
+}
+
+// checkbox
+@mixin mat-checkbox-custom-theme($theme) {
+    $accent-200: mat.get-color-from-palette(map-get($theme, accent), 200);
+    $primary: map-get($theme, primary);
+
+    .mat-checkbox-checked.mat-accent.accent-200 .mat-checkbox-background {
+        background-color: $accent-200 !important;
+    }
+}
+
+// mat snack bar - toasts
+.snackbar-panel {
+    font-weight: bolder;
+
+    &--one-line {
+        border-radius: 28px !important;
+    }
+
+    &--two-line {
+        border-radius: 14px !important;
+    }
+
+    button {
+        font-weight: bolder;
+        text-transform: uppercase;
+    }
+}
+
+// tabs
+.mat-tab-link {
+    opacity: 1 !important;
+}
+
+// bottom sheet
+.fullscreen-bottom-sheet {
+    min-width: 100vw !important;
+    min-height: 100vh;
+    padding: 0 !important;
+    overflow-y: hidden !important;
+}
+
+//progress-bar
+@mixin global-progress-bar-theme($theme) {
+    $primary-100: mat.get-color-from-palette(map-get($theme, primary), 100);
+    $accent-100: mat.get-color-from-palette(map-get($theme, accent), 100);
+
+    .mat-progress-bar .mat-progress-bar-buffer {
+        background-color: $primary-100;
+    }
+
+    .mat-progress-bar.mat-accent .mat-progress-bar-buffer {
+        background-color: $accent-100;
+    }
+}
+
+// tooltips
+.mat-tooltip {
+    border-radius: 28px !important;
+    font-size: 12px;
+    max-width: 250px;
+    padding: 0 15px !important;
+}
+
+// mat-calendar
+@mixin custom-mat-calendar-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+
+    mat-calendar.mat-calendar.custom-mat-calendar {
+        font-size: 14px !important;
+    }
+
+    .custom-mat-calendar {
+        .mat-calendar-body-selected {
+            background-color: $primary !important;
+        }
+    }
+}
+
+.timepicker {
+    border-radius: 4px !important;
+
+    &__header {
+        border-top-left-radius: 4px !important;
+        border-top-right-radius: 4px !important;
+    }
+
+    &__actions {
+        border-bottom-left-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+    }
+}
+
+.clock-face__number span:first-of-type {
+    color: black !important;
+}
+
+.timepicker-backdrop-overlay {
+    z-index: 1000 !important;
+}
+
+.timepicker-overlay {
+    z-index: 1000 !important;
+}
+
+// dialogs
+.edit-event-dialog {
+    .mat-dialog-container {
+        border-radius: 21px;
+        padding: 16px 16px 16px 16px;
+        overflow-y: hidden;
+    }
+}
+
+.invitation-dialog--material {
+    @include mq.layout-bp(xs) {
+        min-height: 100%;
+        min-width: 100vw;
+    }
+
+    @include mq.layout-bp(gt-xs) {
+        min-width: 400px;
+    }
+
+    .mat-dialog-title {
+        margin: 0;
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+        overflow: hidden;
+        @include mq.layout-bp(gt-xs) {
+            border-radius: 21px;
+        }
+    }
+
+    &--editing {
+        .mat-dialog-content {
+            margin: 0;
+            padding: 16px;
+            min-height: calc(100vh - 210px) !important;
+            max-height: calc(100vh - 210px) !important;
+        }
+    }
+
+    .mat-dialog-content {
+        margin: 0;
+        padding: 16px;
+        min-height: calc(100vh - 256px) !important;
+        max-height: calc(100vh - 256px) !important;
+    }
+
+    .mat-dialog-actions {
+        padding: unset;
+        min-height: unset;
+        margin-bottom: unset;
+    }
+}
+
+.invitation-dialog--material--editing {
+    @include mq.layout-bp(xs) {
+        min-height: 100vh;
+        min-width: 100vw;
+    }
+
+    @include mq.layout-bp(gt-xs) {
+        min-width: 400px;
+    }
+
+    .mat-dialog-title {
+        margin: 0;
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+        overflow: hidden;
+        @include mq.layout-bp(gt-xs) {
+            border-radius: 21px;
+        }
+    }
+
+    .mat-dialog-content {
+        margin: 0;
+        padding: 16px;
+        min-height: calc(100vh - 210px) !important;
+        max-height: calc(100vh - 210px) !important;
+    }
+
+    .mat-dialog-actions {
+        padding: unset;
+        min-height: unset;
+        margin-bottom: unset;
+    }
+}
+
+.fullscreen-dialog {
+    max-width: none !important;
+
+    @include mq.layout-bp(xs) {
+        min-height: 100vh !important;
+        width: 100vw !important;
+    }
+
+    @include mq.layout-bp(gt-xs) {
+        min-height: 875px;
+        width: 400px !important;
+    }
+
+    .mat-dialog-container {
+        border-radius: 0px;
+        padding: 0;
+        overflow-x: hidden;
+
+        @include mq.layout-bp(gt-xs) {
+            border-radius: 21px;
+        }
+
+        @include mq.layout-bp(gt-md) {
+            overflow-y: hidden;
+        }
+    }
+}
+
+@media screen and (max-width: 1400px) and (max-height: 780px) {
+    .fullscreen-dialog {
+        min-height: 640px;
+    }
+}
+
+.dialog-border-radius {
+    &--padding {
+        .mat-dialog-container {
+            border-radius: 21px;
+            padding: 30px 25px;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+    }
+
+    .mat-dialog-container {
+        border-radius: 21px;
+        padding: 16px 16px 16px 16px;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+}
+
+.weekly-availability-dialog {
+    @include mq.layout-bp(xs) {
+        width: 100vw !important;
+        min-width: 100vw !important;
+        height: 100vh !important;
+    }
+
+    .mat-dialog-container {
+        border-radius: 12px;
+        padding: 0;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+}
+
+.schedule-input-dialog {
+    .mat-dialog-container {
+        border-radius: 21px;
+        padding: 16px 16px 28px 16px;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+}
+
+.cdk-overlay-pane.schedule-input-dialog {
+    position: relative !important;
+}
+.schedule-input-dialog__close-button.mat-mini-fab {
+    position: absolute;
+    top: -60px;
+    right: 150px;
+}
+
+.dialog-w-100 {
+    .mat-dialog-container {
+        border-radius: 21px;
+        padding: 16px 16px 16px 16px;
+        width: 95vw !important;
+        min-width: 95vw !important;
+    }
+}
+
+.onboarding-buttons-container {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.onboarding__options-container {
+    max-height: 61vh;
+    overflow-y: auto;
+
+    @include mq.layout-bp(gt-xs) {
+        max-height: 39vh;
+    }
+
+    @include mq.layout-bp(gt-lg) {
+        max-height: 41vh;
+    }
+}
+
+.onboarding-modal {
+    height: 75vh !important;
+
+    .mat-dialog-container {
+        padding: 0 !important;
+        border-radius: 14px;
+
+        @include mq.layout-bp(xs) {
+            border-radius: 0;
+        }
+    }
+    @include mq.layout-bp(xs) {
+        width: 100vw !important;
+        min-width: 100vw !important;
+        height: 100vh !important;
+    }
+}
+
+.rounded-form-field-select .mat-form-field-outline-end {
+    border-radius: 14px !important;
+    border-left-style: solid !important;
+    // border-top-right-radius: 14px !important;
+    // border-bottom-right-radius: 14px !important;
+}
+
+.rounded-form-field-select .mat-form-field-outline-start {
+    border: none !important;
+}

@@ -1,0 +1,39 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+@mixin group-empty-members-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+
+    .empty-members {
+        padding: 20vh 0 0 0;
+
+        &__content {
+            width: 328px;
+            padding: 20vh 16px 16px 16px;
+
+            @include mq.layout-bp(gt-xs) {
+                width: 354px;
+                padding: 0;
+            }
+
+            &__title {
+                color: $primary;
+                font-size: 19px;
+                line-height: 24px;
+                letter-spacing: 0.15px;
+            }
+
+            &__button {
+
+               
+                mat-icon {
+                    width: 18px;
+                    height: 18px;
+                    font-size: 18px;
+                }
+
+              
+            }
+        }
+    }
+}

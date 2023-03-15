@@ -1,0 +1,41 @@
+<ng-template tpAttach="topBarStart">
+  <app-eslo-letter-logo></app-eslo-letter-logo>
+  <app-top-bar-title text="Classes"></app-top-bar-title>
+</ng-template>
+
+<ng-template tpAttach="topBarCenter">
+  <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+</ng-template>
+
+<ng-template tpAttach="floatActionButton">
+  <button mat-fab class="accent-200" (click)="onAddGroup()">
+    <mat-icon>group_add</mat-icon>
+  </button>
+</ng-template>
+
+<div class="groups-page__content">
+  <app-filters-list
+    [options]="filterOptions"
+    [value]="studyGroupStatus"
+    (selectChangeEvent)="onFilterSelectChange($event)"
+  ></app-filters-list>
+
+  <ng-container *ngIf="(groups$ | async) === null">
+    <app-empty-list
+     
+    ></app-empty-list>
+  </ng-container>
+
+  <ng-container *ngIf="groups$ | async as groups">
+    <ng-container *ngIf="groups.length">
+      <app-groups-list
+        [groups]="groups"
+        (groupDetailEvent)="onGroupDetail($event)"
+        (groupEditEvent)="onGroupEdit($event)"
+      ></app-groups-list>
+    </ng-container>
+    <ng-container *ngIf="!groups.length">
+      <app-empty-list></app-empty-list>
+    </ng-container>
+  </ng-container>
+</div>

@@ -1,0 +1,20 @@
+<mat-card
+  class="display-card"
+  [class.bg-primary--50]="hasBackgroundColor"
+  [class.border-primary-lg--200]="hasBorder"
+  [ngClass]="[shadowClass]"
+  [style.maxWidth]="maxWidth"
+  [style.padding]="padding"
+  [style.borderRadius]="borderRadius"
+>
+  <div *ngIf="title" fxLayout="row" fxLayoutAlign="center center">
+    <p
+      class="mat-title mt-24"
+      [class.text-primary-contrast--50]="hasBackgroundColor"
+      [class.text-default]="!hasBackgroundColor"
+    >
+      {{ title }}
+    </p>
+  </div>
+  <ng-content></ng-content>
+</mat-card>

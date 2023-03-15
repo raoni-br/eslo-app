@@ -1,0 +1,12 @@
+# exclude everything by default
+/**/*
+
+# But don't exclude folders (i.e. only exclude files)
+!/**/*/
+
+# exclude dist and node_modules
+dist/
+node_modules/
+
+# include ts files
+!src/**/*.ts

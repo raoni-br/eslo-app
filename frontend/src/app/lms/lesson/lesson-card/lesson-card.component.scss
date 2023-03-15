@@ -1,0 +1,58 @@
+
+
+.lesson-content {
+    min-height: 140px;
+    min-width: 340px;
+    max-width: 340px;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: box-shadow 200ms ease-in-out;
+    background-color: white;
+
+    &:hover {
+        border: none;
+    }
+
+    .header {
+        padding: 8px;
+        height: 64px !important;
+        min-height: 64px !important;
+        max-height: 64px !important;
+
+        .category {
+            height: 100%;
+            margin-right: 20px;
+
+            .category-icon {
+                height: 36px;
+                width: 36px;
+            }
+        }
+
+        .info {
+            .lesson-number {
+                margin-right: 16px;
+            }
+        }
+    }
+
+    .schedule-button {
+        width: 100px;
+        height: 40px;
+        padding-left: 0;
+
+        .schedule-user-icon {
+            margin-left: 0;
+            padding-left: 0;
+            margin-right: 12px;
+            font-size: 32px;
+        }
+    }
+
+    .footer {
+        padding: 16px;
+        height: 48px !important;
+        min-height: 48px !important;
+        max-height: 48px !important;
+    }
+}

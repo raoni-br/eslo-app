@@ -1,0 +1,163 @@
+<div class="class-record-list__container">
+  <div *ngFor="let lessonRecordItem of lessonTrackerList; let first = first">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start start"
+      fxLayoutGap="16px"
+      class="class-record-list__container__class-record"
+      [class.class-record-list__container__class-record--lesson-done]="
+        lessonRecordItem | isLastClassLessonDone
+      "
+      [class.border-top]="first && !isMobile"
+      (click)="student ? goToStudentBook(lessonRecordItem) : goToLesson(lessonRecordItem)"
+    >
+      <div style="padding-top: 10px">
+        <p class="mat-headline">{{ lessonRecordItem?.levelOrder }}</p>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100%">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxFlex="100%"
+          style="padding-bottom: 15px"
+        >
+          <div
+            fxLayout="column"
+            fxLayoutAlign="start start"
+            class="class-record-list__container__class-record__info"
+          >
+            <span class="mat-subheading-1">{{ lessonRecordItem?.title }}</span>
+            <span class="mat-body-2 text-black-opacity-06">
+              {{ lessonRecordItem?.category | titlecase }} -
+              {{ lessonRecordItem?.subject | titlecase }}
+            </span>
+          </div>
+
+          <div *ngIf="!student">
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+              <!-- start class button -->
+              <button
+                *ngIf="
+                  !classInProgress &&
+                  (isGroup
+                    ? group?.nextLesson?.id === lessonRecordItem.id || (first && !group.nextLesson)
+                    : (enrollment?.nextLesson?.id === lessonRecordItem.id &&
+                        enrollment.sourceType === 'ENROLLMENT') ||
+                      (first && !enrollment?.nextLesson))
+                "
+                mat-icon-button
+                color="primary"
+                class="class-record-list__container__class-record__button"
+                (click)="onStartClass(lessonRecordItem); $event.stopPropagation()"
+              >
+                <!-- bug in mat-icon with 'play_lesson', so must be a inline svg -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  enable-background="new 0 0 24 24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <g><path d="M0,0h24v24H0V0z" fill="none" /></g>
+                  <g>
+                    <g>
+                      <path
+                        d="M18,11c0.34,0,0.67,0.03,1,0.08V4c0-1.1-0.9-2-2-2H5C3.9,2,3,2.9,3,4v16c0,1.1,0.9,2,2,2h7.26C11.47,20.87,11,19.49,11,18 C11,14.13,14.13,11,18,11z M7,11V4h5v7L9.5,9.5L7,11z"
+                      />
+                      <path
+                        d="M18,13c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5S20.76,13,18,13z M16.75,20.5v-5l4,2.5L16.75,20.5z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <!-- resume class button -->
+              <button
+                *ngIf="isLessonInProgress(lessonRecordItem)"
+                mat-icon-button
+                color="accent"
+                class="class-record-list__container__class-record__button pulse-css"
+                (click)="onResumeClass(lessonRecordItem); $event.stopPropagation()"
+              >
+                <!-- bug in mat-icon with 'play_lesson', so must be a inline svg -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  enable-background="new 0 0 24 24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <g><path d="M0,0h24v24H0V0z" fill="none" /></g>
+                  <g>
+                    <g>
+                      <path
+                        d="M18,11c0.34,0,0.67,0.03,1,0.08V4c0-1.1-0.9-2-2-2H5C3.9,2,3,2.9,3,4v16c0,1.1,0.9,2,2,2h7.26C11.47,20.87,11,19.49,11,18 C11,14.13,14.13,11,18,11z M7,11V4h5v7L9.5,9.5L7,11z"
+                      />
+                      <path
+                        d="M18,13c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5S20.76,13,18,13z M16.75,20.5v-5l4,2.5L16.75,20.5z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <!-- revert lesson button -->
+              <button
+                *ngIf="!isLessonInProgress(lessonRecordItem) && isLastLesson(lessonRecordItem)"
+                mat-icon-button
+                color="primary"
+                class="class-record-list__container__class-record__button"
+                (click)="onRevertLesson(lessonRecordItem); $event.stopPropagation()"
+              >
+                <mat-icon [inline]="true">replay</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- CLASSES -->
+        <div *ngIf="lessonRecordItem?.classRecords?.length">
+          <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div
+              *ngFor="let track of lessonRecordItem?.classRecords; let last = last; let i = index"
+              fxLayout="row"
+              fxLayoutAlign="space-between center"
+              fxFlex="100%"
+              [class.border-bottom]="last"
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap.gt-xs="25px"
+                fxLayoutGap.xs="10px"
+                class="class-record-list__container__class-record__info--tracks"
+              >
+                <span class="mat-overline">
+                  CLASS {{ lessonRecordItem?.classRecords.length - i }}
+                </span>
+                <span
+                  class="mat-button text-black-opacity-06"
+                  [class.date-mobile]="isMobile"
+                  [innerHTML]="track?.lessonStartedAt | utcToDate | safe: 'html'"
+                >
+                </span>
+                <span
+                  class="mat-button text-black-opacity-06"
+                  [class.date-mobile]="isMobile"
+                  [innerHTML]="track?.lessonEndedAt | utcToDate | safe: 'html'"
+                >
+                </span>
+                <button
+                  *ngIf="isGroup"
+                  mat-button
+                  color="primary"
+                  [class.button-mobile]="isMobile"
+                  (click)="onOpenAttendees(track); $event.stopPropagation()"
+                >
+                  attendees
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- -- CLASSES -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+{
+    "confirmEmail": "d-94726a3f5cb247a090c78ab760a52c8e",
+    "inviteStudent": "d-e200054b18fe4701bd7d72ccb07b44c1",
+    "activateStudent": "d-b0794e70e4f44dadb3ade0fe4661fc9e",
+    "studentDeclinedInvitation": "d-ed033d32795741b8a1208dd1f7c06f79",
+    "studentAcceptedInvitation": "d-5a6aaa04467b44e1943d0805cb3838e2",
+    "forgotPassword": "d-dd7366201608416da02b3707eb140509",
+    "changedPassword": "d-62e6794d5381443280fafe0bce52c4cc",
+    "inviteExistingStudent": "d-1e45cb61df4f43438073bc94d057fcf8"
+}

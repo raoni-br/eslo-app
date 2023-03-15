@@ -1,0 +1,26 @@
+<nav mat-tab-nav-bar class="navigation-tabs" color="accent" [disablePagination]="true">
+  <div *ngFor="let link of navigationTabsConfig.links">
+    <a
+      mat-tab-link
+      [routerLink]="link.path"
+      [queryParams]="link.queryParams"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [active]="rla.isActive"
+      routerLinkActive="navigation-tabs__link--active"
+      class="navigation-tabs__link"
+      [disabled]="link.layoutOnly"
+    >
+      <div class="navigation-tabs__link__content mat-button">
+        <!-- <mat-icon *ngIf="isGreaterThanMobile && link?.icon">{{ link.icon || 'home' }}</mat-icon> -->
+        <!-- <span
+          class="navigation-tabs__link__content__text-icon"
+          *ngIf="isGreaterThanMobile && link?.textIcon"
+        >
+          {{ link.textIcon }}
+        </span> -->
+        {{ link.label || link.path | uppercase }}
+      </div>
+    </a>
+  </div>
+</nav>

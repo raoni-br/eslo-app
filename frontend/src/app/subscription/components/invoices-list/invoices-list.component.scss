@@ -1,0 +1,19 @@
+.invoices-list__container {
+  padding: 24px 0 0 16px;
+
+  &__invoice {
+      cursor: pointer;
+
+      &__info {
+          padding: 16px 16px 16px 0;
+
+          .mat-body-2 {
+              color: rgba(0, 0, 0, 0.6);
+          }
+      }
+
+      &__status-icon {
+          margin-right: 19px;
+      }
+  }
+}

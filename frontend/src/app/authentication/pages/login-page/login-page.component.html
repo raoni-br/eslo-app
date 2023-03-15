@@ -1,0 +1,10 @@
+<app-auth-layout>
+  <div authText>
+    <p class="mat-headline text-center mb-32 text-default">Login</p>
+  </div>
+  <app-login-form
+    (loginEvent)="login($event)"
+    [loginFailed]="loginFailed"
+    [defaultEmail]="email"
+  ></app-login-form>
+</app-auth-layout>

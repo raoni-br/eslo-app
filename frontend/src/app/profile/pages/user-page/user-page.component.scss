@@ -1,0 +1,13 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.profile-content {
+    padding: 16px;
+
+    @include mq.layout-bp(gt-xs) {
+        padding: 24px;
+    }
+}
+
+a.mat-tab-link {
+    text-decoration: none !important;
+}

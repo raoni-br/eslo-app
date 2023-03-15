@@ -1,0 +1,65 @@
+<div
+  fxLayout="row"
+  [fxLayoutAlign]="isIOS && isLesserThanMedium ? 'center center' : 'start start'"
+  style="height: 100%; overflow: hidden"
+>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="start center"
+    fxLayoutGap="32px"
+    class="auth-layout__content"
+    [class.dark-theme]="isMobile || isLesserThanMedium"
+  >
+    <app-eslo-orb></app-eslo-orb>
+
+    <ng-content select="[authText]"></ng-content>
+    <ng-content></ng-content>
+    <div fxHide.gt-sm fxShow.lt-sm class="image-overlay"></div>
+  </div>
+
+  <div
+    *ngIf="!(isIOS && isLesserThanMedium)"
+    fxHide.xs
+    fxShow.gt-xs
+    class="auth-layout__image-desktop"
+  >
+    <div
+      class="auth-layout__image-desktop__content dark-theme"
+      fxLayout="column"
+      fxLayoutGap="35px"
+    >
+      <p class="mat-display-1 mb-32 text-default text-shadow">
+        A melhor plataforma para <br />
+        ensinar e aprender inglês
+      </p>
+
+      <div gdColumns="1fr 1fr" gdRows="1fr 1fr" gdGap="10px 20px">
+        <div fxLayout fxLayoutGap="6px">
+          <mat-icon class="text-primary--100">check_circle</mat-icon>
+          <p class="mat-title itens-font text-default text-shadow">
+            Cursos completos com todas as habilidades
+          </p>
+        </div>
+        <div fxLayout fxLayoutGap="6px">
+          <mat-icon class="text-primary--100">check_circle</mat-icon>
+          <p class="mat-title itens-font text-default text-shadow">Diário de classe inteligente</p>
+        </div>
+        <div fxLayout fxLayoutGap="6px">
+          <mat-icon class="text-primary--100">check_circle</mat-icon>
+          <p class="mat-title itens-font text-default text-shadow">Acompanhamento de lições</p>
+        </div>
+        <div fxLayout fxLayoutGap="6px">
+          <mat-icon class="text-primary--100">check_circle</mat-icon>
+          <p class="mat-title itens-font text-default text-shadow">
+            Adição de quantidade ilimitada de alunos, sem custo adicional
+          </p>
+        </div>
+      </div>
+
+      <div fxLayout fxLayoutAlign="space-between baseline">
+        <p class="mat-title text-default text-shadow">Faça parte da nova era de ensino de inglês</p>
+        <p class="mat-subheading-1 text-default text-shadow">eslo.com.br</p>
+      </div>
+    </div>
+  </div>
+</div>

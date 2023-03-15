@@ -1,0 +1,28 @@
+<ng-container *ngIf="mediaContent && mediaContent.length > 0">
+    <!-- CONTENT -->
+    <div class="lesson-content m-0 p-0">
+        <ng-container *ngFor="let step of mediaContent; let i = index">
+            <div class="lesson-step">
+                <div class="lesson-step-content" fxLayout="row" fxLayoutAlign="center">
+                    <img
+                        class="lesson-image"
+                        [src]="step.media.rootUri"
+                        [ngClass]="{ 'invisible-image': currentStep !== i }"
+                    />
+                </div>
+            </div>
+        </ng-container>
+        <app-lesson-lecture-nav-step
+            [currentStep]="currentStep"
+            [totalSteps]="this.mediaContent.length"
+            [lastStepStyle]="lastStepStyle"
+            [firstDisabled]="!enableFirstStep"
+            [offset]="offsetStepNavigation"
+            (stepChangeEvent)="onStepChange($event)"
+            (firstStepClick)="onFirstStepClick($event)"
+            (lastStepClick)="onLastStepClick($event)"
+        >
+        </app-lesson-lecture-nav-step>
+    </div>
+    <!-- / CONTENT -->
+</ng-container>

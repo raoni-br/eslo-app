@@ -1,0 +1,58 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+@mixin navigation-tabs-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+    $accent: mat.get-color-from-palette(map-get($theme, accent));
+
+    .navigation-tabs {
+        border: none;
+        max-width: 90vw;
+        overflow-x: auto;
+
+        @include mq.layout-bp(gt-xs) {
+            max-width: unset;
+            overflow-x: auto;
+        }
+
+        .mat-tab-link-container {
+            overflow: auto !important;
+            .mat-tab-list {
+                .mat-tab-links {
+                    .mat-tab-link {
+                        padding: 0 !important;
+                    }
+                }
+            }
+        }
+
+        &__link {
+            color: $primary;
+            height: 100%;
+
+            &--active {
+                color: $accent;
+            }
+            
+            &.mat-tab-disabled {
+                color: $accent;
+            }
+
+            &__content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                mat-icon {
+                    margin-top: 10px;
+                }
+
+                &__text-icon {
+                    height: 28px;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}

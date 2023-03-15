@@ -1,0 +1,23 @@
+<div class="step-navigation" [ngClass]="{ 'offset': offset }">
+    <button mat-fab class="previous mat-primary"
+            (click)="gotoPreviousStep()"
+            [disabled]="currentStep === 0 && firstDisabled">
+        <mat-icon *ngIf="currentStep > 0">chevron_left</mat-icon>
+        <mat-icon *ngIf="currentStep === 0">fast_rewind</mat-icon>
+    </button>
+
+    <span class="counter primary">
+        <span class="current">{{currentStep + 1}}</span>
+        <span>/</span>
+        <span class="total">{{totalSteps}}</span>
+    </span>
+
+    <button mat-fab class="next"
+        [ngClass]="{'green-600': currentStep === totalSteps - 1 && lastStepStyle === 'done'}"
+        (click)="gotoNextStep()"
+        [disabled]="lastDisabled">
+        <mat-icon *ngIf="currentStep< totalSteps -1">chevron_right</mat-icon>
+        <mat-icon *ngIf="currentStep === totalSteps - 1 && lastStepStyle === 'done'">check</mat-icon>
+        <mat-icon *ngIf="currentStep === totalSteps - 1 && lastStepStyle === 'forward'">fast_forward</mat-icon>
+    </button>
+</div>

@@ -1,0 +1,75 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+@mixin edit-event-bottom-sheet-theme($theme) {
+    $primary-600: mat.get-color-from-palette(map-get($theme, primary), 600);
+    $accent: mat.get-color-from-palette(map-get($theme, accent), 200);
+    $background: mat.get-color-from-palette(map-get($theme, background), card);
+
+    .edit-event-bottom-sheet {
+        &__container {
+            background-color: $primary-600;
+            height: 100%;
+
+            &__buttons {
+                padding: 10px 10px 0 10px;
+            }
+
+            &__content {
+                background-color: $background;
+                height: 100%;
+                border-radius: 25px 25px 0 0;
+                margin-top: 20px;
+                padding: 16px;
+                padding-bottom: 30px;
+
+                &__form {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-gap: 85px;
+                    justify-items: center;
+
+                    &__events {
+                        margin-top: 20px;
+                        overflow-y: auto;
+                        overflow-x: hidden !important;
+                        max-height: 400px !important;
+                    }
+
+                    &__add-schedule {
+                        margin-top: 24px;
+
+                        &--has-event {
+                            margin-right: 40px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .link {
+        color: $accent;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .white:not(:disabled) {
+        color: $background;
+        .mat-checkbox-frame {
+            border-color: $background !important;
+        }
+    }
+
+    .h-calc {
+        height: calc(100% - 100px);
+    }
+
+    .h-100 {
+        height: 100%;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+}

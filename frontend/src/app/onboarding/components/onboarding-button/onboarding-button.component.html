@@ -1,0 +1,29 @@
+<button
+  *ngIf="button.action === BUTTON_ACTION.NEXT || button.action === BUTTON_ACTION.SUBMIT"
+  mat-flat-button
+  color="primary"
+  (click)="onButtonAction(button.action)"
+  [type]="button.type"
+  fxLayout
+  fxLayoutAlign="center center"
+  class="onboarding-button"
+  [disabled]="property | onboardingButtonRequired: [vm, button]"
+>
+  <mat-icon *ngIf="button.action === 'next'">chevron_right</mat-icon>
+  {{ button.text }}
+</button>
+
+<button
+  *ngIf="button.action === BUTTON_ACTION.BACK"
+  mat-stroked-button
+  color="primary"
+  (click)="onButtonAction(button.action)"
+  [type]="button.type"
+  fxLayout
+  fxLayoutAlign="center center"
+  class="onboarding-button"
+  [disabled]="property | onboardingButtonRequired: [vm, button]"
+>
+  <mat-icon *ngIf="button.action === 'back'">chevron_left</mat-icon>
+  {{ button.text }}
+</button>

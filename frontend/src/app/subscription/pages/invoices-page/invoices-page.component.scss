@@ -1,0 +1,11 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.invoice-page__content {
+    padding: 24px 0;
+    display: flex;
+    justify-content: center;
+
+    @include mq.layout-bp(gt-xs) {
+        padding: 32px;
+    }
+}

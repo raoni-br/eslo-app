@@ -1,0 +1,62 @@
+<section fxLayout="column" fxLayoutAlign="space-between center">
+  <div
+    *ngIf="!isMobile"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="20px"
+    class="slides-stepper__buttons slides-stepper__buttons--opacity-25 slides-stepper__buttons--desktop mat-elevation-z4"
+    (mouseenter)="hover = true"
+    (mouseleave)="hover = false"
+    [class.slides-stepper__buttons--opacity-100]="hover"
+  >
+    <button
+      mat-icon-button
+      cdkStepperPrevious
+      (click)="isFirstSlide ? onFirstStepClicked() : false"
+      [disabled]="isFirstSection && selectedIndex === 0"
+    >
+      <mat-icon [class.rotate]="isFirstSlide"
+        >{{ isFirstSlide ? 'double_arrow' : 'chevron_left' }}
+      </mat-icon>
+    </button>
+    <span>{{ selectedIndex + 1 }}/{{ steps.length }}</span>
+    <button
+      mat-icon-button
+      cdkStepperNext
+      (click)="isLastSlide ? onLastStepClicked() : false"
+      [disabled]="isLastSection && selectedIndex + 1 === steps.length"
+    >
+      <mat-icon>{{ isLastSlide ? 'double_arrow' : 'navigate_next' }}</mat-icon>
+    </button>
+  </div>
+
+  <div [ngTemplateOutlet]="selected ? selected.content : null"></div>
+
+  <div
+    *ngIf="isMobile"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="20px"
+    class="slides-stepper__buttons"
+  >
+    <button
+      mat-icon-button
+      cdkStepperPrevious
+      (click)="isFirstSlide ? onFirstStepClicked() : false"
+      [disabled]="isFirstSection && selectedIndex === 0"
+    >
+      <mat-icon [class.rotate]="isFirstSlide"
+        >{{ isFirstSlide ? 'double_arrow' : 'chevron_left' }}
+      </mat-icon>
+    </button>
+    <span>{{ selectedIndex + 1 }}/{{ steps.length }}</span>
+    <button
+      mat-icon-button
+      cdkStepperNext
+      (click)="isLastSlide ? onLastStepClicked() : false"
+      [disabled]="isLastSection && selectedIndex + 1 === steps.length"
+    >
+      <mat-icon>{{ isLastSlide ? 'double_arrow' : 'navigate_next' }}</mat-icon>
+    </button>
+  </div>
+</section>

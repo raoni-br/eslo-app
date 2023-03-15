@@ -1,0 +1,12 @@
+<ng-template tpAttach="topBarStart">
+  <app-eslo-letter-logo></app-eslo-letter-logo>
+  <app-top-bar-title text="Invoice"></app-top-bar-title>
+</ng-template>
+
+<ng-template tpAttach="topBarCenter">
+  <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+</ng-template>
+
+<div class="invoice-page__content">
+    <app-invoice-preview [invoice]="invoice$ | async"></app-invoice-preview>
+</div>

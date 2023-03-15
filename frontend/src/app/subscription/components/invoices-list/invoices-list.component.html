@@ -1,0 +1,29 @@
+<div class="invoices-list__container">
+  <div *ngFor="let invoice of invoices" class="invoices-list__container__invoice">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="16px"
+      (click)="onInvoiceDetail(invoice.id)"
+    >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxFlex="100%"
+        style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)"
+      >
+        <span class="mat-subheading-1">FEBRUARY 2021</span>
+        <div fxLayout fxLayoutAlign="center center" fxLayoutGap="40px">
+          <span>R$ 349,00</span>
+          <button
+            mat-icon-button
+            color="primary"
+            class="invoices-list__container__invoice__status-icon"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

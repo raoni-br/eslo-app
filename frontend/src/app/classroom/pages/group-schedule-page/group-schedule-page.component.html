@@ -1,0 +1,24 @@
+<ng-container *ngIf="group$ | async as group">
+  <ng-template tpAttach="topBarStart">
+    <app-back-button></app-back-button>
+    <app-top-bar-title [text]="group.name"></app-top-bar-title>
+  </ng-template>
+
+  <ng-template tpAttach="topBarCenter">
+    <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+  </ng-template>
+
+  <div class="container">
+    <app-class-record-list
+      [isGroup]="true"
+      [group]="group"
+      [classInProgress]="classInProgress$ | async"
+      [lessonTrackerList]="group?.lessonTrackerList"
+      (startClassEvent)="onStartClass(group, $event)"
+      (resumeClassEvent)="onResumeClass($event)"
+      (revertLessonEvent)="onRevertLesson($event, group)"
+      (openAttendeesEvent)="onOpenAttendees($event)"
+      (goToLessonEvent)="onGoToLesson($event)"
+    ></app-class-record-list>
+  </div>
+</ng-container>

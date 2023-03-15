@@ -1,0 +1,1019 @@
+_type: export
+__export_format: 4
+__export_date: 2021-06-10T10:45:58.501Z
+__export_source: insomnia.desktop.app:v2021.3.0
+resources:
+  - _id: req_4017fe87b6ff4c95a095c546b6faaace
+    parentId: fld_552cee486447495f910382470cbd9ebc
+    modified: 1620356481994
+    created: 1620338746945
+    url: "{{rexUrl}}/programs"
+    name: GET /programs
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: X-API-TOKEN
+        value: b21c3837-570f-463b-99f2-c1117011abd7
+        description: ""
+        id: pair_3a14826bc0704292a046e7f25666e83a
+        disabled: false
+      - name: Content-Type
+        value: application/vnd.api+json
+        description: ""
+        id: pair_3a762d7c37194886a0e8487ee013b258
+    authentication: {}
+    metaSortKey: -1620338746945
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_552cee486447495f910382470cbd9ebc
+    parentId: wrk_d5d89293dd86402aa8d4cca14b60709e
+    modified: 1620338725326
+    created: 1620338725326
+    name: rex
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1620338725326
+    _type: request_group
+  - _id: wrk_d5d89293dd86402aa8d4cca14b60709e
+    parentId: null
+    modified: 1616556196453
+    created: 1605674825610
+    name: eslo
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_98bc8a35251f4dbbafe11931b21bd988
+    parentId: fld_552cee486447495f910382470cbd9ebc
+    modified: 1620857874997
+    created: 1620382777361
+    url: "{{rexUrl}}/users"
+    name: POST /users
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+        	"data": {
+        		"type": "users",
+            "id": "f4506333-2bfe-4df6-a74a-16645e176571",
+        		"attributes": {
+        			"email": "test@eslo.com.br",
+        			"firstName": "Test",
+        			"lastName": "User",
+        			"language": "en"
+        		},
+        		"relationships": {
+        			"programs": {
+        				"data": [
+        					{
+        						"type": "programs",
+        						"id": "8e159c79-96a4-4e00-aa08-e048f8466fc7"
+        					}
+        				]
+        			}
+        		}
+        	}
+        }
+    parameters: []
+    headers:
+      - name: X-API-TOKEN
+        value: b21c3837-570f-463b-99f2-c1117011abd7
+        description: ""
+        id: pair_3a14826bc0704292a046e7f25666e83a
+        disabled: false
+      - name: Content-Type
+        value: application/vnd.api+json
+        description: ""
+        id: pair_3a762d7c37194886a0e8487ee013b258
+    authentication: {}
+    metaSortKey: -1618447443078
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d9bf6089dff44fddafb7019d864b1c56
+    parentId: fld_552cee486447495f910382470cbd9ebc
+    modified: 1620382985208
+    created: 1620382954049
+    url: "{{rexUrl}}/users/f4506333-2bfe-4df6-a74a-16645e176571/relationships/progr\
+      ams"
+    name: POST /enroll
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"data": [
+        		{ "type": "programs", "id": "ccf83489-e05b-4b80-b938-e00989c7942c" }
+        	]
+        }
+    parameters: []
+    headers:
+      - name: X-API-TOKEN
+        value: b21c3837-570f-463b-99f2-c1117011abd7
+        description: ""
+        id: pair_3a14826bc0704292a046e7f25666e83a
+        disabled: false
+      - name: Content-Type
+        value: application/vnd.api+json
+        description: ""
+        id: pair_3a762d7c37194886a0e8487ee013b258
+    authentication: {}
+    metaSortKey: -1617501791144.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ce58745e9d0c4176b0e8cb7759360817
+    parentId: fld_552cee486447495f910382470cbd9ebc
+    modified: 1623318041900
+    created: 1620383031539
+    url: "{{rexUrl}}/users/f4506333-2bfe-4df6-a74a-16645e176571/login_tokens"
+    name: POST /login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"data": {
+        		"id": "f4506333-2bfe-4df6-a74a-16645e176571",
+        		"type": "login_tokens",
+        		"meta": {
+        			"launchUrl": "https://learning.re/login/8d200c23-17ae-4280-91f1-daf7a26d5573"
+        		}
+        	},
+          "jsonapi": {"version": "1.0"}
+        }
+    parameters: []
+    headers:
+      - name: X-API-TOKEN
+        value: b21c3837-570f-463b-99f2-c1117011abd7
+        description: ""
+        id: pair_3a14826bc0704292a046e7f25666e83a
+        disabled: false
+      - name: Content-Type
+        value: application/vnd.api+json
+        description: ""
+        id: pair_3a762d7c37194886a0e8487ee013b258
+    authentication: {}
+    metaSortKey: -1617028965177.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fb8f137aee874d4b9f11ea5509bc67d9
+    parentId: fld_552cee486447495f910382470cbd9ebc
+    modified: 1620703847382
+    created: 1620383190313
+    url: "{{rexUrl}}/programs/8e159c79-96a4-4e00-aa08-e048f8466fc7/keys"
+    name: POST /registration-key
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+        	"data": {
+        		"type": "key"
+        	}
+        }
+    parameters: []
+    headers:
+      - name: X-API-TOKEN
+        value: b21c3837-570f-463b-99f2-c1117011abd7
+        description: ""
+        id: pair_3a14826bc0704292a046e7f25666e83a
+        disabled: false
+      - name: Content-Type
+        value: application/vnd.api+json
+        description: ""
+        id: pair_3a762d7c37194886a0e8487ee013b258
+    authentication: {}
+    metaSortKey: -1616792552194.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bce87f6d6139427691ed28353b220518
+    parentId: fld_552cee486447495f910382470cbd9ebc
+    modified: 1620383343317
+    created: 1620383292570
+    url: "{{rexUrl}}/reporting/user_courses"
+    name: GET /report
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: X-API-TOKEN
+        value: b21c3837-570f-463b-99f2-c1117011abd7
+        description: ""
+        id: pair_3a14826bc0704292a046e7f25666e83a
+        disabled: false
+      - name: Content-Type
+        value: application/vnd.api+json
+        description: ""
+        id: pair_c30b14872d564535b51af9746da42334
+    authentication: {}
+    metaSortKey: -1616674345702.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5f0c4e4ffbd548bd83e5f90af21c7c26
+    parentId: fld_0506e020b0da4441b9e9d04d8a33994a
+    modified: 1623320294273
+    created: 1618984135457
+    url: "{{backend_api}}/graphql"
+    name: invoicePreview
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  invoicePreview
+        {\n    id\n    processedAt\n    dueDate\n    invoicePeriodFrom\n    invoicePeriodTo\n    companyDetails
+        {\n      id\n      name\n      address\n      phone\n      email\n      webSite\n    }\n    customerDetails
+        {\n      id\n      name\n      address\n      phone\n      email\n    }\n    balanceSummary
+        {\n      taxAmount\n      discountAmount\n      totalAmount\n    }\n    invoiceItems
+        {\n      id\n      invoiceLineNumber\n      productId\n      productDescription\n      balance
+        {\n        quantity\n        unitPrice\n        taxAmount\n        discountAmount\n        totalAmount\n      }\n    }\n  }\n}"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1622617445950.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_0506e020b0da4441b9e9d04d8a33994a
+    parentId: fld_3d07b7e413914201905e169df8bf981f
+    modified: 1623320270017
+    created: 1623320270017
+    name: product
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623320270018
+    _type: request_group
+  - _id: fld_3d07b7e413914201905e169df8bf981f
+    parentId: wrk_d5d89293dd86402aa8d4cca14b60709e
+    modified: 1612872562250
+    created: 1612872562250
+    name: eslo
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1612872562250
+    _type: request_group
+  - _id: req_38d097d6a47245c0b85b880fc7949446
+    parentId: fld_0506e020b0da4441b9e9d04d8a33994a
+    modified: 1623320873072
+    created: 1623320243171
+    url: "{{backend_api}}/graphql"
+    name: createProduct
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation CreateProduct($newProduct: CreateProductInput)
+        {\n  createProduct(createProductInput: $newProduct)
+        {\n    id\n    name\n    slug\n    description\n    subcategory
+        {\n      code\n      name\n      description\n      category
+        {\n        code\n        name\n        description\n      }\n    }\n  }\n}\n","variables":{"newProduct":{"name":"Smart","description":"Teaching
+        licence. Access to Extensive English course with a promotional
+        price.","slug":"teacher-smart-explorer","subcategoryCode":"teacher_smart"}},"operationName":"CreateProduct"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{jwt}}"
+    metaSortKey: -1622617445900.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0476a2a8995e45f48c2eca075e5dad34
+    parentId: fld_0506e020b0da4441b9e9d04d8a33994a
+    modified: 1623320875705
+    created: 1623320670199
+    url: "{{backend_api}}/graphql"
+    name: createProductPrice
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation CreateProductPrice($newProductPrice:
+        CreateProductPriceInput)
+        {\n  createProductPrice(createProductPriceInput: $newProductPrice)
+        {\n    id\n    name\n    description\n    slug\n    taxAmount\n    unitTotalAmount\n    currencyIsoCode\n    type\n  }\n}\n","variables":{"newProductPrice":{"productId":"9937112a-5029-4c97-9a42-0d9efc0f1330","name":"Teacher
+        Smart - Monthly Plan","description":"Teacher Smart - Monthly
+        Plan","slug":"teacher-smart-monthly","taxAmount":0,"unitTotalAmount":29.9,"currencyIsoCode":"BRL","type":"RECURRING","recurrence":"FREQ=MONTHLY;INTERVAL=1;BYDAY=1TH"}},"operationName":"CreateProductPrice"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{jwt}}"
+    metaSortKey: -1622617445875.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_afe207f74d354599812c4ee8c858a485
+    parentId: fld_0506e020b0da4441b9e9d04d8a33994a
+    modified: 1623320435756
+    created: 1623290834271
+    url: "{{backend_api}}/graphql"
+    name: products
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  products
+        {\n    id\n    name\n    slug\n    description\n    subcategory
+        {\n      code\n      name\n      description\n      category
+        {\n        code\n        name\n        description\n      }\n    }\n    prices
+        {\n      id\n      name\n      slug\n      description\n      taxAmount\n      unitTotalAmount\n      currencyIsoCode\n      type\n    }\n  }\n}\n"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1622617445850.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3269359dc7934f21bbe8e1d436a27f0b
+    parentId: fld_1c9e3cc9349e493e9cd147a05ca01101
+    modified: 1622106095991
+    created: 1621914644375
+    url: "{{backend_api}}/graphql"
+    name: dataExtractor
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  adminDataExtractor {\n    id\n    users
+        {\n      id\n      primaryEmail\n      firstName\n      familyName\n      displayName\n      dateOfBirth\n      userIdentificationList
+        {\n        id\n        countryISO\n        category\n        code\n        attachementUrl\n      }\n      userAddresses
+        {\n        id\n        addressType\n        postalCode\n        street\n        streetNumber\n        streetComplement\n        district\n        city\n        state\n        countryISO\n        latitude\n        longitude\n      }\n      userPhoneNumbers
+        {\n        id\n        countryISO\n        category\n        code\n        rawFormat\n        nationalFormat\n        internationalFormat\n      }\n    }\n    studyGroups
+        {\n      id\n      name\n      level
+        {\n        id\n      }\n      studyGroupTeachers
+        {\n        id\n        teacher
+        {\n          id\n        }\n      }\n      studyGroupClassRecords
+        {\n        id\n        studyGroupId\n        lessonId\n        teacherId\n        teacherNotes\n        status\n        startedAt\n        completedAt\n        lessonStartedAt\n        lessonEndedAt\n      }\n    }\n    enrollments
+        {\n      id\n      registrationDate\n      activationDate\n      status\n      externalKey\n      studyGroup
+        {\n        id\n      }\n      level
+        {\n        id\n      }\n      teacher
+        {\n        id\n      }\n      student
+        {\n        id\n      }\n      invitation
+        {\n        id\n        sourceType\n        sourceId\n        inviteeEmail\n        inviteeFirstName\n        inviteeSurname\n        status\n        inviter
+        {\n          id\n        }\n        invitee
+        {\n          id\n        }\n      }\n      classRecordList
+        {\n        id\n        classRecord
+        {\n          id\n          teacherNotes\n          status\n          startedAt\n          completedAt\n        }\n      }\n    }\n    events
+        {\n      id\n      title\n      description\n      availabilityType\n      sourceType\n      sourceId\n      startDateTime\n      startTimeZone\n      endDateTime\n      endTimeZone\n      status\n      sendNotifications\n      startedDate\n      completedDate\n      visibility\n      recurrence\n      organiser
+        {\n        id\n      }\n      owner
+        {\n        id\n      }\n      eventOccurrences
+        {\n        id\n        title\n        description\n        availabilityType\n        sourceType\n        sourceId\n        startDateTime\n        startTimeZone\n        endDateTime\n        endTimeZone\n        status\n        sendNotifications\n        visibility\n        recurringEventId\n        originalStartDateTime\n        originalStartTimeZone\n        eventOccurrenceAttendees
+        {\n          id\n          eventOccurrenceId\n          responseStatus\n          responseDateTime\n          optional\n          comment\n          organiser\n          attendee
+        {\n            id\n          }\n        }\n      }\n      eventAttendees
+        {\n        id\n        responseStatus\n        responseDateTime\n        optional\n        comment\n        organiser\n        attendee
+        {\n          id\n        }\n      }\n    }\n  }\n}\n"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_ae611e8d3ff1473a8d186e8a1e2ce00d
+      - name: ""
+        value: ""
+        description: ""
+        id: pair_b6b9a1509b9e4ad5a16639a1ad6b0a0e
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1621914644375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1c9e3cc9349e493e9cd147a05ca01101
+    parentId: fld_3d07b7e413914201905e169df8bf981f
+    modified: 1621914621683
+    created: 1621914621683
+    name: admin
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1621914621683
+    _type: request_group
+  - _id: req_035332a7b50d451da4aeb70c2cb2e3d7
+    parentId: fld_3727fbd3d6b34025b7199ada27a4cde6
+    modified: 1623320233389
+    created: 1613396658084
+    url: "{{backend_api}}/graphql"
+    name: sendEnrollmentInvitation
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation SendEnrollmentInvitation($invitation: InvitationInput,
+        $enrollment: EnrollmentInput) {\n  sendEnrollmentInvitation(invitation:
+        $invitation, enrollment: $enrollment)
+        {\n    id\n  }  \n}\n","variables":{"invitation":{"sourceType":"ENROLLMENT","inviteeEmail":"raoniaaaaraujo@gmail.com","inviteeFirstName":"Raoni","inviteeSurname":"Araujo"},"enrollment":{"levelId":"e0803552-37f9-4a67-ac1a-82bfa5ad7843","events":[{"title":"Raoni
+        (Ind.)","description":"EE -
+        Beginner","sourceType":"ENROLLMENT","availabilityType":"BUSY","status":"TENTATIVE","recurrence":"FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,WE","startDateTime":"2021-02-15T07:00:00.000Z","startTimeZone":"Australia/Sydney","endDateTime":"2021-02-15T08:00:00.000Z","endTimeZone":"Australia/Sydney"}]}},"operationName":"SendEnrollmentInvitation"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{jwt}}"
+    metaSortKey: -1613443762170
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_3727fbd3d6b34025b7199ada27a4cde6
+    parentId: fld_3d07b7e413914201905e169df8bf981f
+    modified: 1613443709496
+    created: 1613443709496
+    name: enrollment
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1613443709496
+    _type: request_group
+  - _id: req_52aeb73b94d94884a177dc13b69c0b5b
+    parentId: fld_3727fbd3d6b34025b7199ada27a4cde6
+    modified: 1619226524735
+    created: 1613443762120
+    url: "{{ _.backend_api }}/invitation/confirm"
+    name: confirmInvitation
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"invitationToken": "G03ulwp8Gemd"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_e6f89029bb1747698a8ca8fe78d8eaf5
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1613443762120
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_63c48d83392344f79f490ecd54b333ae
+    parentId: fld_3727fbd3d6b34025b7199ada27a4cde6
+    modified: 1623054865905
+    created: 1614583075715
+    url: "{{backend_api}}/graphql"
+    name: pendingEnrollments
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  adminListPendingEnrollments
+        {\n    id\n    status\n    externalKey\n    level
+        {\n      id\n      code\n      name\n    }\n    teacher
+        {\n      id\n      primaryEmail\n      firstName\n      familyName\n    }\n    student
+        {\n      id\n      primaryEmail\n      firstName\n      familyName\n    }\n  }\n}"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1613443741831.5625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d3fac8727e5a47adb7b7d1e3da314ccd
+    parentId: fld_3727fbd3d6b34025b7199ada27a4cde6
+    modified: 1623320220123
+    created: 1614583808447
+    url: "{{backend_api}}/graphql"
+    name: activateEnrollment
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"mutation AdminActivateEnrollment
+        {\n  adminActivateEnrollment(enrollmentId:
+        \"fb1697ea-fcbe-46c0-8294-5e3098dc67b1\", externalKey: \"dssdjs4\")
+        {\n    id\n    status\n    externalKey\n    level
+        {\n      id\n      code\n      name\n    }\n    teacher
+        {\n      id\n      primaryEmail\n      firstName\n      familyName\n    }\n    student
+        {\n      id\n      primaryEmail\n      firstName\n      familyName\n    }\n  }\n}\n","operationName":"AdminActivateEnrollment"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{jwt}}"
+    metaSortKey: -1613443738450.1562
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8b5824bc119f409687badf94efdcf5a1
+    parentId: fld_3727fbd3d6b34025b7199ada27a4cde6
+    modified: 1621915168010
+    created: 1613946491188
+    url: "{{backend_api}}/graphql"
+    name: teacherEnrollments
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  myProfile {\n      teacherEnrollments
+        {\n        id\n        status\n        level
+        {\n          id\n          code\n          name\n        }\n        student
+        {\n          id\n          primaryEmail\n          firstName\n          familyName\n        }\n        invitation
+        {\n          id\n          inviteeEmail\n          inviteeFirstName\n          inviteeSurname\n        }\n        nextEventOcurrence
+        {\n            id\n            title\n            description\n            availabilityType\n            sourceType\n            sourceId\n            startDateTime\n            startTimeZone\n            endDateTime\n            endTimeZone\n            status\n            sendNotifications\n            visibility\n          \n        }\n        classInProgress
+        {\n          classRecordId\n          status\n          teacherNotes\n          startedAt\n          completedAt\n          lesson
+        {\n            id\n            title\n            category\n            subject\n            slug\n            levelOrder\n          }\n        }\n        lastLesson
+        {\n          classRecordId\n          status\n          teacherNotes\n          startedAt\n          completedAt\n          lesson
+        {\n            id\n            title\n            category\n            subject\n            slug\n            levelOrder\n          }\n        }\n        nextLesson
+        {\n          id\n          title\n          category\n          subject\n          slug\n          levelOrder\n        }\n        events
+        {\n          id\n          title\n          description\n          status\n          availabilityType\n          recurrence\n          startDateTime\n          startTimeZone\n          endDateTime\n          endTimeZone\n        }\n      }\n  }\n}"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1613443735018.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4cb03083a81345148db4d43112c3881d
+    parentId: fld_3727fbd3d6b34025b7199ada27a4cde6
+    modified: 1621914742639
+    created: 1613972370656
+    url: "{{backend_api}}/graphql"
+    name: teacherEvents
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  myProfile {\n      id\n      eventsOrganised
+        {\n        id\n        title\n        description\n        availabilityType\n        sourceType\n        sourceId\n        startDateTime\n        startTimeZone\n        endDateTime\n        endTimeZone\n        recurrence\n        status\n        sendNotifications\n        conferenceData
+        {\n          conferenceUrl\n        }\n        startedDate\n        completedDate\n        visibility\n      }\n  }\n}"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1613443694466.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cb5e73f6797b4055936a0906c80ccc4c
+    parentId: fld_3727fbd3d6b34025b7199ada27a4cde6
+    modified: 1621914743441
+    created: 1614337058139
+    url: "{{backend_api}}/graphql"
+    name: enrollment
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  enrollment(id: \"c5e897ac-7677-4ebc-9e78-11b2409b3e91\")
+        {\n        id\n        status\n        level
+        {\n          id\n          code\n          name\n        }\n        student
+        {\n          id\n          primaryEmail\n          firstName\n          familyName\n        }\n        teacher
+        {\n          id\n          primaryEmail\n          firstName\n          familyName\n        }\n\n  }\n}"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1613443694416.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6daa1a3ac87246af8c2d1d56d5950316
+    parentId: fld_3727fbd3d6b34025b7199ada27a4cde6
+    modified: 1621914914842
+    created: 1619226458919
+    url: "{{backend_api}}/graphql"
+    name: programs
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  programs {\n    id\n    icon\n    label\n  }\n}"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{ _.jwt }}"
+    metaSortKey: -1613443684291.4062
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1bf43eb28d334f13831f57ac6c9c3c83
+    parentId: fld_06d40b4192664534b7c60085984959e9
+    modified: 1620857759080
+    created: 1613448632126
+    url: "{{backend_api}}/graphql"
+    name: myProfile
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query {\n  myProfile
+        {\n      id\n      firstName\n      familyName\n      displayName\n      primaryEmail\n      dateOfBirth\n      profileComplete\n      userIdentificationList
+        {\n          id\n          countryISO\n          category\n          code\n          attachementUrl\n      }\n      userAddresses
+        {\n          id\n          addressType\n          postalCode\n          street\n          streetNumber\n          streetComplement\n          district\n          city\n          state\n          countryISO\n          latitude\n          longitude\n      }\n      userPhoneNumbers
+        {\n          id\n          countryISO\n          category\n          code\n          rawFormat\n          nationalFormat\n          internationalFormat\n      }\n    eventsOrganised
+        {\n      id\n      title\n      sourceType\n      sourceId\n      availabilityType\n      completedDate\n      description\n      endDateTime\n      endTimeZone\n      eventAttendees
+        {\n        id\n        attendee { id
+        }\n        responseStatus\n        responseDateTime\n        optional\n        comment\n        organiser\n      }\n      eventOccurences
+        { id
+        }\n      iCalUID\n      recurrence\n      sendNotifications\n      startDateTime\n      startedDate\n      startTimeZone\n      status\n      visibility\n      \n    }\n  }\n}\n"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{jwt}}"
+    metaSortKey: -1613443597697.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_06d40b4192664534b7c60085984959e9
+    parentId: fld_3d07b7e413914201905e169df8bf981f
+    modified: 1613443598334
+    created: 1613443598334
+    name: auth
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1613443598334
+    _type: request_group
+  - _id: req_bd49966682ca482f83492cdfce251f40
+    parentId: fld_06d40b4192664534b7c60085984959e9
+    modified: 1622792957542
+    created: 1614224832585
+    url: "{{backend_api}}/graphql"
+    name: myCalendar
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query {\n  myCalendar(fromDate: \"2020-02-01T00:00:00.000Z\",
+        toDate: \"2021-04-01T00:00:00.000Z\")
+        {\n    id\n    title\n    description\n    availabilityType\n    sourceType\n    sourceId\n    startDateTime\n    startTimeZone\n    endDateTime\n    endTimeZone\n    status\n    sendNotifications\n    visibility\n  }\n}\n"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: "{{jwt}}"
+    metaSortKey: -1613443597672.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3c02f3536b1b46739f6ef1292a5d5432
+    parentId: fld_06d40b4192664534b7c60085984959e9
+    modified: 1622106068836
+    created: 1612872666146
+    url: "{{backend_api}}/auth/login"
+    name: login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "email": "raoni@eslo.com.br",
+            "password": "!limaoMeiolimao2limoes",
+            "rememberMe": true
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_314a66aa82f644a7bd5424864437a044
+    authentication: {}
+    metaSortKey: -1613443597647.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7ff14fb889c5445eb621c75a2d0ef698
+    parentId: fld_c24db98e57304830a13c1a31481dc422
+    modified: 1620708999024
+    created: 1613391920748
+    url: "{{backend_api}}/graphql"
+    name: levels
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  levels
+        {\n    id\n    code\n    name\n    description\n  }\n}","variables":{"invitation":{"sourceType":"ENROLLMENT","inviteeEmail":"raoniaaraujo@gmail.com","inviteeFirstName":"Raoni","inviteeSurname":"Araujo"},"enrollment":{}}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YmRjMjQzMC03YTc1LTQ4YjMtYTVlMy1mMDllYjE3ZWQ4NjEiLCJpYXQiOjE2MTMzOTA3OTAsImV4cCI6MTYxNDYwMDM5MH0.Owkw7DGWU1DKw8vDyjzyx9yijwHpgvJY7B4FnLzUkM8
+    metaSortKey: -1612872666196
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_c24db98e57304830a13c1a31481dc422
+    parentId: fld_3d07b7e413914201905e169df8bf981f
+    modified: 1613443587354
+    created: 1613443587354
+    name: lms
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1613443587354
+    _type: request_group
+  - _id: req_53cc0d720f134cd2aa627c2b1f17ec6d
+    parentId: fld_c24db98e57304830a13c1a31481dc422
+    modified: 1620708993726
+    created: 1613617778446
+    url: "{{backend_api}}/graphql"
+    name: program
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  program(id: \"\")
+        {\n    id\n    code\n    name\n    modules
+        {\n      id\n      code\n      name\n      programOrder\n      description\n      levels
+        {\n        id\n        code\n        name\n        moduleOrder\n        description\n        lessons
+        {\n          id\n          title\n          category\n          subject\n          slug\n          levelOrder\n        }\n      }\n    }\n    \n  }\n}","variables":{"invitation":{"sourceType":"ENROLLMENT","inviteeEmail":"raoniaaraujo@gmail.com","inviteeFirstName":"Raoni","inviteeSurname":"Araujo"},"enrollment":{}}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YmRjMjQzMC03YTc1LTQ4YjMtYTVlMy1mMDllYjE3ZWQ4NjEiLCJpYXQiOjE2MTMzOTA3OTAsImV4cCI6MTYxNDYwMDM5MH0.Owkw7DGWU1DKw8vDyjzyx9yijwHpgvJY7B4FnLzUkM8
+    metaSortKey: -1612872631160.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a3b8f30e027a46739917f976964a51d7
+    parentId: fld_c24db98e57304830a13c1a31481dc422
+    modified: 1620782199365
+    created: 1614054999036
+    url: "{{backend_api}}/graphql"
+    name: event
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"{\n  event(id: \"e638d058-8da9-4c68-a3a6-b3bb60268bff\")
+        {\n        id\n        title\n        description\n        availabilityType\n        sourceType\n        sourceId\n        startDateTime\n        startTimeZone\n        endDateTime\n        endTimeZone\n        recurrence\n        status\n        sendNotifications\n        startedDate\n        completedDate\n        visibility\n  }\n}"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a49a2a082b944633aba8e37fdedf636f
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YmRjMjQzMC03YTc1LTQ4YjMtYTVlMy1mMDllYjE3ZWQ4NjEiLCJpYXQiOjE2MTMzOTA3OTAsImV4cCI6MTYxNDYwMDM5MH0.Owkw7DGWU1DKw8vDyjzyx9yijwHpgvJY7B4FnLzUkM8
+    metaSortKey: -1612872613642.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_c9d80bd576215d1622153b16d132dd08082589d8
+    parentId: wrk_d5d89293dd86402aa8d4cca14b60709e
+    modified: 1605674825648
+    created: 1605674825648
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1605674825648
+    _type: environment
+  - _id: jar_c9d80bd576215d1622153b16d132dd08082589d8
+    parentId: wrk_d5d89293dd86402aa8d4cca14b60709e
+    modified: 1605674825649
+    created: 1605674825649
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_e083077e6c8a4dd7a6383b8b0fa88e46
+    parentId: wrk_d5d89293dd86402aa8d4cca14b60709e
+    modified: 1605674825611
+    created: 1605674825611
+    fileName: Insomnia
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_54c9f0c6091442d0bfe608c58ee4333e
+    parentId: env_c9d80bd576215d1622153b16d132dd08082589d8
+    modified: 1623320326498
+    created: 1612872481858
+    name: eslo local
+    data:
+      backend_api: localhost:3000
+      jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YmRjMjQzMC03YTc1LTQ4YjMtYTVlMy1mMDllYjE3ZWQ4NjEiLCJpYXQiOjE2MjMzMjAzMTUsImV4cCI6MTYyNDUyOTkxNX0.cGMlKeK84seguqfdkYdcxKhZ25FY13Jj29vYK1dWuZQ
+      rexUrl: https://rex.qa.reallyenglish.global/admin/api/
+      rexToken: b21c3837-570f-463b-99f2-c1117011abd7
+    dataPropertyOrder:
+      "&":
+        - backend_api
+        - jwt
+        - rexUrl
+        - rexToken
+    color: null
+    isPrivate: false
+    metaSortKey: 1612872481858
+    _type: environment
+  - _id: env_a39edcabba38418389b7437bbdeb45d9
+    parentId: env_c9d80bd576215d1622153b16d132dd08082589d8
+    modified: 1621918814144
+    created: 1614594551390
+    name: eslo Demo
+    data:
+      backend_api: https://eslo-backend-ihqesfbela-rj.a.run.app
+      jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YmRjMjQzMC03YTc1LTQ4YjMtYTVlMy1mMDllYjE3ZWQ4NjEiLCJpYXQiOjE2MjE5MTg4MDEsImV4cCI6MTYyMzEyODQwMX0.mFF9T6lwIhIJtj3PXcAXkC7fvJLsLXLSz5kR1r2U2pw
+      rexUrl: https://learning.re/admin/api
+      rexToken: b21c3837-570f-463b-99f2-c1117011abd7
+    dataPropertyOrder:
+      "&":
+        - backend_api
+        - jwt
+        - rexUrl
+        - rexToken
+    color: null
+    isPrivate: false
+    metaSortKey: 1614594551390
+    _type: environment

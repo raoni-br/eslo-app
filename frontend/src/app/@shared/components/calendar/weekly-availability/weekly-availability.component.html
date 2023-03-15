@@ -1,0 +1,77 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="weekly-availability-wrapper">
+  <div>
+    <div class="weekly-availability__hours-list-container">
+      <!-- [style.max-height]="screenHeight < 800 ? '224px' : '380px'" -->
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutAlign="stretch center">
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            class="weekly-availability__hours-list__day-name"
+          >
+            <mat-icon>{{ labelDay.icon }}</mat-icon>
+          </div>
+          <div
+            *ngFor="let hour of labelDay.hours; let hourIndex = index"
+            class="weekly-availability__hours-list__hour__cell"
+          >
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              class="mat-caption weekly-availability__hours-list__hour__cell__text"
+            >
+              {{ hour }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="weekly-availability__hours-list-container">
+    <!-- [style.max-height]="screenHeight < 800 ? '224px' : '380px'" -->
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div *ngFor="let day of daysWithHours; let dayIndex = index">
+        <div fxLayout="column" fxLayoutAlign="stretch center">
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            class="weekly-availability__hours-list__day-name mat-caption"
+          >
+            {{ day.label }}
+          </div>
+          <div
+            *ngFor="let hour of day.hours; let hourIndex = index"
+            class="weekly-availability__hours-list__hour__cell"
+            [matTooltip]="hour.title"
+          >
+            <div
+              *ngFor="let minute of hour.minutes"
+              class="weekly-availability__hours-list__hour__cell__minute"
+              [class.weekly-availability__hours-list__hour__cell__minute--has-event]="
+                minute.hasEvent
+              "
+              [class.weekly-availability__hours-list__hour__cell__minute--active]="minute.isActive"
+              [class.weekly-availability__hours-list__hour__cell__minute--has-conflict]="
+                minute.hasEvent && minute.isActive
+              "
+            ></div>
+
+            <!-- <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              class="mat-caption weekly-availability__hours-list__hour__cell__text"
+            >
+              {{ hour.time | convertTime }}
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button mat-flat-button color="primary" matDialogClose class="weekly-availability__close-button">
+    <mat-icon>close</mat-icon>
+    close
+  </button>
+</div>

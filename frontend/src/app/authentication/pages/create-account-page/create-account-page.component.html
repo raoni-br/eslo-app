@@ -1,0 +1,13 @@
+<app-auth-layout>
+  <div authText>
+    <p class="mat-headline text-center mb-32 text-default">Start free trial</p>
+    <p class="mat-body-2 text-default">
+      Experience a whole new way of teaching with the 14-day free trial. No credit card info is
+      required.
+    </p>
+  </div>
+  <app-create-account-form
+    [defaultEmail]="email"
+    (validateEmailEvent)="onValidateEmail($event)"
+  ></app-create-account-form>
+</app-auth-layout>

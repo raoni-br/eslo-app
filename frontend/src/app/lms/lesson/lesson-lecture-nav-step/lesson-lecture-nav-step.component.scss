@@ -1,0 +1,38 @@
+
+
+.step-navigation {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 90vh;
+    max-width: 944px;
+    padding: 0 24px;
+    width: 60vw;
+
+    &.offset {
+        margin-left: 15vw;
+    }
+
+    .previous {
+        margin-right: auto;
+    }
+
+    .counter {
+        padding: 6px;
+        border-radius: 2px;
+
+        .current {
+            margin-right: 4px;
+        }
+
+        .total {
+            margin-left: 4px;
+        }
+    }
+
+    .next,
+    .done {
+        margin-left: auto;
+    }
+}

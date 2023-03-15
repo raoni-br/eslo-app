@@ -1,0 +1,102 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+@mixin class-record-list-theme($theme) {
+    $primary-50: mat.get-color-from-palette(map-get($theme, primary), 50);
+
+    .class-record-list__container {
+        max-width: 100%;
+
+        &__class-record {
+            padding: 12px 0 0 16px;
+            cursor: pointer;
+
+            &--lesson-done {
+                background-color: $primary-50;
+            }
+
+            &__info {
+                .mat-body-2 {
+                    color: rgba(0, 0, 0, 0.87);
+                }
+
+                &--tracks {
+                    padding: 10px 24px 16px 0;
+
+                    @include mq.layout-bp(gt-xs) {
+                        padding: 10px 24px 16px 30px;
+                    }
+                }
+            }
+
+            &__button {
+                margin-right: 19px;
+                min-width: 30px;
+                width: 30px;
+                height: 30px;
+
+                @include mq.layout-bp(gt-xs) {
+                    min-width: 60px;
+                    width: 60px;
+                    height: 62px;
+                }
+
+                mat-icon {
+                    font-size: 30px;
+
+                    @include mq.layout-bp(gt-xs) {
+                        font-size: 42px;
+                    }
+                }
+
+                svg {
+                    width: 30px;
+                    height: 30px;
+
+                    @include mq.layout-bp(gt-xs) {
+                        height: 42px;
+                        width: 40px;
+                    }
+                }
+            }
+        }
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .date-mobile {
+        font-size: 11px !important;
+        font-weight: 400 !important;
+        line-height: 20px !important;
+    }
+    .button-mobile {
+        font-size: 12px !important;
+        padding: 0 !important;
+    }
+
+    .pb-15 {
+        padding-bottom: 15px;
+    }
+
+    .border-top {
+        border-radius: 14px 14px 0 0;
+    }
+
+    .pulse-css {
+        animation: pulse 2s ease-in infinite;
+    }
+
+    @keyframes pulse {
+        from {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.4;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+}

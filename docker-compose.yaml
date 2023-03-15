@@ -1,0 +1,55 @@
+version: "2"
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    links:
+      - dbpostgres
+      - iam-agent
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "dbpostgres"
+    volumes:
+      - ./backend/app:/opt/eslo/backend/app
+      - ./backend/.env:/opt/eslo/backend/.env
+    environment:
+      NODE_ENV: local
+      ESLO_APP_DATABASE_URL: "postgresql://eslo:eslo@dbpostgres/pgdb?schema=public"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/opt/eslo/frontend/
+  dbpostgres:
+    image: postgres:12-alpine
+    volumes:
+      - ./docker/volumes/postgresql:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: pgdb
+      POSTGRES_USER: eslo
+      POSTGRES_PASSWORD: eslo
+  iam-agent:
+    image: openpolicyagent/opa:0.30.1
+    command:
+      - "run"
+      - "--server"
+      - "--authentication=token"
+      - "--authorization=basic"
+      - "--format=json"
+      - "--log-level=debug"
+      - "/data"
+      - "/policies"
+    environment:
+      IDENTITY_TOKEN: "local-token"
+    volumes:
+      - ./iam-agent/policies:/policies
+      - ./iam-agent/data:/data
+    ports:
+      - "8181:8181"

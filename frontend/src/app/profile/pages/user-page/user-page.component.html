@@ -1,0 +1,14 @@
+<ng-template tpAttach="topBarStart">
+    <app-eslo-letter-logo></app-eslo-letter-logo>
+    <app-top-bar-title text="Profile"></app-top-bar-title>
+</ng-template>
+
+<ng-template tpAttach="topBarCenter">
+    <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+</ng-template>
+
+<div class="page-layout simple fullwidth" fxLayout="column">
+    <div class="profile-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

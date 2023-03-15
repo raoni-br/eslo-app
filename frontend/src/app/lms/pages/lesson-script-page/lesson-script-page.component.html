@@ -1,0 +1,42 @@
+<ng-container *ngIf="lesson$ | async as lesson">
+  <ng-template tpAttach="topBarStart">
+    <app-back-button></app-back-button>
+    <app-top-bar-title [text]="lesson.title"></app-top-bar-title>
+  </ng-template>
+
+  <ng-template tpAttach="topBarCenter">
+    <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+  </ng-template>
+
+  <div
+    class="script-container"
+    [class.script-container--has-audio]="lesson.lessonMaterial.audio.length > 0"
+  >
+    <app-custom-stepper #stepper [hasAudio]="lesson.lessonMaterial.audio.length > 0">
+      <cdk-step *ngFor="let scriptPage of lesson.lessonMaterial.lectureScript; let i = index">
+        <img
+          #imgElement
+          class="script-image"
+          [src]="scriptPage.media.rootUri"
+          [alt]="scriptPage.media.id"
+          (click)="checkFullscreen()"
+        />
+        <button
+          color="primary"
+          class="script-container__fullscreen-button"
+          [class.script-container__fullscreen-button--has-audio]="lesson.lessonMaterial.audio.length > 0"
+          *ngIf="isMobile"
+          mat-icon-button
+          (click)="onFullscreen(imgElement)"
+        >
+          <mat-icon>fullscreen</mat-icon>
+        </button>
+      </cdk-step>
+    </app-custom-stepper>
+  </div>
+
+  <app-audio-control-card
+    *ngIf="lesson.lessonMaterial.audio.length > 0"
+    [audioList]="lesson.lessonMaterial.audio"
+  ></app-audio-control-card>
+</ng-container>

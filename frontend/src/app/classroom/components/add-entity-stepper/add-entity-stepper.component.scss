@@ -1,0 +1,25 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.stepper-actions {
+    margin-top: 32px;
+
+    @include mq.layout-bp(xs) {
+        position: fixed;
+        bottom: 56px;
+        padding: 8px;
+        left: 0;
+        right: 0;
+    }
+}
+
+.stepper-content {
+    width: 550px;
+    padding-left: 50px;
+
+    @include mq.layout-bp(xs) {
+        position: relative;
+        padding: 16px 5px;
+        min-width: 0;
+        width: 100%;
+    }
+}

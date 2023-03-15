@@ -1,0 +1,59 @@
+<div class="onboarding-dialog-text">
+  <div class="onboarding-dialog-text__content">
+    <div
+      class="mat-subheading-1 text-primary-contrast--50 onboarding-dialog-text__content__text"
+      [innerHTML]="text | onboardingReplaceText: (user$ | async) | safe: 'html'"
+    ></div>
+  </div>
+  <svg
+    fxHide.xs
+    fxShow.gt-xs
+    width="318"
+    height="33"
+    viewBox="0 0 318 33"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line
+      x1="37.5"
+      y1="1"
+      x2="316.5"
+      y2="1"
+      stroke="black"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M6.97053 2.00096L1.19606 23.5516C0.956206 24.4467 1.95767 25.1584 2.72412 24.6374L37.5 1.00092"
+      stroke="black"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+
+  <svg
+    fxShow.xs
+    fxHide.gt-xs
+    width="178"
+    height="26"
+    viewBox="0 0 178 26"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line
+      x1="37.5"
+      y1="1"
+      x2="176.5"
+      y2="1"
+      stroke="black"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M6.97053 2.00096L1.19606 23.5516C0.956206 24.4467 1.95767 25.1584 2.72412 24.6374L37.5 1.00092"
+      stroke="black"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+</div>

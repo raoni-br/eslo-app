@@ -1,0 +1,105 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.text-color {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.text-color-2 {
+    color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.mb-12 {
+    margin-bottom: 12px !important;
+}
+
+.mt-24 {
+    margin-top: 24px !important;
+}
+
+.mb-4 {
+    margin-bottom: 4px !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.invoice {
+    &__wrapper {
+
+        @include mq.layout-bp(gt-xs) {
+            min-width: 75vw;
+        }
+
+        @include mq.layout-bp(gt-sm) {
+            min-width: 80vw;
+        }
+    }
+
+    &__header {
+        padding: 0 18px;
+        @include mq.layout-bp(gt-xs) {
+            padding: 0;
+        }
+    }
+
+    &__company-details {
+        display: flex;
+
+        &__image {
+            margin-right: 14px;
+
+            @include mq.layout-bp(gt-xs) {
+                margin-right: 80px;
+            }
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            max-width: 240px;
+        }
+    }
+}
+
+.invoice-items__container {
+    padding: 24px 0 0 16px;
+
+    &__header {
+        padding: 28px 0;
+    }
+
+    &__item {
+        &__info {
+            padding: 16px 16px 16px 0;
+
+            .mat-body-2 {
+                color: rgba(0, 0, 0, 0.6);
+            }
+        }
+    }
+}
+
+.border-bottom {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.pr {
+    padding-right: 20px;
+
+    @include mq.layout-bp(gt-xs) {
+        padding-right: 60px;
+    }
+}
+
+.pr-items-header {
+    padding-right: 20px;
+
+    @include mq.layout-bp(gt-xs) {
+        padding-right: 0;
+    }
+}

@@ -1,0 +1,39 @@
+[
+  {
+    "updatedProductPrice": {
+      "priceId": "9edd1e43-aaba-4101-9885-ab10d4b0bc30",
+      "name": "R$450 / year",
+      "description": "Teacher Smart - All you need for your ESL classes",
+      "slug": "teacher-smart-free-trial-yearly",
+      "taxAmount": 0,
+      "unitTotalAmount": 450,
+      "currencyIsoCode": "BRL",
+      "type": "RECURRING",
+      "recurrence": "FREQ=YEARLY;INTERVAL=1",
+      "pricePeriod": {
+        "interval": "yearly",
+        "intervalCount": 1
+      },
+      "allowFreeTrial": true
+    }
+  },
+
+  {
+    "updatedProductPrice": {
+      "priceId": "205f3a1e-1f95-4203-8559-193c45b44a81",
+      "name": "R$45 / month",
+      "description": "Teacher Smart - All you need for your ESL classes",
+      "slug": "teacher-smart-free-trial-monthly",
+      "taxAmount": 0,
+      "unitTotalAmount": 45,
+      "currencyIsoCode": "BRL",
+      "type": "RECURRING",
+      "recurrence": "FREQ=MONTHLY;INTERVAL=1",
+      "pricePeriod": {
+        "interval": "monthly",
+        "intervalCount": 1
+      },
+      "allowFreeTrial": true
+    }
+  }
+]

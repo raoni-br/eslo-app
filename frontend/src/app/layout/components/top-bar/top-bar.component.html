@@ -1,0 +1,41 @@
+<!-- TODO: TOP BAR BELOW TEMPLATE -->
+
+<div class="top-bar">
+    <ng-container *ngIf="isMobile; then mobile; else greaterMobile">
+        <ng-content></ng-content>
+    </ng-container>
+</div>
+
+<ng-template #mobile>
+    <div fxLayout="column" fxLayoutAlign="center space-between">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="top-bar__start">
+                <ng-container tpTarget="topBarStart"></ng-container>
+            </div>
+
+            <div class="top-bar__end">
+                <ng-container tpTarget="topBarEnd"></ng-container>
+                <app-user-button></app-user-button>
+            </div>
+        </div>
+
+        <div class="top-bar__center">
+            <ng-container tpTarget="topBarCenter"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #greaterMobile>
+    <div class="top-bar__start">
+        <ng-container tpTarget="topBarStart"></ng-container>
+    </div>
+
+    <div class="top-bar__center">
+        <ng-container tpTarget="topBarCenter"></ng-container>
+    </div>
+
+    <div class="top-bar__end">
+        <ng-container tpTarget="topBarEnd"></ng-container>
+        <app-user-button></app-user-button>
+    </div>
+</ng-template>

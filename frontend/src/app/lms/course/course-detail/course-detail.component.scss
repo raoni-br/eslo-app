@@ -1,0 +1,50 @@
+#academy-lessons {
+    .content {
+        .lesson-selector {
+            min-width: 300px;
+        }
+
+        .column-category-icons {
+            display: flex;
+            padding: 5px;
+        }
+
+        .row-category-icons::after {
+            // content: '';
+            // clear: both;
+            // display: table;
+        }
+
+        .filters {
+            display: flex;
+            // width: 80%;
+            margin: 18px 28px 12px 12px;
+            padding: 0 12px;
+
+            .category-icon {
+                opacity: 0.3;
+                width: 40px;
+                height: 40px;
+                &.selected {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .lessons {
+            padding: 0px 32px;
+
+            margin: 0 auto;
+
+            .lesson {
+                padding: 16px;
+            }
+        }
+
+        .no-lessons {
+            font-size: 24px;
+            margin: 24px 0;
+            text-align: center;
+        }
+    }
+}

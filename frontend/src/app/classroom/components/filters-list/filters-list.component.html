@@ -1,0 +1,19 @@
+<mat-form-field
+  appearance="outline"
+  fxFlex.xs="100"
+  class="rounded-form-field-select custom-form-field"
+>
+  <mat-select
+    [(ngModel)]="selectedOption"
+    (selectionChange)="onSelectionChange($event)"
+    class="custom-select mat-button-text mat-button-text--size-14"
+  >
+    <mat-option
+      *ngFor="let option of options"
+      [value]="option"
+      class="mat-button-text mat-button-text--size-14"
+    >
+      {{ option.label | titlecase }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

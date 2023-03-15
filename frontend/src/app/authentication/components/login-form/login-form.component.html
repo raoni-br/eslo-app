@@ -1,0 +1,77 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+  <form
+    name="loginForm"
+    [formGroup]="loginForm"
+    novalidate
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="20px"
+    (ngSubmit)="login()"
+  >
+    <div fxLayout="column" fxLayoutAlign="start stretch" style="position: relative">
+      <mat-form-field appearance="outline" class="text-default">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-error *ngIf="loginForm.get('email').hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error
+          *ngIf="
+            !loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email')
+          "
+        >
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+      <small
+        class="mat-error mat-caption"
+        *ngIf="defaultEmail"
+        style="position: absolute; bottom: 5px; left: 15px"
+      >
+        Email is taken. Login instead
+      </small>
+    </div>
+
+    <mat-form-field appearance="outline" class="text-default">
+      <mat-label>Password</mat-label>
+
+      <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+
+      <mat-icon
+        class="cursor-pointer"
+        matSuffix
+        (click)="onToggleShowPassword()"
+        >{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon
+      >
+
+      <mat-error *ngIf="loginForm.get('password').hasError('required')">
+        Password is required
+      </mat-error>
+
+      <mat-error *ngIf="!loginForm.get('password').hasError('required')">
+        Password must have at least 8 characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-error class="mat-caption text-center" *ngIf="loginFailed.error">
+      {{ loginFailed.message }}
+    </mat-error>
+    <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="16px">
+      <a mat-button color="primary" [routerLink]="'/auth/forgot-password'"> Forgot Password? </a>
+
+      <button
+        mat-flat-button
+        color="primary"
+        aria-label="LOGIN"
+        type="submit"
+        [disabled]="loginForm.invalid"
+      >
+        login
+      </button>
+
+      <a mat-stroked-button color="primary" [routerLink]="'/auth/create-account'">
+        sign up
+      </a>
+    </div>
+  </form>
+</div>

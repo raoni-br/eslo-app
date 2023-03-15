@@ -1,0 +1,31 @@
+<ng-template tpAttach="topBarStart">
+  <app-eslo-letter-logo></app-eslo-letter-logo>
+  <app-top-bar-title text="Classes"></app-top-bar-title>
+</ng-template>
+
+<ng-template tpAttach="topBarCenter">
+  <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+</ng-template>
+
+<ng-template tpAttach="floatActionButton">
+  <button mat-fab class="accent-200" (click)="createInvitation()">
+    <mat-icon>person_add</mat-icon>
+  </button>
+</ng-template>
+
+<div class="class-list__content">
+  <app-filter-active-in-list
+    [checked]="filterActiveOnly"
+    [label]="'Show active only'"
+    (selectChangeEvent)="onFilterSelectChange($event)"
+  ></app-filter-active-in-list>
+
+  <ng-container *ngIf="students$ | async as students">
+    <ng-container *ngIf="students.length">
+      <app-student-list  [students]="students"></app-student-list>
+    </ng-container>
+    <ng-container *ngIf="!students.length">
+      <app-empty-list></app-empty-list>
+    </ng-container>
+  </ng-container>
+</div>

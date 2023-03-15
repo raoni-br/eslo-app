@@ -1,0 +1,32 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+
+@mixin navigation-tabs-theme($theme) {
+  $primary: mat.get-color-from-palette(map-get($theme, primary));
+  $accent: mat.get-color-from-palette(map-get($theme, accent));
+
+  .navigation-tabs {
+      border: none;
+
+      &__link {
+          color: $primary;
+          height: 100%;
+
+          &--active {
+              color: $accent;
+          }
+
+          &__content {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+
+              mat-icon {
+                  margin-top: 10px;
+              }
+          }
+      }
+  }
+}

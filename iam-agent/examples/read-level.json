@@ -1,0 +1,118 @@
+{
+    "client_addr": "172.18.0.3:47314",
+    "level": "info",
+    "msg": "Received request.",
+    "req_body": {
+      "input": {
+        "user": {
+          "id": "e75f6daa-8734-44bd-8af2-e8559480f398",
+          "primaryEmail": "raoniaaraujo@gmail.com",
+          "firstName": "Raoni",
+          "familyName": "Araujo",
+          "displayName": "Raoni",
+          "profilePicUrl": null,
+          "dateOfBirth": null,
+          "gender": null,
+          "banned": false,
+          "bannedAt": null,
+          "createdAt": "2021-07-12T11:21:59.543Z",
+          "updatedAt": "2021-07-12T11:21:59.545Z",
+          "deletedAt": null,
+          "subscriptions": [
+            {
+              "id": "7e95da3a-7929-437a-8fa2-83ade26013a7",
+              "customerId": "e75f6daa-8734-44bd-8af2-e8559480f398",
+              "autoRenew": true,
+              "cancelledAutoRenewAt": null,
+              "status": "ACTIVE",
+              "paymentProviderId": "sub_stripe_gen_id_1",
+              "paymentProviderCheckoutId": "cs_test_a1TPDTK4r5mb0y4PMtKrK9R5nwQaUy1Y8wH8EZU4mdRBvqhMUk3HZwleMa",
+              "startedAt": "2021-07-12T11:28:55.297Z",
+              "completedAt": null,
+              "createdAt": "2021-07-12T11:28:55.297Z",
+              "updatedAt": "2021-07-12T11:30:24.785Z",
+              "deletedAt": null,
+              "subscriptionItems": [
+                {
+                  "id": "4adbbc35-907c-4a19-8d0f-7b0f5424247f",
+                  "subscriptionId": "7e95da3a-7929-437a-8fa2-83ade26013a7",
+                  "priceId": "4768f0b4-2cce-40fd-a835-62e67e3b2566",
+                  "autoRenew": true,
+                  "cancelledAutoRenewAt": null,
+                  "quantity": 1,
+                  "active": true,
+                  "paymentProviderId": null,
+                  "startedAt": "2021-07-12T11:28:55.297Z",
+                  "completedAt": null,
+                  "createdAt": "2021-07-12T11:28:55.297Z",
+                  "updatedAt": "2021-07-12T11:28:55.298Z",
+                  "deletedAt": null,
+                  "price": {
+                    "id": "4768f0b4-2cce-40fd-a835-62e67e3b2566",
+                    "productId": "110035a1-f730-4131-b684-d7686deb0cb3",
+                    "name": "6 x R$20 / month",
+                    "description": "Teacher Smart 6 months explores subscription - monthly",
+                    "slug": "teacher-smart-explorer-monthly",
+                    "taxAmount": "0",
+                    "unitTotalAmount": "20",
+                    "currencyIsoCode": "BRL",
+                    "type": "RECURRING",
+                    "recurrence": "FREQ=MONTHLY;INTERVAL=1",
+                    "subscriptionPeriod": {
+                      "interval": "month",
+                      "intervalCount": 6
+                    },
+                    "active": true,
+                    "paymentProviderId": "price_1J5ITBC2dPDUJp1av0V17nJ8",
+                    "startedAt": "2021-07-11T12:12:31.681Z",
+                    "completedAt": null,
+                    "createdAt": "2021-07-11T12:12:31.681Z",
+                    "updatedAt": "2021-07-11T12:12:31.682Z",
+                    "deletedAt": null,
+                    "product": {
+                      "id": "110035a1-f730-4131-b684-d7686deb0cb3",
+                      "name": "Smart",
+                      "description": "For private teachers that want to spend most of their time in the classroom",
+                      "slug": "teacher-smart",
+                      "subcategoryCode": "teacher_smart",
+                      "objectSettings": null,
+                      "images": null,
+                      "active": true,
+                      "paymentProviderId": "110035a1-f730-4131-b684-d7686deb0cb3",
+                      "startedAt": "2021-07-11T12:12:31.681Z",
+                      "completedAt": null,
+                      "createdAt": "2021-07-11T12:12:31.681Z",
+                      "updatedAt": "2021-07-11T12:12:31.682Z",
+                      "deletedAt": null
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "policy": "lms",
+        "action": "read",
+        "resourceType": "Level",
+        "resource": {
+          "id": "e0803552-37f9-4a67-ac1a-82bfa5ad7843",
+          "code": "EE-BSC-A2",
+          "name": "A2 - Elementary",
+          "providerInfo": null,
+          "moduleOrder": 2,
+          "description": "At the end of this level, you will be able to understand sentences and frequently used expressions related to areas of most immediate relevance(e.g. very basic personal and family information, shopping, local geography,employment). Can communicate in simple and routinetasks requiring a simple and direct exchange of information on familiar and routine matters. Can describe in simple terms aspects of his/her background, immediate environment and matters in areas of immediate need.",
+          "label": "Elementary",
+          "moduleId": "bc383eaa-3b77-4937-a7bc-f8a7093516cd",
+          "createdAt": "2021-07-11T12:12:29.639Z",
+          "updatedAt": "2021-07-11T12:12:30.047Z",
+          "deletedAt": null
+        }
+      }
+    },
+    "req_id": 27,
+    "req_method": "POST",
+    "req_params": {},
+    "req_path": "/v1/data/app/lms",
+    "time": "2021-07-15T01:28:27Z"
+  }
+  

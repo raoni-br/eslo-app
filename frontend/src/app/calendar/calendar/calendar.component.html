@@ -1,0 +1,87 @@
+<ng-template tpAttach="topBarCenter">
+  <div class="header-bottom" fxLayoutAlign="center center" fxLayout="row">
+    <button
+      mat-icon-button
+      class="arrow"
+      mwlCalendarPreviousView
+      matTooltip="Last week"
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="selectedDay = { date: $event }"
+      aria-label="Previous"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      class="arrow"
+      mwlCalendarNextView
+      matTooltip="Next week"
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="selectedDay = { date: $event }"
+      aria-label="Next"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <div class="mat-subheading-1 calendar-change-month">
+      {{ viewDate | calendarDate: view + 'ViewTitle':'en' | uppercase }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template tpAttach="topBarEnd">
+  <button
+    mat-icon-button
+    color="primary"
+    (mwlClick)="openAvailabilityDialog()"
+    aria-label="Check Availability"
+    matTooltip="Check Availability"
+    class="button"
+  >
+    <mat-icon>date_range</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    color="primary"
+    mwlCalendarToday
+    [(viewDate)]="viewDate"
+    (viewDateChange)="selectedDay = { date: $event }"
+    aria-label="Today"
+    matTooltip="Today"
+    class="button"
+  >
+    <mat-icon>today</mat-icon>
+  </button>
+</ng-template>
+
+<div class="calendar-container">
+  <ng-template
+    #eventTemplate
+    let-weekEvent="weekEvent"
+    let-locale="locale"
+    let-eventClicked="eventClicked"
+    let-tooltipPlacement="tooltipPlacement"
+    let-tooltipTemplate="tooltipTemplate"
+    let-tooltipAppendToBody="tooltipAppendToBody"
+    let-tooltipDisabled="tooltipDisabled"
+  >
+    <div class="cal-event" (mwlClick)="eventClicked.emit({ event: weekEvent.event })">
+      <p>{{ weekEvent.event.title | formatEventTitle }}</p>
+    </div>
+  </ng-template>
+
+  <mwl-calendar-week-view
+    class="calendar"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="editEvent($event.event)"
+    [eventTemplate]="eventTemplate"
+    [dayStartHour]="7"
+    [dayEndHour]="22"
+  >
+  </mwl-calendar-week-view>
+</div>

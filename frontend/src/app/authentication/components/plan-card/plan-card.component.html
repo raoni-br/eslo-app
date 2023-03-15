@@ -1,0 +1,44 @@
+<mat-card
+  class="mat-elevation-z4 plan-card"
+  [class.plan-card--selected]="plan.selected"
+  (mouseenter)="hover = true"
+  (mouseleave)="hover = false"
+  [class.mat-elevation-z12]="hover"
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+  fxLayoutGap="24px"
+  (click)="onPlanSelected()"
+>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="plan-card__padding">
+    <span class="mat-title">{{ plan.name }}</span>
+    <mat-icon *ngIf="plan.selected" color="primary">check_circle</mat-icon>
+  </div>
+
+  <div class="plan-card__padding">
+    <mat-radio-group
+      aria-label="Select an price option"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      [ngModel]="selectedPrice"
+      (ngModelChange)="onChangeSelectedPrice($event)"
+    >
+      <div *ngFor="let price of plan.prices; let i = index">
+        <mat-radio-button [value]="price" (click)="$event.stopPropagation()">
+          <span
+            class="mat-button-text text-black-opacity-06"
+            [class.text-accent--500]="selectedPrice?.slug === price?.slug"
+          >
+            {{ price.pricePeriod | intervalLabel }}
+          </span>
+        </mat-radio-button>
+      </div>
+    </mat-radio-group>
+  </div>
+
+  <div *ngIf="selectedPrice as price">
+    <div class="plan-card__padding" fxLayout fxLayoutAlign="center center">
+      <span class="mat-headline">{{ price.name }}</span>
+    </div>
+    <div class="mat-body-2 text-black-opacity-06 mt24">{{ price.description }}</div>
+  </div>
+</mat-card>

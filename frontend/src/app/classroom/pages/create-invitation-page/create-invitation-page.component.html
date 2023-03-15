@@ -1,0 +1,372 @@
+<ng-template tpAttach="topBarStart">
+  <app-back-button></app-back-button>
+  <app-top-bar-title
+    [text]="
+      (editingEnrollment
+        ? editingEnrollment.student.firstName + ' ' + editingEnrollment.student.familyName
+        : editingGroup
+        ? editingGroup.name
+        : 'Add new'
+      ) | titlecase
+    "
+  ></app-top-bar-title>
+</ng-template>
+
+<!-- STUDENT -->
+<app-add-entity-stepper
+  #stepper
+  *ngIf="entity === 'student'"
+  [entity]="entity"
+  [isMobile]="isMobile"
+  [isEditing]="!!editingEnrollment"
+  (submitFormEvent)="onSubmit()"
+>
+  <ng-container
+    *ngFor="let step of studentSteps; let i = index; let last = last; let first = first"
+  >
+    <cdk-step [completed]="step.completed" [editable]="step.editable">
+      <ng-template cdkStepLabel>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="start start"
+          [fxLayoutGap]="isMobile ? '0' : '16px'"
+          [class.cursor-pointer]="step.editable"
+          [class.cursor-disabled]="!step.editable"
+          (click)="onSelectStep(i)"
+        >
+          <div
+            *ngIf="!isMobile"
+            fxLayout="column"
+            fxLayoutGap="4px"
+            fxFlex="85"
+            class="entity-stepper__text"
+            [class.text-default--fade]="stepper.selectedIndex !== i && !step.completed"
+          >
+            <p class="mat-subheading-1" [class.disabled]="!step.editable">
+              {{ step.header }}
+            </p>
+            <p class="mat-caption" [class.disabled]="!step.editable">
+              {{ step.subheading }}
+            </p>
+          </div>
+          <div
+            [fxLayout]="isMobile ? 'row' : 'column'"
+            fxLayoutAlign="center center"
+            [fxFlex]="isMobile ? '100' : '15'"
+          >
+            <div
+              fxLayout
+              fxLayoutAlign="center center"
+              class="entity-stepper__icon"
+              [class.disabled]="!step.editable"
+              [class.bg-primary--500]="stepper.selectedIndex === i || step.completed"
+              [class.border-primary--500]="stepper.selectedIndex === i || step.completed"
+            >
+              <mat-icon
+                [class.text-default--fade]="stepper.selectedIndex !== i && !step.completed"
+                [class.text-primary-contrast--500]="stepper.selectedIndex === i || step.completed"
+              >
+                {{ step.completed ? 'check' : step.icon }}
+              </mat-icon>
+            </div>
+
+            <div
+              *ngIf="!last"
+              class="progress-line"
+              [class.progress-line--active]="step.completed"
+            ></div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-container *ngIf="stepper.selectedIndex === 0">
+        <p class="mat-title">Who is the student?</p>
+        <p class="mat-body-2 text-default--fade mb-32">
+          Please fill in the details below so that we can get in touch with your student
+        </p>
+
+        <form [formGroup]="studentForm">
+          <app-student-info
+            [studentInfoForm]="studentInfoForm"
+            [disableControlValue]="!!editingEnrollment"
+          ></app-student-info>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="stepper.selectedIndex === 1">
+        <p class="mat-title">Is this a 1-on-1 or a group student?</p>
+        <p class="mat-body-2 text-default--fade mb-32">
+          If this is a 1-on-1 student, you will need to complete steps 3 and 4 manually. Otherwise,
+          the student will inherit course and schedule info from the group.
+        </p>
+
+        <form [formGroup]="courseForm">
+          <div fxLayout fxLayoutAlign="center center" fxLayoutGap="40px" class="mb-32">
+            <div>
+              <input type="radio" value="oneOnOne" formControlName="sourceType" hidden #on1Radio />
+              <button
+                mat-button
+                [ngClass]="
+                  sourceTypeControl.value === 'oneOnOne'
+                    ? 'mat-raised-button'
+                    : 'mat-stroked-button'
+                "
+                [color]="sourceTypeControl.value === 'oneOnOne' ? 'primary' : ''"
+                class="class-info__radio"
+                fxLayout="column"
+                (click)="on1Radio.click()"
+              >
+                <mat-icon
+                  *ngIf="sourceTypeControl.value === 'oneOnOne'"
+                  class="check text-primary-contrast--500"
+                >
+                  check_circle
+                </mat-icon>
+                <mat-icon
+                  class="text-default--fade"
+                  [class.text-primary-contrast--500]="sourceTypeControl.value === 'oneOnOne'"
+                >
+                  person
+                </mat-icon>
+                <p
+                  class="text-default--fade mb-0"
+                  [class.text-primary-contrast--500]="sourceTypeControl.value === 'oneOnOne'"
+                >
+                  1-ON-1
+                </p>
+              </button>
+            </div>
+            <div>
+              <input type="radio" value="group" formControlName="sourceType" hidden #groupRadio />
+              <button
+                mat-button
+                [ngClass]="
+                  sourceTypeControl.value === 'group' ? 'mat-raised-button' : 'mat-stroked-button'
+                "
+                [color]="sourceTypeControl.value === 'group' ? 'primary' : ''"
+                class="class-info__radio"
+                fxLayout="column"
+                (click)="groupRadio.click()"
+              >
+                <mat-icon
+                  *ngIf="sourceTypeControl.value === 'group'"
+                  class="check text-primary-contrast--500"
+                >
+                  check_circle
+                </mat-icon>
+                <mat-icon
+                  class="text-default--fade"
+                  [class.text-primary-contrast--500]="sourceTypeControl.value === 'group'"
+                >
+                  groups
+                </mat-icon>
+                <p
+                  class="text-default--fade mb-0"
+                  [class.text-primary-contrast--500]="sourceTypeControl.value === 'group'"
+                >
+                  GROUP
+                </p>
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="sourceTypeControl.value === 'group'">
+            <p class="mat-title">Great! Now let’s find a group.</p>
+            <p class="mat-body-2 text-default--fade mb-32">
+              Use the filters below to facilitate your search. Separate different categories with a
+              comma. For example: Group A, Extensive, Monday, 7 am
+            </p>
+            <app-select-group-enrollment
+              [groups]="groups$ | async"
+              [selectedGroupControl]="selectedGroupControl"
+              [programControl]="programControl"
+              [levelControl]="levelControl"
+            ></app-select-group-enrollment>
+          </div>
+        </form>
+      </ng-container>
+      <ng-container *ngIf="stepper.selectedIndex === 2">
+        <p class="mat-title">What will be the student’s course?</p>
+        <p class="mat-body-2 text-default--fade mb-32">
+          Extensive, preparatory, or business. Starter or advanced.
+          <br />
+          Whatever it is, we've got you covered.
+        </p>
+
+        <div *ngIf="sourceTypeControl.value === 'oneOnOne'">
+          <app-select-program
+            [programControl]="programControl"
+            [levelControl]="levelControl"
+            [isEditing]="!!editingEnrollment"
+          ></app-select-program>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="stepper.selectedIndex === 3">
+        <p class="mat-title">When are the classes taking place?</p>
+        <p class="mat-body-2 text-default--fade mb-32">
+          First, use the selector to set the days of the week for the classes.
+          <br />
+          Then, set the starting and ending times.
+          <br />
+          If classes happen at different starting times during the week, you can add a second
+          timetable on the 'add more' icon in blue.
+        </p>
+        <app-invitation-events
+          [eventsForm]="eventsForm"
+          [sourceTypeControl]="sourceTypeControl"
+          [events]="events"
+          [type]="entity"
+          (addEventSource)="addEvent()"
+          (updateEventSource)="updateEvent($event)"
+          (removeEventSource)="removeEvent($event)"
+        >
+          <button fxFlexAlign="center" mat-button (click)="onOpenAvailability()">
+            <mat-icon>date_range</mat-icon>
+            availability
+          </button>
+        </app-invitation-events>
+        <app-weekly-availability hidden [eventsToAdd]="events.value"></app-weekly-availability>
+      </ng-container>
+      <ng-container *ngIf="stepper.selectedIndex === 4">
+        <app-review-entity
+          [entity]="entity"
+          [studentForm]="studentForm"
+          [groupForm]="groupForm"
+          [courseForm]="courseForm"
+          [eventsForm]="eventsForm"
+        ></app-review-entity>
+      </ng-container>
+    </cdk-step>
+  </ng-container>
+</app-add-entity-stepper>
+
+<!-- GROUP -->
+<app-add-entity-stepper
+  #stepper
+  *ngIf="entity === 'group'"
+  [entity]="entity"
+  [isMobile]="isMobile"
+  [isEditing]="!!editingGroup"
+  (submitFormEvent)="onSubmit()"
+>
+  <ng-container *ngFor="let step of groupSteps; let i = index; let last = last">
+    <cdk-step [completed]="step.completed" [editable]="step.editable">
+      <ng-template cdkStepLabel>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="start start"
+          [fxLayoutGap]="isMobile ? '0' : '16px'"
+          [class.cursor-pointer]="step.editable"
+          [class.cursor-disabled]="!step.editable"
+          (click)="onSelectStep(i)"
+        >
+          <div
+            *ngIf="!isMobile"
+            fxLayout="column"
+            fxLayoutGap="4px"
+            fxFlex="85"
+            class="entity-stepper__text"
+            [class.text-default--fade]="stepper.selectedIndex !== i && !step.completed"
+          >
+            <p class="mat-subheading-1" [class.disabled]="!step.editable">
+              {{ step.header }}
+            </p>
+            <p class="mat-caption" [class.disabled]="!step.editable">
+              {{ step.subheading }}
+            </p>
+          </div>
+          <div
+            [fxLayout]="isMobile ? 'row' : 'column'"
+            fxLayoutAlign="center center"
+            [fxFlex]="isMobile ? '100' : '15'"
+          >
+            <div
+              fxLayout
+              fxLayoutAlign="center center"
+              class="entity-stepper__icon"
+              [class.disabled]="!step.editable"
+              [class.bg-primary--500]="stepper.selectedIndex === i || step.completed"
+              [class.border-primary--500]="stepper.selectedIndex === i || step.completed"
+            >
+              <mat-icon
+                [class.text-default--fade]="stepper.selectedIndex !== i && !step.completed"
+                [class.text-primary-contrast--500]="stepper.selectedIndex === i || step.completed"
+              >
+                {{ step.completed ? 'check' : step.icon }}
+              </mat-icon>
+            </div>
+
+            <div
+              *ngIf="!last"
+              class="progress-line"
+              [class.progress-line--active]="step.completed"
+            ></div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-container *ngIf="stepper.selectedIndex === 0">
+        <p class="mat-title">What is the group's name?</p>
+        <p class="mat-body-2 text-default--fade mb-32">
+          Please fill in the details below so that you can identify the group later.
+        </p>
+
+        <app-group-info
+          [groupNameControl]="groupNameControl"
+          [groupProgramControl]="programControl"
+          [groupLevelControl]="levelControl"
+        ></app-group-info>
+      </ng-container>
+
+      <ng-container *ngIf="stepper.selectedIndex === 1">
+        <p class="mat-title">What will be the group’s course?</p>
+        <p class="mat-body-2 text-default--fade mb-32">
+          Extensive, preparatory, or business. Starter or advanced.
+          <br />
+          Whatever it is, we've got you covered.
+        </p>
+
+        <app-select-program
+          [programControl]="programControl"
+          [levelControl]="levelControl"
+          [isEditing]="!!editingGroup"
+        ></app-select-program>
+      </ng-container>
+      <ng-container *ngIf="stepper.selectedIndex === 2">
+        <p class="mat-title">When are the classes taking place?</p>
+        <p class="mat-body-2 text-default--fade mb-32">
+          First, use the selector to set the days of the week for the classes.
+          <br />
+          Then, set the starting and ending times.
+          <br />
+          If classes happen at different starting times during the week, you can add a second
+          timetable on the 'add more' icon in blue.
+        </p>
+        <app-invitation-events
+          [eventsForm]="eventsForm"
+          [sourceTypeControl]="sourceTypeControl"
+          [events]="events"
+          [type]="entity"
+          (addEventSource)="addEvent()"
+          (updateEventSource)="updateEvent($event)"
+          (removeEventSource)="removeEvent($event)"
+        >
+          <button fxFlexAlign="center" mat-button (click)="onOpenAvailability()">
+            <mat-icon>date_range</mat-icon>
+            availability
+          </button>
+        </app-invitation-events>
+        <app-weekly-availability hidden [eventsToAdd]="events.value"></app-weekly-availability>
+      </ng-container>
+      <ng-container *ngIf="stepper.selectedIndex === 3">
+        <app-review-entity
+          [entity]="entity"
+          [studentForm]="studentForm"
+          [groupForm]="groupForm"
+          [courseForm]="courseForm"
+          [eventsForm]="eventsForm"
+        ></app-review-entity>
+      </ng-container>
+    </cdk-step>
+  </ng-container>
+</app-add-entity-stepper>

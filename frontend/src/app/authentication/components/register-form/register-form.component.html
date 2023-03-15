@@ -1,0 +1,132 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px">
+  <form
+    name="registerForm"
+    [formGroup]="registerForm"
+    novalidate
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="20px"
+    (ngSubmit)="register()"
+  >
+    <mat-form-field appearance="outline" class="text-default">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        name="email"
+        formControlName="email"
+        type="email"
+        [disableControl]="studentInfo"
+      />
+
+      <mat-error *ngIf="registerForm.get('email').hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="registerForm.get('email').hasError('email')">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="text-default">
+      <mat-label>First Name</mat-label>
+      <input matInput name="firstName" formControlName="firstName" type="text" />
+
+      <mat-error *ngIf="registerForm.get('firstName').hasError('required')">
+        First Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="text-default">
+      <mat-label>Last Name</mat-label>
+      <input matInput name="lastName" formControlName="lastName" type="text" autocomplete="off" />
+
+      <mat-error *ngIf="registerForm.get('lastName').hasError('required')">
+        Last Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="text-default">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+
+      <mat-icon class="cursor-pointer" matSuffix (click)="onToggleShowPassword()">{{
+        showPassword ? 'visibility_off' : 'visibility'
+      }}</mat-icon>
+
+      <mat-error *ngIf="registerForm.get('password').hasError('required')">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="!registerForm.get('password').hasError('required')">
+        Passwords must be at 8-28 characters and contain at least 1 uppercase, 1 lowercase, 1 number
+        and 1 special character
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="text-default">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" formControlName="passwordConfirm" />
+
+      <mat-error *ngIf="registerForm.get('passwordConfirm').hasError('required')">
+        Password confirmation is required
+      </mat-error>
+      <mat-error
+        *ngIf="
+          !registerForm.get('passwordConfirm').hasError('required') &&
+          registerForm.get('passwordConfirm').hasError('passwordsNotMatching')
+        "
+      >
+        Passwords must match
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="text-default">
+      <mat-label>CPF</mat-label>
+      <input
+        matInput
+        type="text"
+        mask="CPF_CNPJ"
+        [showMaskTyped]="true"
+        [validation]="true"
+        placeHolderCharacter=" "
+        formControlName="cpf"
+      />
+
+      <mat-error *ngIf="registerForm.get('passwordConfirm').hasError('required')">
+        CPF is required
+      </mat-error>
+    </mat-form-field>
+
+    <app-address-input [address]="userAddress" [column]="true"></app-address-input>
+
+    <div class="terms mat-body-1" fxLayout="row" fxLayoutAlign="center end" fxLayoutGap="5px">
+      <mat-checkbox
+        color="primary"
+        formControlName="terms"
+        name="terms"
+        aria-label="Accept"
+        required
+      >
+        <span class="text-default">Accept</span>
+      </mat-checkbox>
+      <a (click)="showDialogTermsAndConditions()" class="text-primary--600 cursor-pointer">
+        Terms and Conditions
+      </a>
+    </div>
+
+    <button
+      fxFlexAlign="center"
+      mat-flat-button
+      color="primary"
+      type="submit"
+      aria-label="Register with E-mail"
+      [disabled]="registerForm.invalid || !!addressInputComponent?.formAddress?.invalid"
+    >
+      continue
+    </button>
+  </form>
+
+  <mat-error class="text-center mat-body-1" *ngIf="registerFailed">
+    Failed to register user
+  </mat-error>
+
+  <a mat-button fxFlexAlign="center" color="primary" [routerLink]="'/auth/login'"> login </a>
+</div>

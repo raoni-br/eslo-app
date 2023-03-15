@@ -1,0 +1,45 @@
+<ng-template tpAttach="topBarStart">
+    <app-eslo-letter-logo></app-eslo-letter-logo>
+    <app-top-bar-title text="Courses"></app-top-bar-title>
+</ng-template>
+
+<div *ngIf="program" id="academy-lessons" class="page-layout fullwidth tabbed left-sidebar inner-sidebar">
+    <div class="content">
+        <!-- CONTENT -->
+        <div *ngIf="levels" id="lesson-content" class="content">
+            <mat-tab-group (selectedIndexChange)="filterLessonsByLevel($event)">
+                <ng-container *ngFor="let level of levels">
+                    <mat-tab [label]="level.name"> </mat-tab>
+                </ng-container>
+            </mat-tab-group>
+        </div>
+        <div class="center" fusePerfectScrollbar>
+            <div fxLayout="column" fxLayoutAlign="center">
+                <div class="filters" fxLayout="row" fxLayoutAlign="end end">
+                        <div class="column-category-icons" *ngFor="let category of categories">
+                            <button
+                                (click)="filterLessonsByCategory(category)"
+                                mat-icon-button
+                                #tooltip="matTooltip"
+                                matTooltip="Show {{ category }} lessons"
+                            >
+                                <img
+                                    src="assets/icons/skill-icons/{{ category }}.png"
+                                    class="category-icon"
+                                    [ngClass]="{ selected: category === currentCategory || currentCategory === 'all' }"
+                                />
+                            </button>
+                    </div>
+                </div>
+
+                <div class="lessons" *ngIf="filteredLessons?.length > 0" fxLayout="row wrap" fxLayoutAlign="center">
+                    <div class="lesson" *ngFor="let lesson of filteredLessons" [ngClass]="lesson.category">
+                        <app-lesson-card [lesson]="lesson"> </app-lesson-card>
+                    </div>
+                </div>
+                <div class="no-lessons" *ngIf="!filteredLessons || filteredLessons.length === 0">No lessons found!</div>
+            </div>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

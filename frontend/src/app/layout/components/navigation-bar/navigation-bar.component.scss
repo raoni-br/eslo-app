@@ -1,0 +1,232 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+.hamburger {
+    display: inline-block;
+    cursor: pointer;
+    transition-property: opacity, filter;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+    font: inherit;
+    color: inherit;
+    text-transform: none;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    overflow: visible;
+    transform: scale(0.6);
+}
+
+.hamburger.is-active .hamburger-inner,
+.hamburger.is-active .hamburger-inner::before,
+.hamburger.is-active .hamburger-inner::after {
+    background-color: #fff;
+}
+
+.hamburger-box {
+    width: 40px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+}
+
+.hamburger-inner {
+    display: block;
+    top: 50%;
+    margin-top: -2px;
+}
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+    width: 40px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 4px;
+    position: absolute;
+    transition-property: transform;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+}
+.hamburger-inner::before,
+.hamburger-inner::after {
+    content: '';
+    display: block;
+}
+.hamburger-inner::before {
+    top: -10px;
+}
+.hamburger-inner::after {
+    bottom: -10px;
+}
+
+/*
+   * Spin
+   */
+.hamburger--spin .hamburger-inner {
+    transition-duration: 0.22s;
+    transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.hamburger--spin .hamburger-inner::before {
+    transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+}
+.hamburger--spin .hamburger-inner::after {
+    transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.hamburger--spin.is-active .hamburger-inner {
+    transform: rotate(225deg);
+    transition-delay: 0.12s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.hamburger--spin.is-active .hamburger-inner::before {
+    top: 0;
+    opacity: 0;
+    transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+}
+.hamburger--spin.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(-90deg);
+    transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/*
+     * Spin Reverse
+     */
+.hamburger--spin-r .hamburger-inner {
+    transition-duration: 0.22s;
+    transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.hamburger--spin-r .hamburger-inner::before {
+    transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+}
+.hamburger--spin-r .hamburger-inner::after {
+    transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.hamburger--spin-r.is-active .hamburger-inner {
+    transform: rotate(-225deg);
+    transition-delay: 0.12s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.hamburger--spin-r.is-active .hamburger-inner::before {
+    top: 0;
+    opacity: 0;
+    transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+}
+.hamburger--spin-r.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(90deg);
+    transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@mixin navigation-bar-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+    $accent: mat.get-color-from-palette(map-get($theme, accent));
+    $background: mat.get-color-from-palette(map-get($theme, background), background);
+    $background-contrast: mat.get-color-from-palette(map-get($theme, background), default-contrast);
+    $primary-contrast: mat.get-color-from-palette(map-get($theme, primary), '500-contrast');
+    $is-dark: map-get($theme, is-dark);
+
+    .navigation-bar {
+        display: flex;
+        height: 56px;
+        z-index: 1;
+
+        @include mq.layout-bp(gt-xs) {
+            flex-direction: column;
+            padding: 18px;
+        }
+
+        &__wrapper {
+            will-change: background-color, border-radius;
+            background-color: $background;
+            flex: 1;
+            z-index: 2;
+            transition: background-color 2s;
+            border-radius: 0;
+            margin-bottom: 5px;
+            position: relative;
+
+            @include mq.layout-bp(xs) {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        &__menu-button {
+            padding: 0;
+            border: none;
+            outline: none;
+            height: 100%;
+            width: 56px;
+            height: 54px;
+            z-index: 3;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: $primary !important;
+            color: $primary-contrast !important;
+        }
+
+        &__menu-card {
+            position: absolute;
+            top: -65px;
+            z-index: 10;
+            padding: 0;
+            border-radius: 24px;
+            min-width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &__button {
+            padding: 0;
+            background-color: $background !important;
+            border: none;
+            outline: none;
+            height: 100%;
+            width: 56px;
+            // height: 56px;
+            z-index: 3;
+            cursor: pointer;
+            border-radius: 50%;
+
+            @if ($is-dark) {
+                color: white;
+            } @else {
+                color: black;
+            }
+
+            mat-icon {
+                transition: all 0.3s;
+            }
+
+            @include mq.layout-bp(gt-xs) {
+                width: 72px;
+                height: 72px;
+            }
+
+            &--active {
+                color: $primary !important;
+
+                @include mq.layout-bp(gt-xs) {
+                    background-color: $primary !important;
+                    color: $primary-contrast !important;
+                }
+
+                mat-icon {
+                    font-size: 28px;
+                    width: 28px;
+                    height: 28px;
+
+                    @include mq.layout-bp(gt-xs) {
+                        font-size: 32px;
+                        width: 32px;
+                        height: 32px;
+                    }
+                }
+            }
+        }
+    }
+}

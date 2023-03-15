@@ -1,0 +1,16 @@
+<div [formGroup]="studentInfoForm" fxLayout="column" fxLayoutAlign="stretch">
+  <mat-form-field appearance="outline">
+    <mat-label>First name</mat-label>
+    <input matInput formControlName="firstName" type="text" [disableControl]="disableControlValue" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Last name</mat-label>
+    <input matInput formControlName="lastName" type="text" [disableControl]="disableControlValue" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="email" [disableControl]="disableControlValue" />
+  </mat-form-field>
+</div>

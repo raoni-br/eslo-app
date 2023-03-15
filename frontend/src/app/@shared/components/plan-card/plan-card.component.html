@@ -1,0 +1,27 @@
+<div
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  fxLayoutGap="32px"
+  class="plan-card bg-primary--50"
+>
+  <div>
+    <p class="mat-display-1">{{ plan.name }}</p>
+  </div>
+  <div>
+    <p class="mat-body-1 text-center">{{ plan.description }}</p>
+  </div>
+  <div>
+    <p class="mat-display-2 text-primary--500">
+      {{ getPlanPrice(plan.prices).unitTotalAmount | currency: 'BRL' }}
+      <span class="mat-subheading-1 text-primary--500">
+        /{{ getPlanPrice(plan.prices).pricePeriod | intervalLabel }}
+      </span>
+    </p>
+  </div>
+  <div fxLayout="column" fxLayoutGap="12px">
+    <div fxLayout fxLayoutAlign="center center" fxLayoutGap="8px">
+      <mat-icon color="primary">check_circle</mat-icon>
+      <p class="mat-caption">{{ plan.subcategory.description }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<mat-card
+  class="lesson-card mat-elevation-z2"
+  (mouseenter)="hover = true"
+  (mouseleave)="hover = false"
+  [class.mat-elevation-z8]="hover"
+>
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+    <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" class="w-100">
+      <div fxLayout="column" fxLayoutAlign="start start" class="w-100">
+        <p [title]="lesson?.title" class="mat-title m-0 title-max-width">
+          {{ lesson?.title }}
+        </p>
+        <span class="mat-body-2">{{ lesson?.category | titlecase }}</span>
+      </div>
+      <span class="mat-body-2 text-black-opacity-06"> {{ lesson?.subject }}</span>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center" class="p-t-7">
+    <!-- <button mat-button color="primary" (click)="goToClass(lesson)">plan lesson</button> -->
+    <small class="mat-caption text-black-opacity-06">#{{ lesson?.levelOrder }}</small>
+  </div>
+</mat-card>

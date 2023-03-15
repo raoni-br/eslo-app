@@ -1,0 +1,25 @@
+{
+  "name": "platform-app",
+  "version": "0.0.0-development",
+  "description": "eslo platform",
+  "scripts": {
+    "semantic-release:dev": "semantic-release --dry-run --no-ci",
+    "semantic-release:prod": "semantic-release --no-ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eslo-platform/platform-app.git"
+  },
+  "author": "eslo-platform",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eslo-platform/platform-app/issues"
+  },
+  "homepage": "https://github.com/eslo-platform/platform-app#readme",
+  "devDependencies": {
+    "semantic-release": "^17.4.2"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

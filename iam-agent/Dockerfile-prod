@@ -1,0 +1,9 @@
+FROM openpolicyagent/opa:0.30.1
+
+COPY ./data /data
+COPY ./policies /policies
+
+ENV PORT 8181
+EXPOSE 8181
+
+CMD ["run", "--server", "--authentication=token", "--authorization=basic", "/data", "/policies"]

@@ -1,0 +1,147 @@
+{
+  "queries": [
+    {
+      "name": "__schema"
+    },
+    {
+      "name": "__type"
+    },
+    {
+      "name": "enrollment"
+    },
+    {
+      "name": "lesson"
+    },
+    {
+      "name": "program"
+    },
+    {
+      "name": "programs"
+    },
+    {
+      "name": "myProfile"
+    },
+    {
+      "name": "myCalendar"
+    },
+    {
+      "name": "adminDataExtractor"
+    },
+    {
+      "name": "findGroupByTeacher"
+    },
+    {
+      "name": "findGroupById"
+    },
+    {
+      "name": "invoicePreview"
+    },
+    {
+      "name": "classroom"
+    },
+    {
+      "name": "product"
+    },
+    {
+      "name": "products"
+    },
+    {
+      "name": "subscription"
+    },
+    {
+      "name": "subscriptionByStripeCheckoutId"
+    },
+    {
+      "name": "teacherDashboard"
+    },
+    {
+      "name": "studentDashboard"
+    },
+    {
+      "name": "liveChatToken"
+    },
+    {
+      "name": "getUserTutorialForm"
+    },
+    {
+      "name": "userSubscriptions"
+    }
+  ],
+  "mutations": [
+    {
+      "name": "changeEnrollmentSchedule"
+    },
+    {
+      "name": "createEnrollment"
+    },
+    {
+      "name": "cancelEnrollment"
+    },
+    {
+      "name": "removeStudentFromGroup"
+    },
+    {
+      "name": "activateEnrollment"
+    },
+    {
+      "name": "changeSpecificEvent"
+    },
+    {
+      "name": "startClass"
+    },
+    {
+      "name": "finishClass"
+    },
+    {
+      "name": "editFinishedClass"
+    },
+    {
+      "name": "revertFinishedClassStatus"
+    },
+    {
+      "name": "revertLessonStatus"
+    },
+    {
+      "name": "changeMyPassword"
+    },
+    {
+      "name": "updateMyProfile"
+    },
+    {
+      "name": "createStudyGroup"
+    },
+    {
+      "name": "removeStudyGroup"
+    },
+    {
+      "name": "updateStudyGroup"
+    },
+    {
+      "name": "createProduct"
+    },
+    {
+      "name": "createProductPrice"
+    },
+    {
+      "name": "createSubscriptionCheckout"
+    },
+    {
+      "name": "addStudentToGroup"
+    },
+    {
+      "name": "updateProductPrice"
+    },
+    {
+      "name": "createSubscription"
+    },
+    {
+      "name": "activateAndUpgradeSubscription"
+    },
+    {
+      "name": "createPaymentMethodCheckoutMutation"
+    },
+    {
+      "name": "submitUserTutorialForm"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+<div *ngIf="activities" id="lesson-content" fxLayout="row">
+    <!-- SIDEBAR -->
+    <!-- SIDEBAR CONTENT -->
+    <div class="content">
+        <div class="steps">
+            <div
+                class="step step-background"
+                *ngFor="let activity of activities; let i = index; let last = last; let first = first"
+                (click)="goToActivity(activity)"
+                [ngClass]="{
+                    current: currentActivity === activity,
+                    'primary-50': currentActivity === activity,
+                    last: last,
+                    first: first
+                }"
+            >
+                <div
+                    class="index"
+                    [ngClass]="{ 'accent-border-color': currentActivity === activity }"
+                    fxLayout
+                    fxLayoutGap="10px"
+                >
+                    <span class="step-index">{{ i + 1 }}</span>
+                    <div class="title">{{ activity.title }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / SIDEBAR CONTENT -->
+    <!-- / SIDEBAR -->
+
+    <div class="lesson-slides">
+        <app-lesson-media-content
+            [mediaContent]="currentActivity.activitySlides"
+            [enableFirstStep]="true"
+            [lastStepStyle]="currentActivity === activities[activities.length - 1] ? 'done' : 'forward'"
+            (firstStepClick)="onFirstStepClick($event)"
+            (lastStepClick)="onLastStepClick($event)"
+        ></app-lesson-media-content>
+    </div>
+</div>

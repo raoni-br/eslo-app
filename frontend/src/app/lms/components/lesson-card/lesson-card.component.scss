@@ -1,0 +1,34 @@
+.p-t-7 {
+    padding-top: 7px;
+}
+
+.p-t-25 {
+    padding-top: 25px;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.title-max-width {
+    max-width: 98%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lesson-card {
+    border-radius: 14px;
+    position: relative;
+    cursor: pointer;
+
+    mat-icon {
+        font-size: 30px;
+        width: 26px;
+        height: 33px;
+    }
+}

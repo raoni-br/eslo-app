@@ -1,0 +1,37 @@
+<div class="lessons__container">
+  <div class="lessons__filters">
+    <mat-chip-list
+      #chipList
+      aria-label="Lesson selection"
+      class="mat-body-2"
+      [multiple]="true"
+      (change)="onChangeList($event)"
+    >
+      <mat-chip
+        *ngFor="let filter of filters; let i = index"
+        [selected]="filter.selected"
+        [value]="filter.value"
+        #chip="matChip"
+        (click)="onSelectChip(filter, chip)"
+        (selectionChange)="onChangeSelected($event, filter)"
+      >
+        <mat-icon *ngIf="chip.selected">check</mat-icon>
+        {{ filter.value | titlecase }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <section
+    gdColumns.xs="repeat(auto-fill, minmax(300px, 1fr))"
+    gdColumns.gt-xs="repeat(auto-fill, minmax(320px, 1fr))"
+    gdGap.xs="24px"
+    gdGap.gt-xs="46px"
+    gdAlignColumns="start stretch"
+    gdAuto
+    style="z-index: -1"
+  >
+    <div *ngFor="let lesson of lessons | filterLessons: selectedFilters">
+      <app-lesson-card [lesson]="lesson" (click)="goToClass(lesson)"></app-lesson-card>
+    </div>
+  </section>
+</div>

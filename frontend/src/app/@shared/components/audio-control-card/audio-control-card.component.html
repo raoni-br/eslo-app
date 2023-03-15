@@ -1,0 +1,73 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-card class="audio-card mat-elevation-z4">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="play()"
+          [disabled]="state?.error"
+          *ngIf="!state?.playing"
+        >
+          <mat-icon class="icon-size">play_circle_filled</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" (click)="pause()" *ngIf="state?.playing">
+          <mat-icon class="icon-size">pause_circle_filled</mat-icon>
+        </button>
+
+        <div class="mat-caption" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1px">
+          <span>{{ state?.readableCurrentTime }}</span>
+          <span>/</span>
+          <span>{{ state?.readableDuration || '00:00' }}</span>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" style="position: relative">
+          <mat-form-field class="audio-card__select">
+            <mat-select
+              #select
+              color="primary"
+              class="mat-caption"
+              [value]="currentAudio"
+              (selectionChange)="onChangeCurrentAudio($event)"
+            >
+              <mat-option *ngFor="let audio of audioList" [value]="audio">
+                <span>Audio {{ audio.order }}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-icon (click)="select.open()" color="primary" class="select-icon">
+            expand_less
+          </mat-icon>
+        </div>
+      </div>
+
+      <mat-slider
+        color="accent"
+        min="0"
+        [max]="state?.duration"
+        step="1"
+        [value]="state?.currentTime"
+        (input)="onSliderChangeEnd($event)"
+        [disabled]="state?.error || currentFile.index === undefined"
+        style="width: 100%; padding: 0"
+      ></mat-slider>
+
+      <button mat-icon-button color="primary" (click)="toggleVolume()">
+        <mat-icon>
+          {{ state?.muted ? 'volume_off' : state?.volume > 50 ? 'volume_up' : 'volume_down' }}
+        </mat-icon>
+      </button>
+
+      <mat-card class="audio-card__volume mat-elevation-z6" *ngIf="showVolume">
+        <mat-slider
+          color="primary"
+          vertical
+          thumbLabel
+          [value]="state?.volume"
+          (valueChange)="onChangeVolume($event)"
+        ></mat-slider>
+      </mat-card>
+    </div>
+  </mat-card>
+</div>

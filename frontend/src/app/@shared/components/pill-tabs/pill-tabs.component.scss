@@ -1,0 +1,53 @@
+@use '~@angular/material' as mat;
+@mixin pill-tabs-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+    $accent: mat.get-color-from-palette(map-get($theme, accent));
+
+    $accent-200: mat.get-color-from-palette(map-get($theme, accent), 200);
+
+    $background: mat.get-color-from-palette(map-get($theme, background), card);
+
+    .tabs {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 20px 0 15px 0;
+
+        mat-icon {
+            color: $background;
+            opacity: 0.38;
+
+            &.active-icon {
+                color: $background;
+                opacity: 1;
+            }
+
+            &.completed-icon {
+                color: $accent-200;
+                opacity: 1;
+            }
+        }
+
+        &__tab {
+            position: relative;
+            border: 1px solid $background;
+            color: $background;
+            border-radius: 28px;
+            min-width: 65px;
+            height: 36px;
+
+            &--active {
+                color: $accent;
+                background-color: $background;
+            }
+
+            &--completed {
+                border: 1px solid $accent-200;
+            }
+        }
+    }
+
+    .below-tabs {
+        margin-bottom: 20px;
+    }
+}

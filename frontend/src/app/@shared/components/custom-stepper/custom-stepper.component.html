@@ -1,0 +1,31 @@
+<section fxLayout="row">
+  <div
+    fxLayout="column"
+    fxLayoutAlign="space-between center"
+    class="stepper__navigation"
+    [class.stepper__navigation--has-audio]="hasAudio"
+  >
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px">
+      <div
+        class="custom-stepper__step-number"
+        [class.custom-stepper__step-number--active]="selectedIndex === i"
+        *ngFor="let step of steps; let i = index; let first = first"
+        (click)="selectStepByIndex(i)"
+        fxLayout
+        fxLayoutAlign="center center"
+      >
+        <ng-container *ngIf="hasWarmUp">
+          <mat-icon *ngIf="first">whatshot</mat-icon>
+          <span *ngIf="!first">{{ i }}</span>
+        </ng-container>
+        <ng-container *ngIf="!hasWarmUp">
+          <span>{{ i + 1 }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout fxLayoutAlign="center center" class="custom-stepper__content" >
+    <div [ngTemplateOutlet]="selected ? selected.content : null"></div>
+  </div>
+</section>

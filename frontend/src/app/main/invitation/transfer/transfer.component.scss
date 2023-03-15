@@ -1,0 +1,151 @@
+.text-center {
+  text-align: center;
+}
+
+invitation-welcome {
+  #register {
+      width: 100%;
+      padding: 128px;
+      margin-top: 128px;
+      overflow: hidden;
+      background: url('/assets/images/backgrounds/banner-logoless.jpg') no-repeat;
+      background-size: cover;
+
+      #register-intro {
+          .logo {
+              width: 128px;
+              margin-bottom: 32px;
+          }
+
+          .title {
+              font-size: 60px;
+              font-weight: 600;
+              line-height: 1;
+          }
+
+          .description {
+              padding-top: 4px;
+              font-size: 16px;
+              font-weight: 600;
+              max-width: 600px;
+          }
+      }
+
+      #register-form-wrapper {
+          width: 400px;
+          min-width: 400px;
+          max-width: 400px;
+          overflow: auto;
+          -webkit-overflow-scrolling: touch;
+          padding: 128px 48px 48px 48px;
+
+          #register-form {
+              padding: 128px 48px 48px 48px;
+
+              .logo {
+                  width: 128px;
+                  margin: 32px auto;
+              }
+
+              .title {
+                  text-align: center;
+                  font-size: 21px;
+              }
+
+              .description {
+                  padding-top: 8px;
+              }
+
+              form {
+                  width: 100%;
+
+                  mat-form-field {
+                      width: 100%;
+                  }
+
+                  mat-checkbox {
+                      margin: 0;
+                  }
+
+                  .terms {
+                      margin: 16px 0 32px 0;
+
+                      a {
+                          cursor: pointer;
+                          font-size: 16px;
+                          margin-left: 4px;
+                      }
+                  }
+
+                  .submit-button {
+                      width: 100%;
+                      margin: 16px auto;
+                      display: block;
+                  }
+              }
+
+              .separator {
+                  font-size: 15px;
+                  font-weight: 600;
+                  margin: 24px auto;
+                  position: relative;
+                  overflow: hidden;
+                  width: 100px;
+                  text-align: center;
+
+                  .text {
+                      display: inline-flex;
+                      position: relative;
+                      padding: 0 8px;
+                      z-index: 9999;
+
+                      &:before,
+                      &:after {
+                          content: '';
+                          display: block;
+                          width: 30px;
+                          position: absolute;
+                          top: 10px;
+                          border-top: 1px solid;
+                      }
+
+                      &:before {
+                          right: 100%;
+                      }
+
+                      &:after {
+                          left: 100%;
+                      }
+                  }
+              }
+
+              button {
+                  &.google,
+                  &.facebook {
+                      width: 100%;
+                      text-transform: none;
+                      color: #ffffff;
+                      font-size: 13px;
+
+                      mat-icon {
+                          color: #ffffff;
+                          margin: 0 8px 0 0;
+                      }
+                  }
+
+                  &.google {
+                      background-color: #d73d32;
+                      margin-bottom: 8px;
+                  }
+
+                  &.facebook {
+                      background-color: rgb(63, 92, 154);
+                  }
+              }
+          }
+      }
+  }
+}
+#register-form {
+  padding: 128px 48px 48px 48px;
+}   

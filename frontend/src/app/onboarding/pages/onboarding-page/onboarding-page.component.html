@@ -1,0 +1,7 @@
+<ng-container *ngIf="user$ | async as user">
+  <ng-template tpAttach="topBarStart">
+    <app-back-button></app-back-button>
+    <app-top-bar-title [text]="'Hi, ' + user.firstName"></app-top-bar-title>
+  </ng-template>
+</ng-container>
+

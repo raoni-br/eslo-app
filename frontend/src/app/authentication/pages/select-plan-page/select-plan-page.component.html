@@ -1,0 +1,23 @@
+<!-- <app-auth-layout
+  maxWidth="365px"
+  [imageOptions]="hasCancelledSubscription ? imageCancelledOptions : imageNormalOptions"
+> -->
+
+<div
+  fxLayout
+  fxLayoutAlign="center start"
+  class="mat-app-background"
+  style="width: 100%; padding: 32px 26px"
+>
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+    <app-eslo-orb></app-eslo-orb>
+    <app-plans-list
+      [plans]="plans$ | async"
+      (payEvent)="onPay($event)"
+      (startFreeTrial)="onStartFreeTrial($event)"
+      [hasCancelledSubscription]="hasCancelledSubscription"
+    ></app-plans-list>
+  </div>
+</div>
+
+<!-- </app-auth-layout> -->

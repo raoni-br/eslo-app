@@ -1,0 +1,236 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{
+        updateEnrollment ? 'Edit enrollment' : 'Send New Invitation'
+      }}</span>
+      <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+    <form [formGroup]="enrollmentForm">
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>First Name</mat-label>
+          <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+          <input
+            name="name"
+            formControlName="firstName"
+            matInput
+            required
+            [disableControl]="updateEnrollment"
+          />
+          <mat-error> First Name is required </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Last Name</mat-label>
+          <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+          <input
+            name="lastName"
+            formControlName="lastName"
+            matInput
+            required
+            [disableControl]="updateEnrollment"
+          />
+          <mat-error> Last Name is required </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Email</mat-label>
+          <mat-icon matSuffix class="secondary-text">email</mat-icon>
+          <input
+            name="email"
+            formControlName="email"
+            matInput
+            type="email"
+            required
+            [disableControl]="updateEnrollment"
+          />
+          <mat-error> A valid email is required </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Course</mat-label>
+          <mat-select
+            formControlName="program"
+            (selectionChange)="getLevels()"
+            [disableControl]="updateEnrollment"
+          >
+            <mat-option *ngFor="let program of programs" [value]="program">
+              {{ program.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error> Course is required </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Level</mat-label>
+          <mat-select formControlName="level" [disableControl]="updateEnrollment">
+            <mat-option *ngFor="let level of levels" [value]="level">
+              {{ level.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error> Level is required </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span>Schedule:</span>
+
+          <!--Warning of required event - shows only for the first event-->
+          <button
+            *ngIf="
+              enrollmentForm.get('events').value.length === 1 &&
+              enrollmentForm.get('events').hasError('invalidEvent')
+            "
+            mat-icon-button
+            matTooltip="You must add at least one recurring event"
+            matTooltipPosition="right"
+            color="warn"
+          >
+            <mat-icon>error_outline</mat-icon>
+          </button>
+
+          <!--Warning of event missing information - shows only when hasError('invalidEvent')-->
+          <button
+            *ngIf="
+              enrollmentForm.get('events').value.length > 1 &&
+              enrollmentForm.get('events').hasError('invalidEvent')
+            "
+            mat-icon-button
+            matTooltip="Event(s) missing information"
+            matTooltipPosition="right"
+            color="warn"
+          >
+            <mat-icon>error_outline</mat-icon>
+          </button>
+
+          <!--Ok sign - shows when there's no error-->
+          <button
+            *ngIf="!enrollmentForm.get('events').hasError('invalidEvent')"
+            mat-icon-button
+            class="green-500-fg"
+          >
+            <mat-icon>check_circle_outline</mat-icon>
+          </button>
+        </div>
+
+        <div>
+          <button mat-icon-button color="primary" (click)="addEvent()">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </div>
+      </div>
+      <ng-container formArrayName="events" *ngIf="events.controls">
+        <div fxLayout="column">
+          <ng-container
+            *ngFor="let eventControl of events.controls; let index = index; let first = first"
+          >
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *ngIf="eventControl.value.changeStatus !== 'DELETED'"
+            >
+              <app-schedule-input
+                [event]="eventControl.value"
+                (eventChange)="updateEvent($event, index)"
+                fxFlex="1 1 auto"
+              ></app-schedule-input>
+              <button
+                [class.hidden]="events.controls | checkEventsControls: eventControl"
+                mat-icon-button
+                color="warn"
+                (click)="removeEvent(index)"
+              >
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <mat-expansion-panel class="mt-12 mat-elevation-z0">
+        <mat-expansion-panel-header class="px-0 mx-8"> Availability </mat-expansion-panel-header>
+        <app-weekly-availability></app-weekly-availability>
+      </mat-expansion-panel>
+
+      <ng-container *ngIf="!updateEnrollment">
+        <div class="terms mat-typography" fxLayout="row" fxLayoutAlign="center center">
+          <mat-checkbox color="primary" formControlName="termsAndConditions" aria-label="Accept" required>
+            <span>Accept <a (click)="showDialogTermsAndConditions()" class="cursor-pointer">Terms and Conditions</a></span>
+          </mat-checkbox>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex="90%" fxFlexAlign="center">
+            <h5 class="mat-body-2">
+              <mat-icon class="s-24 yellow-800-fg secondary-text"> priority_high </mat-icon>
+              By accepting the terms, you will be charged R$34,90 montly for your student's
+              subscription.
+            </h5>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </div>
+
+  <div
+    *ngIf="!updateEnrollment"
+    mat-dialog-actions
+    class="m-0 p-16"
+    fxLayout="row"
+    fxLayoutAlign="end center"
+  >
+    <button
+      mat-button
+      (click)="matDialogRef.close(enrollmentForm)"
+      [disabled]="enrollmentForm.invalid"
+      aria-label="SAVE"
+      color="primary"
+    >
+      Send Invitation
+    </button>
+  </div>
+
+  <div
+    *ngIf="updateEnrollment"
+    mat-dialog-actions
+    class="m-0 pr-24 pb-24"
+    fxLayout="column"
+    fxLayoutAlign="center stretch"
+    fxLayoutGap="16px"
+  >
+    <button
+      mat-raised-button
+      fxFlexAlign="center"
+      color="primary"
+      (click)="onChangeSchedule()"
+      aria-label="Change schedule"
+      [disabled]="enrollmentForm.invalid"
+    >
+      CHANGE SCHEDULE
+    </button>
+    <button
+      fxFlexAlign="end"
+      mat-button
+      color="warn"
+      (click)="onCancel()"
+      aria-label="Cancel enrollment"
+    >
+      Cancel enrollment
+    </button>
+  </div>
+</div>

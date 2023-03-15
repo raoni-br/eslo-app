@@ -1,0 +1,28 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.courses__container {
+    padding: 24px 8px;
+
+    @include mq.layout-bp(gt-xs) {
+        padding: 32px 24px;
+    }
+}
+
+.courses__card {
+    border-radius: 14px;
+    cursor: pointer;
+
+    mat-icon {
+        font-size: 30px;
+        width: 26px;
+        height: 33px;
+    }
+}
+
+.p-t-25 {
+    padding-top: 25px;
+}
+
+.m-0 {
+    margin: 0;
+}

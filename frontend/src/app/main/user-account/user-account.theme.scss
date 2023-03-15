@@ -1,0 +1,38 @@
+@use '~@angular/material' as mat;
+@mixin user-account-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    $is-dark: map-get($theme, is-dark);
+
+    #user-account {
+        width: 100%;
+        background: url('/assets/images/backgrounds/banner-logoless.jpg') no-repeat;
+        background-size: cover;
+
+        #user-account-form-wrapper {
+            flex: 1 0 auto;
+            padding: 32px;
+
+          
+
+            #user-account-form {
+                @if ($is-dark) {
+                    background: mat.get-color-from-palette($primary, 600);
+                } @else {
+                    background: map-get($background, card);
+                }
+
+                max-width: 480px;
+                padding: 48px;
+                text-align: center;
+               
+
+                .subtitle {
+                    color: map-get($foreground, secondary-text);
+                }
+            }
+        }
+    }
+}

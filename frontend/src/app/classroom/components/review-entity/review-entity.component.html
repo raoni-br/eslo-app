@@ -1,0 +1,51 @@
+<ng-container *ngIf="entity === 'student'">
+  <p class="mat-title">Who is the student?</p>
+  <p class="mat-body-2 text-default--fade">
+    {{ studentForm?.getRawValue()?.studentInfo?.firstName }}
+    {{ studentForm?.getRawValue()?.studentInfo?.lastName }}
+    <br />
+    {{ studentForm?.getRawValue()?.studentInfo?.email }}
+  </p>
+  <p class="mat-title">Is this a 1-on-1 or a group student?</p>
+  <p class="mat-body-2 text-default--fade">
+    {{ courseForm?.getRawValue()?.sourceType === 'oneOnOne' ? '1-on-1' : 'Group' }}
+    <span *ngIf="courseForm?.getRawValue()?.sourceType === 'group'" class="mat-body-2 text-default--fade">
+      ({{ studentForm?.getRawValue()?.selectedGroup?.name }})
+    </span>
+  </p>
+  <p class="mat-title">What will be the student’s course?</p>
+  <p *ngIf="courseForm?.getRawValue()?.sourceType === 'oneOnOne'" class="mat-body-2 text-default--fade">
+    {{ courseForm?.getRawValue()?.program?.label }} - {{ courseForm?.getRawValue()?.level?.name }}
+  </p>
+  <p *ngIf="courseForm?.getRawValue()?.sourceType === 'group'" class="mat-body-2 text-default--fade">
+    {{ studentForm?.getRawValue()?.selectedGroup?.level?.module?.program?.label }} -
+    {{ studentForm?.getRawValue()?.selectedGroup?.level?.name }}
+  </p>
+  <p class="mat-title">When are the classes taking place?</p>
+  <div fxLayout="column" *ngIf="courseForm?.getRawValue()?.sourceType === 'oneOnOne'">
+    <ng-container *ngFor="let event of eventsForm?.getRawValue()?.events | formatEventsDate">
+      <p class="mat-body-2 text-default--fade">{{ event?.date | titlecase }}, {{ event?.time }}</p>
+    </ng-container>
+  </div>
+  <div fxLayout="column" *ngIf="courseForm?.getRawValue()?.sourceType === 'group'">
+    <ng-container
+      *ngFor="let event of studentForm?.getRawValue()?.selectedGroup?.events | formatEventsDate"
+    >
+      <p class="mat-body-2 text-default--fade">{{ event?.date | titlecase }}, {{ event?.time }}</p>
+    </ng-container>
+  </div>
+</ng-container>
+<ng-container *ngIf="entity === 'group'">
+  <p class="mat-title">What is the group’s name?</p>
+  <p class="mat-body-2 text-default--fade">{{ groupForm?.getRawValue()?.name }}</p>
+  <p class="mat-title">What will be the group’s course?</p>
+  <p class="mat-body-2 text-default--fade">
+    {{ courseForm?.getRawValue()?.program?.label }} - {{ courseForm?.getRawValue()?.level?.name }}
+  </p>
+  <p class="mat-title">When are the classes taking place?</p>
+  <div fxLayout="column">
+    <ng-container *ngFor="let event of eventsForm?.getRawValue()?.events | formatEventsDate">
+      <p class="mat-body-2 text-default--fade">{{ event?.date | titlecase }}, {{ event?.time }}</p>
+    </ng-container>
+  </div>
+</ng-container>

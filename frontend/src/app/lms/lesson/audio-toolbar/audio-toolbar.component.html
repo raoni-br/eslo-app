@@ -1,0 +1,19 @@
+<div class="audio-toolbar" fxLayout="row" fxLayoutAlign="end center">
+    <div class="audio-wrapper grey-50-bg" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="start center">
+        <mat-icon class="s-32 primary-500-fg" fxFlex="1 1 none">play_lesson</mat-icon>
+        <div class="audio-select"  fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field appearance="outline" fxFlex="3 1 auto">
+                <mat-select [(value)]="currentAudio">
+                    <mat-option *ngFor="let audio of audioList" [value]="audio"> Audio {{ audio.order }} </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <audio
+            controls
+            controlsList="nodownload"
+            class="audio-control"
+            fxFlex="2 1 auto"
+            [src]="currentAudio.media.rootUri"
+        ></audio>
+    </div>
+</div>

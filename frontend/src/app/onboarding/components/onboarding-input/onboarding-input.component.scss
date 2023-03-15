@@ -1,0 +1,18 @@
+@use '~@angular/material' as mat;
+@use '../../../../styles/abstracts/mixins' as mix;
+
+@mixin theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary), 500);
+
+    .onboarding-input-field__input {
+      @include mix.mat-body-1-text;
+      padding: 8px 16px;
+      border-radius: 7px;
+      caret-color: $primary;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background-color: transparent;
+      &:focus {
+          outline: 1px solid $primary;
+      }
+  }
+}

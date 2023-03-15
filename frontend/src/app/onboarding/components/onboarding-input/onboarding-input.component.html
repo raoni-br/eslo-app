@@ -1,0 +1,11 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <input
+    [type]="input.valueType"
+    [placeholder]="input.placeholder"
+    [(ngModel)]="vm[key]"
+    [name]="key"
+    [required]="input.required"
+    class="onboarding-input-field__input"
+  />
+</ng-container>
+

@@ -1,0 +1,17 @@
+{
+    "esloDomains": ["eslo.com.br", "admin.eslo"],
+    "teacherSubcategoryCodes": ["teacher_smart"],
+    "studentSubcategoryCodes": ["teacher_student_licence"],
+    "productFeatures": {
+        "teacher-smart": {
+            "lms": {
+                "programs" : ["5be68e4a-fcfe-4a99-9ae7-ad459b4482b7"]
+            }
+        },
+        "student-extensive": {
+            "lms": {
+                "programs" : ["5be68e4a-fcfe-4a99-9ae7-ad459b4482b7"]
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+  <div fxLayout fxLayoutAlign="center center" fxLayoutGap="40px">
+    <div *ngFor="let program of programs; let i = index">
+      <button
+        mat-button
+        [ngClass]="selectedProgramIndex === i ? 'mat-raised-button' : 'mat-stroked-button'"
+        [color]="selectedProgramIndex === i ? 'primary' : ''"
+        class="class-info__radio"
+        fxLayout="column"
+        (click)="onSelectProgram(i)"
+        [disabled]="isEditing"
+      >
+        <mat-icon *ngIf="selectedProgramIndex === i" class="check text-primary-contrast--500">
+          check_circle
+        </mat-icon>
+        <mat-icon
+          class="text-default--fade"
+          [class.text-primary-contrast--500]="selectedProgramIndex === i"
+        >
+          {{ program.icon }}
+        </mat-icon>
+        <p
+          class="text-default--fade mb-0"
+          [class.text-primary-contrast--500]="selectedProgramIndex === i"
+        >
+          {{ program.label }}
+        </p>
+      </button>
+    </div>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="levels-selector" fxLayout>
+      <ng-container *ngFor="let level of levels; let i = index; let last = last">
+        <button
+          mat-button
+          class="levels-selector__item"
+          [disabled]="isEditing"
+          (click)="onLevelSelected(i)"
+          [ngClass]="levelControl.value?.code === level.code ? 'mat-flat-button' : 'mat-button'"
+          [color]="levelControl.value?.code === level.code ? 'primary' : ''"
+          [class.levels-selector__item--last-child]="last"
+        >
+          <span
+            class="text-default--fade"
+            [class.text-primary-contrast--500]="levelControl.value?.code === level.code"
+          >
+            {{ level?.name | slice: 0:2 }}
+          </span>
+        </button>
+      </ng-container>
+      <span class="mat-caption levels-selector__level-label" *ngIf="levelControl.value">
+        {{ levelControl.value?.label }}
+      </span>
+    </div>
+  </div>
+</div>

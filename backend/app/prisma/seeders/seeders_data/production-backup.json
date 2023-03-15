@@ -1,0 +1,407 @@
+{
+    "data": {
+      "adminDataExtractor": {
+        "id": "8bdc2430-7a75-48b3-a5e3-f09eb17ed861",
+        "users": [
+          {
+            "id": "f1493241-f45f-473b-a9d4-0c8169074a79",
+            "primaryEmail": "l.albuquerque05@hotmail.com",
+            "firstName": "Larisse",
+            "familyName": "Albuquerque de Oliveira",
+            "displayName": "Larisse",
+            "dateOfBirth": "594691200000",
+            "userIdentificationList": [
+              {
+                "id": "5e3b9057-d614-4183-818a-7cad019f67bd",
+                "countryISO": "BR",
+                "category": "CPF_CNPJ",
+                "code": "01573346195",
+                "attachementUrl": null
+              }
+            ],
+            "userAddresses": [
+              {
+                "id": "45c01c61-7fe7-4e0e-b3f0-02e3ce6cab5d",
+                "addressType": "BILLING",
+                "postalCode": "79006760",
+                "street": "Rua Apolo",
+                "streetNumber": "24",
+                "streetComplement": "",
+                "district": "Jardim Jacy",
+                "city": "Campo Grande",
+                "state": "MS",
+                "countryISO": "BR",
+                "latitude": null,
+                "longitude": null
+              }
+            ],
+            "userPhoneNumbers": [
+              {
+                "id": "4fbca479-2383-44ee-83f9-349635afb384",
+                "countryISO": "BR",
+                "category": "PRIMARY",
+                "code": "MOBILE",
+                "rawFormat": "67992734609",
+                "nationalFormat": null,
+                "internationalFormat": null
+              }
+            ]
+          },
+          {
+            "id": "51df40e2-fcf2-4436-aa0e-3dfd2c4cc198",
+            "primaryEmail": "ruimaltasf@gmail.com",
+            "firstName": "Rui",
+            "familyName": "Malta",
+            "displayName": "Rui",
+            "dateOfBirth": null,
+            "userIdentificationList": [],
+            "userAddresses": [],
+            "userPhoneNumbers": []
+          },
+          {
+            "id": "da6fc9d5-ea16-4d0e-aa20-9c0438a01fcb",
+            "primaryEmail": "mariamalta978@gmail.com",
+            "firstName": "Maria ",
+            "familyName": "Malta",
+            "displayName": "Maria ",
+            "dateOfBirth": null,
+            "userIdentificationList": [],
+            "userAddresses": [],
+            "userPhoneNumbers": []
+          },
+          {
+            "id": "6c6a996e-406d-437c-9f11-1511f33ede41",
+            "primaryEmail": "Katiucia_afonso@hotmail.com",
+            "firstName": "Katiucia",
+            "familyName": "Afonso",
+            "displayName": "Katiucia",
+            "dateOfBirth": null,
+            "userIdentificationList": [],
+            "userAddresses": [],
+            "userPhoneNumbers": []
+          }
+        ],
+        "enrollments": [
+          {
+            "id": "616f3e4e-dc54-4b4e-8d21-32b3ef0a6891",
+            "registrationDate": "1614627214240",
+            "activationDate": "1614899982045",
+            "status": "ACTIVE",
+            "externalKey": "xR69L",
+            "studyGroup": null,
+            "level": {
+              "id": "92af529b-8d11-4ab9-bbc6-85d8ad575ed3"
+            },
+            "teacher": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79",
+              "firstName": "Larisse"
+            },
+            "student": {
+              "id": "51df40e2-fcf2-4436-aa0e-3dfd2c4cc198",
+              "firstName": "Rui"
+            },
+            "invitation": {
+              "id": "8372dd74-cbdf-4b89-8193-92d92578625b",
+              "sourceType": "ENROLLMENT",
+              "sourceId": null,
+              "inviteeEmail": null,
+              "inviteeFirstName": null,
+              "inviteeSurname": null,
+              "status": "ACCEPTED",
+              "inviter": {
+                "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+              },
+              "invitee": {
+                "id": "51df40e2-fcf2-4436-aa0e-3dfd2c4cc198"
+              }
+            },
+            "lessonTrackerRecord": []
+          },
+          {
+            "id": "2013b436-0e5d-482c-b1b8-0dc93887981d",
+            "registrationDate": "1614627289296",
+            "activationDate": "1614900337000",
+            "status": "ACTIVE",
+            "externalKey": "CupZN",
+            "studyGroup": null,
+            "level": {
+              "id": "92af529b-8d11-4ab9-bbc6-85d8ad575ed3"
+            },
+            "teacher": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79",
+              "firstName": "Larisse"
+            },
+            "student": {
+              "id": "da6fc9d5-ea16-4d0e-aa20-9c0438a01fcb",
+              "firstName": "Maria "
+            },
+            "invitation": {
+              "id": "db6ffd71-fa83-4ab6-a574-3a0e22f5b5a3",
+              "sourceType": "ENROLLMENT",
+              "sourceId": null,
+              "inviteeEmail": null,
+              "inviteeFirstName": null,
+              "inviteeSurname": null,
+              "status": "ACCEPTED",
+              "inviter": {
+                "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+              },
+              "invitee": {
+                "id": "da6fc9d5-ea16-4d0e-aa20-9c0438a01fcb"
+              }
+            },
+            "lessonTrackerRecord": [
+              {
+                "id": "7a4195fc-61b0-4bcc-a76f-5303e7e00cd0",
+                "lesson": {
+                  "id": "31a69a80-f2a6-430c-a6bd-aff5afd7e076"
+                },
+                "teacherNotes": null,
+                "status": "SESSION_DONE",
+                "startedAt": "1615410163879",
+                "completedAt": "1615410194779"
+              },
+              {
+                "id": "c174c112-028d-4312-a330-061d8caba49a",
+                "lesson": {
+                  "id": "31a69a80-f2a6-430c-a6bd-aff5afd7e076"
+                },
+                "teacherNotes": null,
+                "status": "LESSON_DONE",
+                "startedAt": "1616248953393",
+                "completedAt": "1616248956333"
+              },
+              {
+                "id": "4cd8403f-322a-4728-850f-7cadf8bf6ee2",
+                "lesson": {
+                  "id": "cdf27b34-7424-46ac-a292-1ecfaeed2944"
+                },
+                "teacherNotes": null,
+                "status": "LESSON_DONE",
+                "startedAt": "1616248962523",
+                "completedAt": "1616248963879"
+              },
+              {
+                "id": "05d0afb4-5bd0-4a52-a84f-81ecef058502",
+                "lesson": {
+                  "id": "30acd393-c0b4-42eb-b983-011fcce8bc1d"
+                },
+                "teacherNotes": null,
+                "status": "SESSION_DONE",
+                "startedAt": "1616248980801",
+                "completedAt": "1616249058487"
+              }
+            ]
+          },
+          {
+            "id": "eb5b6993-afe3-45e4-93b2-b63648657ece",
+            "registrationDate": "1614627363133",
+            "activationDate": "1615921419201",
+            "status": "ACTIVE",
+            "externalKey": "7PQs4",
+            "studyGroup": null,
+            "level": {
+              "id": "1cc42205-ace0-4b9d-99f6-d7586b02e8e6"
+            },
+            "teacher": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79",
+              "firstName": "Larisse"
+            },
+            "student": {
+              "id": "6c6a996e-406d-437c-9f11-1511f33ede41",
+              "firstName": "Katiucia"
+            },
+            "invitation": {
+              "id": "2a1ba34a-1ed8-48c2-aa70-688e40ed2b9e",
+              "sourceType": "ENROLLMENT",
+              "sourceId": null,
+              "inviteeEmail": null,
+              "inviteeFirstName": null,
+              "inviteeSurname": null,
+              "status": "ACCEPTED",
+              "inviter": {
+                "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+              },
+              "invitee": {
+                "id": "6c6a996e-406d-437c-9f11-1511f33ede41"
+              }
+            },
+            "lessonTrackerRecord": [
+              {
+                "id": "3f631116-6f18-4fef-8d96-d19ac47d7604",
+                "lesson": {
+                  "id": "0c9e7cb0-361b-4a1e-887b-c99fafdf9095"
+                },
+                "teacherNotes": null,
+                "status": "LESSON_DONE",
+                "startedAt": "1617993142963",
+                "completedAt": "1617993145297"
+              },
+              {
+                "id": "059a9188-0cb6-49d1-bb88-bb221f00acf6",
+                "lesson": {
+                  "id": "b5ebe7ec-b41f-4549-8a19-18687b0e3c94"
+                },
+                "teacherNotes": null,
+                "status": "LESSON_DONE",
+                "startedAt": "1617993147653",
+                "completedAt": "1617993149940"
+              },
+              {
+                "id": "c1cf1e8d-855f-41cb-968f-a66b2dc7e6db",
+                "lesson": {
+                  "id": "ee17ef7c-548e-4076-b5de-a03425ed4ec0"
+                },
+                "teacherNotes": null,
+                "status": "SESSION_DONE",
+                "startedAt": "1617993215994",
+                "completedAt": "1617993342075"
+              },
+              {
+                "id": "9dbb59b9-8802-4bef-af12-3307c3520b64",
+                "lesson": {
+                  "id": "ee17ef7c-548e-4076-b5de-a03425ed4ec0"
+                },
+                "teacherNotes": null,
+                "status": "SESSION_DONE",
+                "startedAt": "1620164330078",
+                "completedAt": "1627503003782"
+              }
+            ]
+          }
+        ],
+        "events": [
+          {
+            "id": "9c592371-6bc0-4f1c-b463-da9f0766ec8f",
+            "title": "Rui (1 on 1)",
+            "description": "B1 - Intermediate",
+            "availabilityType": "BUSY",
+            "sourceType": "ENROLLMENT",
+            "sourceId": "616f3e4e-dc54-4b4e-8d21-32b3ef0a6891",
+            "startDateTime": "1614639600000",
+            "startTimeZone": "America/Cuiaba",
+            "endDateTime": "1614643200000",
+            "endTimeZone": "America/Cuiaba",
+            "status": "CONFIRMED",
+            "sendNotifications": true,
+            "startedAt": "1614639600000",
+            "completedAt": null,
+            "visibility": "PUBLIC",
+            "recurrence": "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH,FR",
+            "organiser": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "owner": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "eventOccurrences": [],
+            "eventAttendees": []
+          },
+          {
+            "id": "0122163c-96c3-475a-98fb-6dcef82ffa36",
+            "title": "Rui (1 on 1)",
+            "description": "B1 - Intermediate",
+            "availabilityType": "BUSY",
+            "sourceType": "ENROLLMENT",
+            "sourceId": "616f3e4e-dc54-4b4e-8d21-32b3ef0a6891",
+            "startDateTime": "1614603600000",
+            "startTimeZone": "America/Cuiaba",
+            "endDateTime": "1614609000000",
+            "endTimeZone": "America/Cuiaba",
+            "status": "CONFIRMED",
+            "sendNotifications": true,
+            "startedAt": "1614603600000",
+            "completedAt": null,
+            "visibility": "PUBLIC",
+            "recurrence": "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SA",
+            "organiser": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "owner": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "eventOccurrences": [],
+            "eventAttendees": []
+          },
+          {
+            "id": "44799b33-1365-4237-b0cc-700ef2228b56",
+            "title": "Maria  (1 on 1)",
+            "description": "B1 - Intermediate",
+            "availabilityType": "BUSY",
+            "sourceType": "ENROLLMENT",
+            "sourceId": "2013b436-0e5d-482c-b1b8-0dc93887981d",
+            "startDateTime": "1614639600000",
+            "startTimeZone": "America/Cuiaba",
+            "endDateTime": "1614643200000",
+            "endTimeZone": "America/Cuiaba",
+            "status": "CONFIRMED",
+            "sendNotifications": true,
+            "startedAt": "1614639600000",
+            "completedAt": null,
+            "visibility": "PUBLIC",
+            "recurrence": "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH,FR",
+            "organiser": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "owner": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "eventOccurrences": [],
+            "eventAttendees": []
+          },
+          {
+            "id": "0c6d0d94-0707-4d47-85f1-875f3f2ac9a8",
+            "title": "Maria  (1 on 1)",
+            "description": "B1 - Intermediate",
+            "availabilityType": "BUSY",
+            "sourceType": "ENROLLMENT",
+            "sourceId": "2013b436-0e5d-482c-b1b8-0dc93887981d",
+            "startDateTime": "1614571200000",
+            "startTimeZone": "America/Cuiaba",
+            "endDateTime": "1614609000000",
+            "endTimeZone": "America/Cuiaba",
+            "status": "CONFIRMED",
+            "sendNotifications": true,
+            "startedAt": "1614571200000",
+            "completedAt": null,
+            "visibility": "PUBLIC",
+            "recurrence": "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SA",
+            "organiser": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "owner": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "eventOccurrences": [],
+            "eventAttendees": []
+          },
+          {
+            "id": "a97fa8ec-6e5e-4761-a624-264f057a84c1",
+            "title": "Katiucia (1 on 1)",
+            "description": "A1 - Starter",
+            "availabilityType": "BUSY",
+            "sourceType": "ENROLLMENT",
+            "sourceId": "eb5b6993-afe3-45e4-93b2-b63648657ece",
+            "startDateTime": "1614625200000",
+            "startTimeZone": "America/Cuiaba",
+            "endDateTime": "1614628800000",
+            "endTimeZone": "America/Cuiaba",
+            "status": "CONFIRMED",
+            "sendNotifications": true,
+            "startedAt": "1614625200000",
+            "completedAt": null,
+            "visibility": "PUBLIC",
+            "recurrence": "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU,FR",
+            "organiser": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "owner": {
+              "id": "f1493241-f45f-473b-a9d4-0c8169074a79"
+            },
+            "eventOccurrences": [],
+            "eventAttendees": []
+          }
+        ]
+      }
+    }
+  }

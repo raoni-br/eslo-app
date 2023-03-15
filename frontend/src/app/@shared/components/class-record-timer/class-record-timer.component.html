@@ -1,0 +1,41 @@
+<mat-card
+  cdkDrag
+  cdkDragBoundary=".mat-typography"
+  (cdkDragReleased)="onDragReleased($event)"
+  fxLayout
+  fxLayoutAlign="center center"
+  class="class-record-card mat-elevation-z4"
+>
+  <div fxLayout fxLayoutAlign="end center" fxLayoutGap="12px">
+    <div #cardElement fxLayout fxLayoutAlign="center center" fxLayoutGap="9px">
+      <mat-icon class="class-record-card__drag-handle" cdkDragHandle>drag_indicator</mat-icon>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3px">
+        <mat-icon color="accent">hourglass_empty</mat-icon>
+        <span class="class-record-card__timer mat-caption">{{ classDuration }}</span>
+      </div>
+    </div>
+    <div fxLayout fxLayoutAlign="center center">
+      <button
+        mat-icon-button
+        color="primary"
+        [routerLink]="
+          isGroup
+            ? '/classroom/groups/' + classInProgress?.studyGroupClassRecord?.studyGroupId + '/schedule'
+            : '/classroom/enrollments/' + classInProgress?.enrollmentClassRecord?.enrollmentId
+        "
+      >
+        <mat-icon>bookmark_outline</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="primary"
+        (click)="onOpenScriptStandAlone(lessonId)"
+      >
+        <mat-icon>description</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="onDone()">
+        <mat-icon>done_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>

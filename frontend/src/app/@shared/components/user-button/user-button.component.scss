@@ -1,0 +1,28 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+@mixin user-button-theme($theme) {
+    $accent: mat.get-color-from-palette(map-get($theme, accent), 300);
+
+    .user-button {
+        padding: 0;
+        min-width: 40px;
+        margin-left: 16px;
+
+        &__content {
+            border-radius: 50%;
+
+            &__avatar {
+                border-radius: 50%;
+                background-color: $accent;
+                color: #ffffff;
+                text-align: center;
+                line-height: 40px;
+                margin: 0;
+                text-transform: uppercase;
+                transition: 0.3s;
+                opacity: 1;
+            }
+        }
+    }
+}

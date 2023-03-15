@@ -1,0 +1,141 @@
+<div *ngIf="userProfileForm && userProfile">
+  <div *ngIf="userProfile?.profileComplete === false" fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout fxLayoutAlign="start center" fxLayoutGap="12px" fxFlex="start">
+      <mat-icon color="warn"> priority_high </mat-icon>
+      <div
+        fxLayout.xs="column"
+        fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="start center"
+        fxLayoutAlign.xs="start start"
+        fxLayoutGap="12px"
+        fxFlex="start"
+      >
+        <h5 class="mat-button-text text-warn--500">YOUR PROFILE IS INCOMPLETE.</h5>
+        <small>Please finish it to access the platform.</small>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="userProfile?.profileComplete === true" fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout fxLayoutAlign="start center" fxLayoutGap="12px" fxFlex="start">
+      <mat-icon color="primary"> verified_user </mat-icon>
+      <h5 class="mat-button-text text-primary--500">YOUR PROFILE IS COMPLETE.</h5>
+    </div>
+  </div>
+
+  <form
+    fxLayout.xs="column"
+    fxLayoutGap.xs="12px"
+    fxLayout.gt-xs="row wrap"
+    fxLayoutGap.gt-xs="24px"
+    [formGroup]="userProfileForm"
+    class="user-profile-form"
+    style="margin-top: 24px;"
+  >
+    <mat-form-field appearance="outline" fxFlex="30">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" [disableControl]="true" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex="30">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" />
+
+      <mat-error *ngIf="userProfileForm.get('firstName').hasError('required')">
+        First Name is required
+      </mat-error>
+      <mat-error *ngIf="!userProfileForm.get('firstName').hasError('required')">
+        Please enter a valid First Name
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex="30">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="familyName" />
+
+      <mat-error *ngIf="userProfileForm.get('familyName').hasError('required')">
+        Last Name is required
+      </mat-error>
+      <mat-error *ngIf="!userProfileForm.get('familyName').hasError('required')">
+        Please enter a valid Last Name
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex="30">
+      <mat-label>CPF/CNPJ</mat-label>
+      <input
+        matInput
+        formControlName="documentId"
+        mask="CPF_CNPJ"
+        [showMaskTyped]="true"
+        [validation]="true"
+        placeHolderCharacter=" "
+      />
+
+      <mat-error *ngIf="userProfileForm.get('documentId').hasError('required')">
+        CPF or CNPJ is required
+      </mat-error>
+      <mat-error *ngIf="!userProfileForm.get('documentId').hasError('required')">
+        Please enter a valid CPF or CNPJ
+      </mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="outline" fxFlex="30">
+      <mat-label>Date of Birth</mat-label>
+      <input matInput formControlName="dateOfBirth" [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="userProfileForm.get('dateOfBirth').hasError('required')">
+        Date of Birth is required
+      </mat-error>
+      <mat-error *ngIf="!userProfileForm.get('dateOfBirth').hasError('required')">
+        Please enter a valid Date of Birth
+      </mat-error>
+    </mat-form-field> -->
+
+    <!-- <mat-form-field appearance="outline" fxFlex="30">
+      <mat-label>Phone Number</mat-label>
+      <input
+        matInput
+        type="tel"
+        formControlName="phoneNumber"
+        mask="(00) 0000-00009"
+        [showMaskTyped]="true"
+        [validation]="true"
+        placeHolderCharacter=" "
+      />
+
+      <mat-error *ngIf="userProfileForm.get('phoneNumber').hasError('required')">
+        Phone Number is required
+      </mat-error>
+      <mat-error *ngIf="!userProfileForm.get('phoneNumber').hasError('required')">
+        Please enter a valid Phone Number
+      </mat-error>
+    </mat-form-field> -->
+  </form>
+
+  <app-address-input [address]="userAddress"></app-address-input>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        (click)="saveUserProfile()"
+        [disabled]="!!userProfileForm?.invalid || !!addressInputComponent?.formAddress?.invalid"
+        style="border-radius: 28px;"
+      >
+        Save
+      </button>
+    </div>
+    <mat-progress-spinner
+      *ngIf="isSaving"
+      class="mt-12"
+      diameter="48"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+    <span *ngIf="errorMessage !== ''" class="mt-24 mat-body-2 warn-500-fg">{{ errorMessage }}</span>
+  </div>
+</div>

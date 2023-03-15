@@ -1,0 +1,7 @@
+<app-onboarding-form
+  [delay]="delay$ | async"
+  [formStructure]="formStructure$ | async"
+  [buttonAction]="buttonAction$ | async"
+  (submitFormEvent)="onSubmitForm($event)"
+>
+</app-onboarding-form>

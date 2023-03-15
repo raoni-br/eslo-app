@@ -1,0 +1,64 @@
+<div mat-dialog-title>
+  <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" style="position: relative">
+    <span class="mat-title">Students</span>
+    <span class="mat-caption">Only students with same course and level of this group</span>
+    <button mat-icon-button mat-dialog-close style="position: absolute; top: -28px; right: -24px">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+<mat-dialog-content>
+  <p *ngIf="enrollments.length === 0" class="mat-subheading-1">
+    There are no students compatible with this group
+  </p>
+
+  <div *ngIf="enrollments.length > 0" class="select-members-list__container">
+    <div *ngFor="let enrollment of enrollments" class="select-members-list__container__group">
+      <div
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        fxLayoutGap="16px"
+        style="cursor: pointer"
+        (click)="enrollment.selected = !enrollment.selected"
+      >
+        <app-avatar [text]="enrollment?.student?.firstName[0]" fontSize="19px"></app-avatar>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxFlex="100%"
+          style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)"
+        >
+          <div
+            fxLayout="column"
+            fxLayoutAlign="start start"
+            class="select-members-list__container__member__info"
+          >
+            <span class="mat-subheading-1">
+              {{ enrollment?.student?.firstName | titlecase }}
+              {{ enrollment?.student?.familyName | titlecase }}
+            </span>
+            <span class="mat-body-2">
+              {{ enrollment?.level?.module?.program?.label }} - {{ enrollment?.level?.label }}
+            </span>
+          </div>
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            [(ngModel)]="enrollment.selected"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" *ngIf="enrollments.length > 0">
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="selectedEnrollments.length === 0"
+    (click)="onAddStudents()"
+  >
+    <mat-icon>{{ selectedEnrollments.length > 1 ? 'group' : 'person' }}_add</mat-icon>
+    add student{{ selectedEnrollments.length > 1 ? 's' : '' }}
+  </button>
+</mat-dialog-actions>

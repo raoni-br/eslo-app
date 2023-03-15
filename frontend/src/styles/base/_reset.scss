@@ -1,0 +1,48 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+}
+
+/* width */
+::-webkit-scrollbar {
+    @include mq.layout-bp(gt-xs) {
+        width: 8px;
+    }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    @include mq.layout-bp(gt-xs) {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @include mq.layout-bp(gt-xs) {
+        background: #c3c3c3;
+        border-radius: 4px;
+    }
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @include mq.layout-bp(gt-xs) {
+        background: #909090;
+    }
+}

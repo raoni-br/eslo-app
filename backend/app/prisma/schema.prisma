@@ -1,0 +1,693 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("ESLO_APP_DATABASE_URL")
+}
+
+// ENUMS
+
+enum SourceType {
+  ENROLLMENT
+  STUDY_GROUP
+  ENROLLMENT_TRANSFER
+}
+
+enum EnrollmentStatus {
+  PENDING
+  CONFIRMED
+  ACTIVE
+  CANCELLED
+}
+
+enum LessonRecordStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  SESSION_DONE
+  LESSON_DONE
+}
+
+enum InvitationStatus {
+  PENDING
+  DECLINED
+  CANCELLED
+  ACCEPTED
+}
+
+enum EventStatus {
+  CONFIRMED
+  TENTATIVE
+  CANCELLED
+}
+
+enum EventAttendeeStatus {
+  PENDING
+  DECLINED
+  MAYBE
+  ACCEPTED
+}
+
+enum AvailabilityType {
+  BUSY
+  FREE
+}
+
+enum EventVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum UserAuthenticationStatus {
+  UNCONFIRMED
+  INACTIVE
+  ACTIVE
+}
+
+enum PriceType {
+  ONE_OFF
+  RECURRING
+}
+
+enum SubscriptionStatus {
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  TRIALING
+  TRIAL_EXPIRED
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  UNPAID
+}
+
+enum InvoiceStatus {
+  PENDING
+  SENT
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum UserAuthStrategy {
+  LOCAL
+  FACEBOOK
+  GOOGLE
+  LINKEDIN
+  REX
+}
+
+// MODELS
+
+model Enrollment {
+  id                       String                    @id @default(uuid()) @db.Uuid
+  levelId                  String                    @db.Uuid
+  teacherId                String                    @db.Uuid
+  studentId                String                    @db.Uuid
+  studyGroupId             String?                   @db.Uuid
+  registrationDate         DateTime
+  activationDate           DateTime?
+  status                   EnrollmentStatus          @default(PENDING)
+  externalKey              String?
+  completedAt              DateTime?
+  createdAt                DateTime?                 @default(now())
+  updatedAt                DateTime?                 @updatedAt
+  deletedAt                DateTime?
+  level                    Level                     @relation(fields: [levelId], references: [id])
+  teacher                  User                      @relation("EnrollmentTeacher", fields: [teacherId], references: [id])
+  student                  User                      @relation("EnrollmentStudent", fields: [studentId], references: [id])
+  studyGroup               StudyGroup?               @relation(fields: [studyGroupId], references: [id])
+  invitations              Invitation[]
+  events                   Event[]
+  classRecords             ClassRecord[]
+  studyGroupClassAttendees StudyGroupClassAttendee[]
+  eventOccurrence          EventOccurrence[]
+}
+
+// Event can be created for different purposes.
+// At the moment the possibilities are either for a study group or individual classes.
+// This is represented by the sourceType field with the options: enrollment | study_group
+// Prisma does not support polymorphic associations / union types
+// https://github.com/prisma/prisma/issues/2505
+// Therefore, the workaround at the moment is to create one FK for each source
+// and a virtual field sourceId at the business model layer.
+model Event {
+  id                String            @id @default(uuid()) @db.Uuid
+  title             String
+  description       String?
+  availabilityType  AvailabilityType  @default(BUSY)
+  sourceType        SourceType
+  // sourceId       String?   Virtual field only
+  enrollmentId      String?           @db.Uuid
+  studyGroupId      String?           @db.Uuid
+  startDateTime     DateTime
+  startTimeZone     String
+  endDateTime       DateTime
+  endTimeZone       String
+  recurrence        String
+  status            EventStatus       @default(CONFIRMED)
+  sendNotifications Boolean           @default(true)
+  iCalUID           String?
+  organiserId       String            @db.Uuid
+  ownerId           String            @db.Uuid
+  visibility        EventVisibility   @default(PUBLIC)
+  conferenceData    Json?
+  startedAt         DateTime          @default(now())
+  completedAt       DateTime?
+  createdAt         DateTime?         @default(now())
+  updatedAt         DateTime?         @updatedAt
+  deletedAt         DateTime?
+  enrollment        Enrollment?       @relation(fields: [enrollmentId], references: [id])
+  studyGroup        StudyGroup?       @relation(fields: [studyGroupId], references: [id])
+  organiser         User              @relation("EventOrganiser", fields: [organiserId], references: [id])
+  owner             User              @relation("EventOwner", fields: [ownerId], references: [id])
+  eventOccurrences  EventOccurrence[]
+  eventAttendees    EventAttendee[]
+}
+
+model EventAttendee {
+  id               String              @id @default(uuid()) @db.Uuid
+  eventId          String              @db.Uuid
+  attendeeId       String              @db.Uuid
+  responseStatus   EventAttendeeStatus @default(PENDING)
+  responseDateTime DateTime?
+  optional         Boolean             @default(false)
+  comment          String?
+  organiser        Boolean             @default(false)
+  createdAt        DateTime?           @default(now())
+  updatedAt        DateTime?           @updatedAt
+  deletedAt        DateTime?
+  event            Event               @relation(fields: [eventId], references: [id])
+  attendee         User                @relation(fields: [attendeeId], references: [id])
+}
+
+model EventOccurrence {
+  id                       String                    @id @default(uuid()) @db.Uuid
+  recurringEventId         String                    @db.Uuid
+  originalStartDateTime    DateTime?
+  originalStartTimeZone    String?
+  title                    String
+  description              String?
+  availabilityType         AvailabilityType          @default(BUSY)
+  sourceType               SourceType
+  enrollmentId             String?                   @db.Uuid
+  studyGroupId             String?                   @db.Uuid
+  startDateTime            DateTime
+  startTimeZone            String
+  endDateTime              DateTime
+  endTimeZone              String
+  status                   EventStatus               @default(CONFIRMED)
+  sendNotifications        Boolean                   @default(true)
+  iCalUID                  String?
+  organiserId              String                    @db.Uuid
+  ownerId                  String                    @db.Uuid
+  visibility               String                    @default("PUBLIC")
+  conferenceData           Json?
+  createdAt                DateTime?                 @default(now())
+  updatedAt                DateTime?                 @updatedAt
+  deletedAt                DateTime?
+  organiser                User                      @relation("EventOccurrenceOrganiser", fields: [organiserId], references: [id])
+  owner                    User                      @relation("EventOccurrenceOwner", fields: [ownerId], references: [id])
+  event                    Event                     @relation(fields: [recurringEventId], references: [id])
+  enrollment               Enrollment?               @relation(fields: [enrollmentId], references: [id])
+  studyGroup               StudyGroup?               @relation(fields: [studyGroupId], references: [id])
+  eventOccurrenceAttendees EventOccurrenceAttendee[]
+}
+
+model EventOccurrenceAttendee {
+  id                String              @id @default(uuid()) @db.Uuid
+  eventOccurrenceId String              @db.Uuid
+  attendeeId        String              @db.Uuid
+  responseStatus    EventAttendeeStatus @default(PENDING)
+  responseDateTime  DateTime?
+  optional          Boolean             @default(false)
+  comment           String?
+  organiser         Boolean             @default(false)
+  createdAt         DateTime?           @default(now())
+  updatedAt         DateTime?           @updatedAt
+  deletedAt         DateTime?
+  eventOccurrence   EventOccurrence     @relation(fields: [eventOccurrenceId], references: [id])
+  attendee          User                @relation(fields: [attendeeId], references: [id])
+}
+
+model Invitation {
+  id                    String           @id @default(uuid()) @db.Uuid
+  sourceType            SourceType
+  // sourceId       String?   Virtual field only
+  enrollmentId          String?          @db.Uuid
+  studyGroupId          String?          @db.Uuid
+  invitationToken       String           @unique
+  tokenIssuedDateTime   DateTime?
+  tokenActionedDateTime DateTime?
+  inviterId             String           @db.Uuid
+  inviteeId             String           @db.Uuid
+  status                InvitationStatus @default(PENDING)
+  createdAt             DateTime?        @default(now())
+  updatedAt             DateTime?        @updatedAt
+  deletedAt             DateTime?
+  enrollment            Enrollment?      @relation(fields: [enrollmentId], references: [id])
+  studyGroup            StudyGroup?      @relation(fields: [studyGroupId], references: [id])
+  invitee               User             @relation("UserInvitationReceived", fields: [inviteeId], references: [id])
+  inviter               User             @relation("UserInvitationSent", fields: [inviterId], references: [id])
+}
+
+model Lesson {
+  id                     String                  @id @default(uuid()) @db.Uuid
+  code                   String                  @unique
+  title                  String
+  providerInfo           Json?
+  category               String
+  levelOrder             Int
+  subject                String
+  slug                   String?
+  lessonMaterial         Json
+  levelId                String                  @db.Uuid
+  createdAt              DateTime?               @default(now())
+  updatedAt              DateTime?               @updatedAt
+  deletedAt              DateTime?
+  level                  Level                   @relation(fields: [levelId], references: [id])
+  classRecords           ClassRecord[]
+  studyGroupLessonRecord StudyGroupClassRecord[]
+}
+
+model ClassRecord {
+  id                      String                   @id @default(uuid()) @db.Uuid
+  enrollmentId            String                   @db.Uuid
+  lessonId                String                   @db.Uuid
+  teacherNotes            String?
+  status                  LessonRecordStatus       @default(NOT_STARTED)
+  startedAt               DateTime?
+  completedAt             DateTime?
+  lessonStartedAt         DateTime?
+  lessonEndedAt           DateTime?
+  createdAt               DateTime?                @default(now())
+  updatedAt               DateTime?                @updatedAt
+  deletedAt               DateTime?
+  enrollment              Enrollment               @relation(fields: [enrollmentId], references: [id])
+  lesson                  Lesson                   @relation(fields: [lessonId], references: [id])
+  studyGroupClassAttendee StudyGroupClassAttendee?
+}
+
+model Level {
+  id             String       @id @default(uuid()) @db.Uuid
+  code           String       @unique
+  name           String
+  layoutSettings Json?
+  providerInfo   Json?
+  moduleOrder    Int
+  description    String?
+  label          String       @db.VarChar(12)
+  moduleId       String       @db.Uuid
+  createdAt      DateTime?    @default(now())
+  updatedAt      DateTime?    @updatedAt
+  deletedAt      DateTime?
+  module         Module       @relation(fields: [moduleId], references: [id])
+  studyGroups    StudyGroup[]
+  enrollments    Enrollment[]
+  lessons        Lesson[]
+}
+
+model Module {
+  id           String    @id @default(uuid()) @db.Uuid
+  code         String    @unique
+  name         String
+  providerInfo Json?
+  programOrder Int
+  description  String?
+  releasedAt   DateTime?
+  removedAt    DateTime?
+  programId    String    @db.Uuid
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @updatedAt
+  deletedAt    DateTime?
+  program      Program   @relation(fields: [programId], references: [id])
+  level        Level[]
+}
+
+model Program {
+  id             String    @id @default(uuid()) @db.Uuid
+  code           String    @unique
+  name           String
+  layoutSettings Json?
+  icon           String
+  label          String    @db.VarChar(12)
+  description    String
+  providerInfo   Json?
+  releasedAt     DateTime?
+  removedAt      DateTime?
+  createdAt      DateTime? @default(now())
+  updatedAt      DateTime? @updatedAt
+  deletedAt      DateTime?
+  module         Module[]
+}
+
+model User {
+  id                         String                    @id @default(uuid()) @db.Uuid
+  primaryEmail               String                    @unique
+  firstName                  String
+  familyName                 String
+  displayName                String
+  profilePicUrl              String?
+  dateOfBirth                DateTime?
+  gender                     String?
+  banned                     Boolean                   @default(false)
+  bannedAt                   DateTime?
+  createdAt                  DateTime?                 @default(now())
+  updatedAt                  DateTime?                 @updatedAt
+  deletedAt                  DateTime?
+  eventsOrganised            Event[]                   @relation("EventOrganiser")
+  eventsOwned                Event[]                   @relation("EventOwner")
+  eventsOccurrencesOrganised EventOccurrence[]         @relation("EventOccurrenceOrganiser")
+  eventsOccurrencesOwned     EventOccurrence[]         @relation("EventOccurrenceOwner")
+  invitationsReceived        Invitation[]              @relation("UserInvitationReceived")
+  invitationsSent            Invitation[]              @relation("UserInvitationSent")
+  userAuthenticationList     UserAuthentication[]
+  teacherEnrollments         Enrollment[]              @relation("EnrollmentTeacher")
+  studentEnrollments         Enrollment[]              @relation("EnrollmentStudent")
+  studyGroupTeachers         StudyGroupTeacher[]
+  userAddresses              UserAddress[]
+  userIdentificationList     UserIdentification[]
+  userPhoneNumbers           UserPhoneNumber[]
+  eventAttendee              EventAttendee[]
+  eventOccurrenceAttendee    EventOccurrenceAttendee[]
+  subscriptions              Subscription[]
+  userTutorialSubmissions    UserTutorialSubmission[]
+  customerPaymentSettings    CustomerPaymentSettings?
+}
+
+model UserPhoneNumber {
+  id                  String    @id @default(uuid()) @db.Uuid
+  userId              String    @db.Uuid
+  countryISO          String
+  category            String
+  code                String
+  rawFormat           String?
+  nationalFormat      String?
+  internationalFormat String?
+  createdAt           DateTime? @default(now())
+  updatedAt           DateTime? @updatedAt
+  deletedAt           DateTime?
+  user                User      @relation(fields: [userId], references: [id])
+}
+
+model UserIdentification {
+  id             String    @id @default(uuid()) @db.Uuid
+  userId         String    @db.Uuid
+  countryISO     String
+  category       String
+  code           String
+  attachementUrl String?
+  providerInfo   Json?
+  createdAt      DateTime? @default(now())
+  updatedAt      DateTime? @updatedAt
+  deletedAt      DateTime?
+  user           User      @relation(fields: [userId], references: [id])
+}
+
+model UserAddress {
+  id               String    @id @default(uuid()) @db.Uuid
+  userId           String    @db.Uuid
+  addressType      String
+  postalCode       String?
+  street           String?
+  streetNumber     String?
+  streetComplement String?
+  district         String?
+  city             String?
+  state            String?
+  countryISO       String?
+  latitude         Float?
+  longitude        Float?
+  providerInfo     Json?
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @updatedAt
+  deletedAt        DateTime?
+  user             User      @relation(fields: [userId], references: [id])
+}
+
+model UserAuthentication {
+  id                          String                   @id @default(uuid()) @db.Uuid
+  strategyCode                UserAuthStrategy
+  strategyId                  String
+  status                      UserAuthenticationStatus @default(UNCONFIRMED)
+  registrationToken           String?
+  registrationTokenTimestamp  DateTime?
+  resetPasswordToken          String?
+  resetPasswordTokenTimestamp DateTime?
+  passwordChangedTimestamp    DateTime?
+  hashedPassword              String?
+  refreshToken                String?
+  accessToken                 String?
+  userProfile                 Json?
+  userId                      String                   @db.Uuid
+  createdAt                   DateTime?                @default(now())
+  updatedAt                   DateTime?                @updatedAt
+  deletedAt                   DateTime?
+  user                        User                     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, strategyCode])
+}
+
+model StudyGroup {
+  id                     String                  @id @default(uuid()) @db.Uuid
+  name                   String
+  levelId                String                  @db.Uuid
+  createdAt              DateTime?               @default(now())
+  updatedAt              DateTime?               @updatedAt
+  deletedAt              DateTime?
+  level                  Level                   @relation(fields: [levelId], references: [id])
+  invitations            Invitation[]
+  enrollments            Enrollment[]
+  studyGroupTeachers     StudyGroupTeacher[]
+  studyGroupClassRecords StudyGroupClassRecord[]
+  events                 Event[]
+  eventOccurrence        EventOccurrence[]
+}
+
+model StudyGroupTeacher {
+  id                     String                  @id @default(uuid()) @db.Uuid
+  studyGroupId           String                  @db.Uuid
+  teacherId              String                  @db.Uuid
+  startedAt              DateTime                @default(now())
+  completedAt            DateTime?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime?               @updatedAt
+  deletedAt              DateTime?
+  studyGroup             StudyGroup              @relation(fields: [studyGroupId], references: [id])
+  studyGroupClassRecords StudyGroupClassRecord[]
+  teacher                User                    @relation(fields: [teacherId], references: [id])
+}
+
+model StudyGroupClassRecord {
+  id                       String                    @id @default(uuid()) @db.Uuid
+  studyGroupId             String                    @db.Uuid
+  lessonId                 String                    @db.Uuid
+  studyGroupTeacherId      String                    @db.Uuid
+  teacherNotes             String?
+  status                   LessonRecordStatus
+  startedAt                DateTime                  @default(now())
+  completedAt              DateTime?
+  lessonStartedAt          DateTime?
+  lessonEndedAt            DateTime?
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime?                 @updatedAt
+  deletedAt                DateTime?
+  studyGroup               StudyGroup                @relation(fields: [studyGroupId], references: [id])
+  studyGroupTeacher        StudyGroupTeacher         @relation(fields: [studyGroupTeacherId], references: [id])
+  lesson                   Lesson                    @relation(fields: [lessonId], references: [id])
+  studyGroupClassAttendees StudyGroupClassAttendee[]
+}
+
+model StudyGroupClassAttendee {
+  id                      String                @id @default(uuid()) @db.Uuid
+  studyGroupClassRecordId String                @db.Uuid
+  studentId               String                @db.Uuid
+  classRecordId           String                @unique @db.Uuid
+  attended                Boolean               @default(true)
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime?             @updatedAt
+  deletedAt               DateTime?
+  studyGroupClassRecord   StudyGroupClassRecord @relation(fields: [studyGroupClassRecordId], references: [id])
+  student                 Enrollment            @relation(fields: [studentId], references: [id])
+  classRecord             ClassRecord           @relation(fields: [classRecordId], references: [id])
+}
+
+model Product {
+  id                String             @id @default(uuid()) @db.Uuid
+  name              String
+  description       String
+  slug              String             @unique // skuCode
+  subcategoryCode   String
+  objectSettings    Json?
+  images            Json?
+  active            Boolean            @default(true)
+  paymentProviderId String?            @unique
+  startedAt         DateTime           @default(now())
+  completedAt       DateTime?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime?          @updatedAt
+  deletedAt         DateTime?
+  prices            Price[]
+  subcategory       ProductSubcategory @relation(fields: [subcategoryCode], references: [code])
+}
+
+model ProductCategory {
+  code                 String               @id
+  name                 String
+  description          String
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime?            @updatedAt
+  deletedAt            DateTime?
+  productSubcategories ProductSubcategory[]
+}
+
+model ProductSubcategory {
+  code         String          @id
+  categoryCode String
+  name         String
+  description  String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime?       @updatedAt
+  deletedAt    DateTime?
+  category     ProductCategory @relation(fields: [categoryCode], references: [code])
+  products     Product[]
+}
+
+model Price {
+  id                 String             @id @default(uuid()) @db.Uuid
+  productId          String             @db.Uuid
+  name               String
+  description        String
+  slug               String             @unique
+  taxAmount          Decimal            @db.Money
+  unitTotalAmount    Decimal            @db.Money
+  currencyIsoCode    String
+  type               PriceType
+  allowFreeTrial     Boolean            @default(false)
+  recurrence         String?
+  subscriptionPeriod Json?
+  active             Boolean            @default(true)
+  paymentProviderId  String?            @unique
+  startedAt          DateTime           @default(now())
+  completedAt        DateTime?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime?          @updatedAt
+  deletedAt          DateTime?
+  product            Product            @relation(fields: [productId], references: [id])
+  subscriptionItems  SubscriptionItem[]
+  invoiceItems       InvoiceItem[]
+}
+
+// TODO: Design for
+//  - free-trials
+//  - discounts
+//  - promotions
+//  - disputes/refunds
+//  - credits
+
+model CustomerPaymentSettings {
+  id                               String    @id @default(uuid()) @db.Uuid
+  userId                           String    @unique @db.Uuid
+  paymentProviderId                String    @unique
+  paymentProviderPaymentMethodId   String?
+  paymentProviderCheckoutSessionId String?
+  user                             User      @relation(fields: [userId], references: [id])
+  createdAt                        DateTime  @default(now())
+  updatedAt                        DateTime? @updatedAt
+  deletedAt                        DateTime?
+}
+
+model Subscription {
+  id                   String             @id @default(uuid()) @db.Uuid
+  customerId           String             @db.Uuid
+  autoRenew            Boolean            @default(true)
+  cancelledAutoRenewAt DateTime?
+  status               SubscriptionStatus
+  paymentProviderId    String             @unique
+  startedAt            DateTime           @default(now())
+  trialStartedAt       DateTime?
+  trialEndedAt         DateTime?
+  completedAt          DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime?          @updatedAt
+  deletedAt            DateTime?
+  customer             User               @relation(fields: [customerId], references: [id])
+  subscriptionItems    SubscriptionItem[]
+  invoices             Invoice[]
+}
+
+model SubscriptionItem {
+  id                   String       @id @default(uuid()) @db.Uuid
+  subscriptionId       String       @db.Uuid
+  priceId              String       @db.Uuid
+  autoRenew            Boolean      @default(true)
+  cancelledAutoRenewAt DateTime?
+  quantity             Float
+  active               Boolean      @default(true)
+  paymentProviderId    String?      @unique
+  startedAt            DateTime     @default(now())
+  completedAt          DateTime?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime?    @updatedAt
+  deletedAt            DateTime?
+  subscription         Subscription @relation(fields: [subscriptionId], references: [id])
+  price                Price        @relation(fields: [priceId], references: [id])
+}
+
+model Invoice {
+  id                String        @id @default(uuid()) @db.Uuid
+  customerId        String        @db.Uuid
+  subscriptionId    String?       @db.Uuid
+  paymentProviderId String?       @unique
+  status            InvoiceStatus
+  processedAt       DateTime
+  dueDate           DateTime
+  currencyIsoCode   String
+  periodStart       DateTime
+  periodEnd         DateTime
+  description       String?
+  taxAmount         Decimal       @db.Money
+  discountAmount    Decimal       @db.Money
+  totalAmount       Decimal       @db.Money
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime?     @updatedAt
+  deletedAt         DateTime?
+  subscription      Subscription? @relation(fields: [subscriptionId], references: [id])
+  invoiceItems      InvoiceItem[]
+}
+
+model InvoiceItem {
+  id                String    @id @default(uuid()) @db.Uuid
+  paymentProviderId String?   @unique
+  invoiceId         String    @db.Uuid
+  priceId           String    @db.Uuid
+  invoiceLineNumber Int
+  title             String
+  description       String?
+  quantity          Float
+  unitPrice         Decimal   @db.Money
+  taxAmount         Decimal   @db.Money
+  discountAmount    Decimal   @db.Money
+  totalAmount       Decimal   @db.Money
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime? @updatedAt
+  deletedAt         DateTime?
+  invoice           Invoice   @relation(fields: [invoiceId], references: [id])
+  price             Price     @relation(fields: [priceId], references: [id])
+
+  @@unique([invoiceId, priceId])
+}
+
+model UserTutorialSubmission {
+  id             String    @id @default(uuid()) @db.Uuid
+  userId         String    @db.Uuid
+  tutorialCode   String
+  version        Int
+  formSubmission Json
+  skipped        Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime? @updatedAt
+  deletedAt      DateTime?
+  completedAt    DateTime?
+  user           User      @relation(fields: [userId], references: [id])
+}

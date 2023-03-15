@@ -1,0 +1,61 @@
+<ng-template tpAttach="topBarStart">
+  <app-back-button></app-back-button>
+  <app-top-bar-title text="Payment"></app-top-bar-title>
+</ng-template>
+
+<!-- <div #cardElement></div>
+<button (click)="pay()">pay</button> -->
+
+<ng-container *ngIf="subscriptions$ | async as subscriptions">
+  <ng-container *ngIf="plans$ | async as plans">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="32px">
+      <div fxFlexAlign="center">
+        <p class="mat-title">Plan</p>
+      </div>
+
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        fxFlexAlign="center"
+        fxLayoutGap="16px"
+        class="plans-list__pay-time"
+      >
+        <button *ngIf="selectedPlanPayTime === 'month'" mat-flat-button color="primary">
+          monthly
+        </button>
+        <button
+          *ngIf="selectedPlanPayTime !== 'month'"
+          (click)="selectedPlanPayTime = 'month'"
+          mat-button
+        >
+          monthly
+        </button>
+        <button *ngIf="selectedPlanPayTime === 'year'" mat-flat-button color="primary">
+          yearly
+        </button>
+        <button
+          *ngIf="selectedPlanPayTime !== 'year'"
+          (click)="selectedPlanPayTime = 'year'"
+          mat-button
+        >
+          yearly
+        </button>
+      </div>
+
+      <div *ngFor="let plan of plans">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+          <app-plan-card [plan]="plan" [selectedPlanPayTime]="selectedPlanPayTime"></app-plan-card>
+          <button
+            mat-flat-button
+            color="primary"
+            type="button"
+            fxFlexAlign="center"
+            (click)="onChoosePlan(subscriptions[0], plan)"
+          >
+            Choose this plan
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

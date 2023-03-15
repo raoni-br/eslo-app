@@ -1,0 +1,20 @@
+<div
+  gdColumns.xs="repeat(auto-fill, minmax(300px, 1fr))"
+  gdColumns.gt-xs="repeat(auto-fill, minmax(320px, 1fr))"
+  gdGap.xs="24px"
+  gdGap.gt-xs="46px"
+  gdAlignColumns="start stretch"
+  gdAuto
+  class="enrollments-list"
+>
+  <div *ngFor="let enrollment of enrollments; let i = index">
+    <app-enrollment-card
+      [enrollment]="enrollment"
+      (click)="
+        goToEnrollmentStatuses.includes(enrollment.status) ? goToEnrollment(enrollment) : false
+      "
+      [style.cursor]="goToEnrollmentStatuses.includes(enrollment.status) ? 'pointer' : 'auto'"
+      (acceptEnrollmentEvent)="onAcceptEnrollment($event)"
+    ></app-enrollment-card>
+  </div>
+</div>

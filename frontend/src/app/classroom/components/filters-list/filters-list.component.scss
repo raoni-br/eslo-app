@@ -1,0 +1,19 @@
+::ng-deep .custom-form-field .mat-form-field-infix {
+    border-top: 0.4em solid transparent;
+}
+
+::ng-deep .custom-select .mat-select-arrow-wrapper {
+    padding-top: 8px;
+}
+
+::ng-deep .custom-select .mat-select-value  {
+    padding-left: 10px;
+}
+
+::ng-deep .custom-select .mat-select-arrow {
+    border-left: 14px solid transparent !important;
+    border-right: none !important;
+    border-top: 10px solid transparent !important;
+    border-image-source: url('/assets/icons/select-dropdown.svg') !important;
+    border-image-repeat: stretch !important;
+}

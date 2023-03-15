@@ -1,0 +1,36 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.class-container {
+    height: 100%;
+    padding: 0;
+    position: relative;
+
+    @include mq.layout-bp(gt-xs) {
+        height: inherit;
+        padding: 24px 18px 20vh 18px; 
+    }
+
+    &__fullscreen-button {
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+    }
+}
+
+.slide-image {
+    margin-top: 24px;
+    width: 100%;
+    overflow-x: hidden;
+
+    @include mq.layout-bp(gt-xs) {
+        width: 110%;
+    }
+
+    @include mq.layout-bp(gt-sm) {
+        width: 120%;
+    }
+
+    @include mq.layout-bp(gt-lg) {
+        width: 150%;
+    }
+}

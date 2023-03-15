@@ -1,0 +1,7 @@
+{
+    "invoiceEmail": "subscription@eslo.com.br",
+    "currencyCode": "brl",
+    "paymentMethodTypes": ["card"],
+    "checkoutSuccessUrl": "auth/subscription-active",
+    "checkoutCancelledUrl": "auth/subscription-canceled"
+}

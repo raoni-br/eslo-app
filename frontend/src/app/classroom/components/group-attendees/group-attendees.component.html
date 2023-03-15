@@ -1,0 +1,24 @@
+<p class="mat-subheading-1 text-center">Attendees</p>
+<mat-dialog-content>
+  <mat-selection-list #attendeesList>
+    <mat-list-option
+      *ngFor="let attendee of attendees"
+      [value]="attendee"
+      [selected]="attendee.attended"
+    >
+      <!-- Only inline css works with mat-list-option -->
+      <span
+        style="font-size: 14px; font-family: 'Work Sans'; line-height: 20px; letter-spacing: 0.25px"
+      >
+        {{
+          attendee?.student?.student.firstName + ' ' + attendee?.student?.student?.familyName
+            | titlecase
+        }}
+      </span>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout fxLayoutAlign="end center" class="p-b-15">
+  <button mat-button color="primary">confirm</button>
+</mat-dialog-actions>

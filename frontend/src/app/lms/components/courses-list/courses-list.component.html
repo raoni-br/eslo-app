@@ -1,0 +1,24 @@
+<section
+  class="courses__container"
+  gdColumns.xs="repeat(auto-fill, minmax(300px, 1fr))"
+  gdColumns.gt-xs="repeat(auto-fill, minmax(320px, 1fr))"
+  gdGap.xs="24px"
+  gdGap.gt-xs="46px"
+  gdAlignColumns="start stretch"
+  gdAuto
+>
+  <div *ngFor="let course of courses">
+    <mat-card class="courses__card mat-elevation-z2" (click)="onCourseDetail(course?.id)">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <mat-icon color="primary">{{ course?.icon }}</mat-icon>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <span class="mat-title m-0">{{ course?.label }}</span>
+          <span class="mat-body-2">{{ course?.modules | programLevelRange }}</span>
+        </div>
+      </div>
+      <p class="mat-body-2 p-t-25 text-black-opacity-06">
+        {{ course?.description }}
+      </p>
+    </mat-card>
+  </div>
+</section>

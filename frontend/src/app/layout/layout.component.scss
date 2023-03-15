@@ -1,0 +1,85 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.layout {
+    display: grid;
+    grid-template-rows: fit-content(104px) 1fr 56px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        'top-bar'
+        'content'
+        'navigation-bar';
+    height: 100vh;
+    position: relative;
+
+    @include mq.layout-bp(gt-xs) {
+        grid-template-rows: 108px 1fr;
+        grid-template-columns: 108px 1fr;
+        grid-template-areas:
+            'navigation-bar top-bar'
+            'navigation-bar content';
+    }
+
+    &__top-bar {
+        position: relative;
+        grid-area: top-bar;
+
+        @include mq.layout-bp(gt-xs) {
+            max-height: 56px;
+        }
+    }
+
+    &__system-banner {
+        position: absolute;
+        top: 99%;
+        width: 100%;
+        z-index: 10;
+    }
+
+    &__content {
+        grid-area: content;
+        padding: 80px 0;
+        max-height: 100%;
+        overflow-y: auto;
+
+        @include mq.layout-bp(gt-xs) {
+            padding-bottom: 0;
+            padding: 0 40px;
+        }
+    }
+
+    &__navigation-bar {
+        grid-area: navigation-bar;
+        position: absolute;
+        height: 100%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        @include mq.layout-bp(gt-xs) {
+            position: unset;
+            bottom: unset;
+            left: unset;
+            right: unset;
+        }
+    }
+
+    &__float-action-button {
+        position: fixed;
+        bottom: 86px;
+        right: 10px;
+
+        @include mq.layout-bp(gt-xs) {
+            bottom: 12px;
+            right: 12px;
+        }
+    }
+
+    &__timer {
+        position: absolute;
+        bottom: 70px;
+        z-index: 999998;
+        left: 30%;
+        pointer-events: none;
+        // transform: translate(-50%, 0);
+    }
+}

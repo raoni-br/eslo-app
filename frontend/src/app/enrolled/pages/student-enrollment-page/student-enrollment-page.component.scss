@@ -1,0 +1,7 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.container {
+    @include mq.layout-bp(gt-xs) {
+        padding: 32px 0 0 32px;
+    }
+}

@@ -1,0 +1,32 @@
+<div class="group-members-list__container">
+  <div *ngFor="let enrollment of enrollments" class="group-members-list__container__enrollment">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="16px"
+      (click)="onEnrollmentDetail(enrollment.id)"
+    >
+      <app-avatar [text]="enrollment.student.firstName[0]" fontSize="19px"></app-avatar>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxFlex="100%"
+        style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)"
+      >
+        <div
+          fxLayout="column"
+          fxLayoutAlign="start start"
+          class="group-members-list__container__enrollment__info"
+        >
+          <span class="mat-subheading-1"
+            >{{ enrollment.student.firstName | titlecase }}
+            {{ enrollment.student.familyName | titlecase }}
+          </span>
+          <span class="mat-body-2"
+            >{{ enrollment?.level?.module?.program?.label }} - {{ enrollment?.level?.label }}</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<button mat-mini-fab color="primary" class="schedule-input-dialog__close-button" mat-dialog-close>
+  <mat-icon>close</mat-icon>
+</button>
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="12px">
+  <p class="mat-subheading-1">{{ group.name }}</p>
+
+  <br />
+  <div *ngFor="let event of group.events">
+    <app-schedule-input [event]="event" [onlyRead]="true"></app-schedule-input>
+  </div>
+</div>

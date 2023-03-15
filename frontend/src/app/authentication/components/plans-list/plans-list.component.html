@@ -1,0 +1,54 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="32px">
+  <div fxFlexAlign="center">
+    <p class="mat-headline">Choose your plan</p>
+  </div>
+
+  <div
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxFlexAlign="center"
+    fxLayoutGap="16px"
+    class="plans-list__pay-time"
+  >
+    <button *ngIf="selectedPlanPayTime === 'month'" mat-flat-button color="primary">monthly</button>
+    <button
+      *ngIf="selectedPlanPayTime !== 'month'"
+      (click)="selectedPlanPayTime = 'month'"
+      mat-button
+    >
+      monthly
+    </button>
+    <button *ngIf="selectedPlanPayTime === 'year'" mat-flat-button color="primary">yearly</button>
+    <button
+      *ngIf="selectedPlanPayTime !== 'year'"
+      (click)="selectedPlanPayTime = 'year'"
+      mat-button
+    >
+      yearly
+    </button>
+  </div>
+
+  <!-- <div *ngFor="let plan of plans; let i = index">
+    <app-plan-card
+      [plan]="plan"
+      (planSelectedEvent)="onPlanSelected(i)"
+      (priceSelectedEvent)="onPriceSelected($event)"
+      [selectedPlanPayTime]="selectedPlanPayTime"
+    ></app-plan-card>
+  </div> -->
+
+  <div *ngFor="let plan of plans; let i = index">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+      <app-plan-card [plan]="plan" [selectedPlanPayTime]="selectedPlanPayTime"></app-plan-card>
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        fxFlexAlign="center"
+        (click)="onStartFreeTrial(plan)"
+      >
+        Start Free Trial
+      </button>
+    </div>
+  </div>
+</div>

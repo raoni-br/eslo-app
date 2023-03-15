@@ -1,0 +1,22 @@
+<div class="tabs">
+  <div *ngFor="let tab of tabs" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="13px">
+    <div
+      (click)="selectTab(tab)"
+      class="tabs__tab mat-button"
+      [class.tabs__tab--active]="tab.active"
+      [class.tabs__tab--completed]="!tab.active && tab.completed"
+    >
+      <span>{{ tab.title }}</span>
+    </div>
+    <mat-icon
+      *ngIf="tab.icon"
+      [class.active-icon]="tab.active"
+      [class.completed-icon]="tab.completed"
+      >{{ tab.completed ? 'check_circle' : tab.icon }}</mat-icon
+    >
+  </div>
+</div>
+<div class="below-tabs" fxLayout="row" fxLayoutAlign="center center">
+  <ng-container tpTarget="belowPillTabs"></ng-container>
+</div>
+<ng-content></ng-content>

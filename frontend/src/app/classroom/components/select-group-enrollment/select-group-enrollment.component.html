@@ -1,0 +1,72 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-form-field appearance="outline" style="width: 370px">
+    <input
+      type="text"
+      matInput
+      placeholder="Search by name, course or schedule"
+      class="mat-subheading-1"
+      [formControl]="groupSearchInput"
+    />
+    <mat-icon class="text-default--fade" matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<mat-radio-group [formControl]="selectedGroupControl">
+  <ng-container *ngIf="filteredGroups$ | async as filteredGroups">
+    <div *ngIf="!filteredGroups.length">
+      <br />
+      <p class="mat-body-2 text-default--fade">
+        Nothing matches your search. Try something different.
+      </p>
+    </div>
+
+    <div *ngIf="filteredGroups.length" class="group-list__container">
+      <div *ngFor="let group of filteredGroups" class="group-list__container__group">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+          <mat-radio-button
+            #radioButton
+            [value]="group"
+            [checked]="group?.id === selectedGroupControl?.value?.id"
+            color="primary"
+          >
+          </mat-radio-button>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            fxFlex="100%"
+            style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)"
+            (click)="selectedGroupControl.patchValue(group)"
+          >
+            <div
+              fxLayout="column"
+              fxLayoutAlign="start start"
+              class="group-list__container__group__info"
+            >
+              <span
+                class="mat-subheading-1"
+                [class.text-primary--500]="group?.id === selectedGroupControl?.value?.id"
+                >{{ group.name }}</span
+              >
+              <span class="mat-body-2">
+                <span [class.text-primary--500]="group?.id === selectedGroupControl?.value?.id">
+                  {{ group.level.module.program.label }} - {{ group.level.label }}
+                </span>
+              </span>
+            </div>
+            <button
+              mat-icon-button
+              class="group-list__container__group__schedule-button"
+              (click)="onShowSchedule(group); $event.stopPropagation()"
+            >
+              <mat-icon
+                class="text-default--fade"
+                [class.text-primary--500]="group?.id === selectedGroupControl?.value?.id"
+                >schedule</mat-icon
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</mat-radio-group>

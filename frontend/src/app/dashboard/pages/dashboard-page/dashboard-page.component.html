@@ -1,0 +1,116 @@
+<ng-template tpAttach="topBarStart">
+  <app-top-bar-title text="Panel"></app-top-bar-title>
+</ng-template>
+
+<!-- TEACHER DASHBOARD -->
+<div
+  fxLayout="column"
+  fxLayoutAlign.gt-xs="center center"
+  fxLayoutAlign.xs="center stretch"
+  fxLayoutGap="24px"
+  style="padding: 32px 8px"
+  *ngIf="hasAdminRole || hasTeacherRole"
+>
+  <ng-container *ngIf="teacherDashboard$ | async as teacherDashboard">
+    <!-- TODAY CLASSES AND LICENSES EXPIRING -->
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="32px">
+      <div>
+        <app-teacher-dashboard-card
+          icon="schedule"
+          title="Today classes"
+          emptyMessage="There are no classes today"
+          [contentList]="teacherDashboard?.nextEvents"
+          (goToEvent)="onGoTo($event)"
+        >
+        </app-teacher-dashboard-card>
+      </div>
+
+      <div>
+        <app-teacher-dashboard-card
+          icon="hourglass_bottom"
+          title="Subscription Renewals"
+          emptyMessage="No subscription renewals"
+          [contentList]="teacherDashboard?.subscriptionsRenewals"
+          (goToEvent)="onGoTo($event)"
+        >
+        </app-teacher-dashboard-card>
+      </div>
+    </div>
+
+    <!-- TURNED IN HOMEWORKS AND OVERDUE TASKS -->
+    <!-- <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="32px">
+    <div>
+      <app-teacher-dashboard-card
+        icon="assignment_turned_in"
+        title="Turned In"
+        emptyMessage="No turned in homeworks"
+      >
+      </app-teacher-dashboard-card>
+    </div>
+
+    <div>
+      <app-teacher-dashboard-card
+        icon="assignment_late"
+        title="Overdue tasks"
+        emptyMessage="No overdue tasks"
+      >
+      </app-teacher-dashboard-card>
+    </div>
+  </div> -->
+  </ng-container>
+</div>
+
+<!-- STUDENT DASHBOARD -->
+<div
+  fxLayout="column"
+  fxLayoutAlign.gt-xs="center center"
+  fxLayoutAlign.xs="center stretch"
+  fxLayoutGap="24px"
+  style="padding: 32px 8px"
+  *ngIf="hasAdminRole || hasStudentRole"
+>
+  <ng-container *ngIf="studentDashboard$ | async as studentDashboard">
+    <!-- PENDING ENROLLMENTS AND SUBSCRIPTION RENEWAL -->
+    <div *ngIf="pendingEnrollments$ | async as pendingEnrollments">
+      <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="32px">
+        <div *ngIf="pendingEnrollments.length > 0">
+          <p class="mat-title text-center">Pending Enrollments</p>
+          <div *ngFor="let enrollment of pendingEnrollments; let i = index">
+            <app-enrollment-card
+              [enrollment]="enrollment"
+              (acceptEnrollmentEvent)="onAcceptEnrollment($event)"
+            ></app-enrollment-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div>
+        <p class="mat-title text-center">Subscriptions Renewal</p>
+        <app-enrollment-card
+          [type]="ENROLLMENT_CARD_TYPES.SUBSCRIPTION_RENEWAL"
+        ></app-enrollment-card>
+      </div> -->
+    </div>
+
+    <!-- CURRENT HOMEWORK AND NEXT CLASS -->
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="32px">
+      <!-- <div>
+        <p class="mat-title text-center">Current Homework</p>
+        <app-enrollment-card
+          [enrollment]="nextClassEnrollment"
+          [type]="ENROLLMENT_CARD_TYPES.CURRENT_HOMEWORK"
+        ></app-enrollment-card>
+      </div> -->
+
+      <div *ngIf="studentDashboard?.nextEvent">
+        <p class="mat-title text-center">Next Class</p>
+        <app-enrollment-card
+          [enrollment]="studentDashboard?.nextEvent?.enrollment"
+          [studyGroup]="studentDashboard?.nextEvent?.studyGroup"
+          [nextEvent]="studentDashboard?.nextEvent"
+          [type]="ENROLLMENT_CARD_TYPES.NEXT_CLASS"
+        ></app-enrollment-card>
+      </div>
+    </div>
+  </ng-container>
+</div>

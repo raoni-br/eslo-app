@@ -1,0 +1,34 @@
+<app-layout [showNavigationBar]="false">
+  <ng-container *ngIf="lesson$ | async as lesson">
+    <ng-template tpAttach="topBarStart">
+      <app-eslo-letter-logo></app-eslo-letter-logo>
+      <app-top-bar-title [text]="lesson.title"></app-top-bar-title>
+    </ng-template>
+
+    <div class="script-container">
+      <app-custom-stepper #stepper>
+        <cdk-step *ngFor="let scriptPage of lesson.lessonMaterial.lectureScript; let i = index">
+          <img
+            #imgElement
+            class="script-image"
+            [src]="scriptPage.media.rootUri"
+            [alt]="scriptPage.media.id"
+            (click)="checkFullscreen()"
+          />
+          <button
+            color="primary"
+            class="script-container__fullscreen-button"
+            [class.script-container__fullscreen-button--has-audio]="
+              lesson.lessonMaterial.audio.length > 0
+            "
+            *ngIf="isMobile"
+            mat-icon-button
+            (click)="onFullscreen(imgElement)"
+          >
+            <mat-icon>fullscreen</mat-icon>
+          </button>
+        </cdk-step>
+      </app-custom-stepper>
+    </div>
+  </ng-container>
+</app-layout>

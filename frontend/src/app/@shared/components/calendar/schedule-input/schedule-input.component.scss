@@ -1,0 +1,86 @@
+@use '~@angular/material' as mat;
+@mixin schedule-input-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+    $accent: mat.get-color-from-palette(map-get($theme, accent));
+
+    $accent-100: mat.get-color-from-palette(map-get($theme, accent), 100);
+    $primary-50: mat.get-color-from-palette(map-get($theme, primary), 50);
+
+    .wrapper {
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        grid-template-columns: 1fr 40px;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 'days  contentDays' 'times  contentTimes';
+        row-gap: 12px;
+        
+        &--only-read {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas: 'days' 'times';
+        }
+    }
+
+    .days-buttons {
+        grid-area: 'days';
+    }
+
+    .days-content {
+        grid-area: 'contentDays';
+    }
+
+    .day-button {
+        min-width: 40px;
+        width: 40px;
+        padding: 0;
+        background-color: $primary-50;
+        font-weight: 500;
+        align-self: center;
+        justify-self: center;
+
+        &--active {
+            background-color: $accent-100;
+            color: $accent;
+        }
+    }
+
+    .input-times {
+        max-width: 312px;
+        grid-area: 'times';
+    }
+
+    .times-content {
+        grid-area: 'contentTimes';
+    }
+
+    .time-field {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 13px;
+        padding: 0 3px 0 10px;
+        position: relative;
+
+
+
+        &__input {
+            border: none;
+            outline: none;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 15px;
+            font-family: 'Comfortaa';
+
+            &::-webkit-calendar-picker-indicator {
+                display: none;
+            }
+        }
+
+        &__hint-text {
+            position: absolute;
+            bottom: -18px;
+            left: 10px;
+        }
+    }
+}

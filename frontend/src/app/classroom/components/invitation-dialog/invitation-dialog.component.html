@@ -1,0 +1,190 @@
+<div mat-dialog-title class="header">
+  <div class="header__buttons" fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-icon-button class="white" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      [disabled]="
+        (data?.type === 'group' ? groupForm.invalid : studentForm.invalid) ||
+        courseForm.invalid ||
+        eventsForm.invalid
+      "
+      class="white"
+      (click)="onSave()"
+    >
+      <mat-icon [class.pulse-animation]="formProgress === 100">
+        {{ !!editingEnrollment || !!editingGroup ? 'check_circle' : 'send' }}
+      </mat-icon>
+    </button>
+  </div>
+  <div
+    class="tabs"
+    [class.normal-curve]="!editingEnrollment && !editingGroup"
+    [class.editing-curve]="editingEnrollment || editingGroup"
+  >
+    <div *ngFor="let tab of tabs" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="13px">
+      <div
+        (click)="selectTab(tab)"
+        class="tabs__tab mat-button"
+        [class.tabs__tab--active]="tab.active"
+        [class.tabs__tab--completed]="
+          !tab.active && tab.completed && !editingEnrollment && !editingGroup
+        "
+      >
+        <span>{{ tab.title }}</span>
+      </div>
+      <mat-icon
+        *ngIf="tab.icon && !editingEnrollment && !editingGroup"
+        [class.active-icon]="tab.active"
+        [class.completed-icon]="tab.completed"
+        >{{ tab.completed ? 'check_circle' : tab.icon }}</mat-icon
+      >
+    </div>
+  </div>
+  <div *ngIf="!editingEnrollment && !editingGroup" style="padding: 0 35px 4px 35px" fxLayout>
+    <div style="width: 100%">
+      <mat-progress-bar color="accent" mode="determinate" [value]="formProgress"></mat-progress-bar>
+    </div>
+  </div>
+</div>
+<mat-dialog-content>
+  <div [hidden]="!(selectedTab.title === 'info')">
+    <div *ngIf="type === 'student'">
+      <p class="mat-subheading-1 mb-16">
+        {{ (editingEnrollment ? editingEnrollment.student.firstName : 'student') | titlecase }}'s
+        basic info:
+      </p>
+
+      <form [formGroup]="studentForm">
+        <app-student-info
+          [studentInfoForm]="studentInfoForm"
+          [disableControlValue]="!!editingEnrollment"
+        ></app-student-info>
+      </form>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button
+          mat-stroked-button
+          color="warn"
+          *ngIf="editingEnrollment"
+          (click)="onCancelEnrollment()"
+        >
+          cancel enrollment
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="type === 'group'">
+      <p *ngIf="!editingEnrollment" class="mat-subheading-1 mb-16">
+        {{ (editingEnrollment ? 'groupName' : 'group') | titlecase }}'s basic info:
+      </p>
+      <app-group-info
+        [groupNameControl]="groupNameControl"
+        [groupProgramControl]="programControl"
+        [groupLevelControl]="levelControl"
+      ></app-group-info>
+    </div>
+  </div>
+  <div [hidden]="!(selectedTab.title === 'course')">
+    <form [formGroup]="courseForm">
+      <p class="mat-subheading-1 mb-16">
+        {{
+          (type === 'group'
+            ? 'group'
+            : editingEnrollment
+            ? editingEnrollment.student.firstName
+            : 'student'
+          ) | titlecase
+        }}’s course and level:
+      </p>
+      <div *ngIf="type === 'student'">
+        <mat-radio-group
+          formControlName="sourceType"
+          fxLayout="column"
+          fxLayoutAlign="space-between start"
+          style="font-size: 16px; height: 180px; padding: 32px 0"
+        >
+          <mat-radio-button value="selfPaced" disabled>
+            <span style="margin-left: 20px"> Self paced </span>
+          </mat-radio-button>
+          <mat-radio-button value="oneOnOne">
+            <span style="margin-left: 20px"> One-on-one </span>
+          </mat-radio-button>
+          <mat-radio-button value="group">
+            <span style="margin-left: 20px"> Group </span>
+          </mat-radio-button>
+        </mat-radio-group>
+        <div *ngIf="sourceTypeControl.value === 'oneOnOne'">
+          <app-select-program
+            [programControl]="programControl"
+            [levelControl]="levelControl"
+            [isEditing]="!!editingEnrollment"
+          ></app-select-program>
+        </div>
+        <div *ngIf="sourceTypeControl.value === 'group'">
+          <app-select-group-enrollment
+            [groups]="groups$ | async"
+            [selectedGroupControl]="selectedGroupControl"
+            [programControl]="programControl"
+            [levelControl]="levelControl"
+          ></app-select-group-enrollment>
+        </div>
+      </div>
+
+      <div *ngIf="type === 'group'">
+        <app-select-program
+          [programControl]="programControl"
+          [levelControl]="levelControl"
+          [isEditing]="!!editingGroup"
+        ></app-select-program>
+      </div>
+    </form>
+  </div>
+
+  <div [hidden]="!(selectedTab.title === 'schedule')">
+    <p class="mat-subheading-1 mb-16">
+      {{
+        (type === 'group'
+          ? 'group'
+          : editingEnrollment
+          ? editingEnrollment.student.firstName
+          : 'student'
+        ) | titlecase
+      }}’s schedule:
+    </p>
+    <app-invitation-events
+      [eventsForm]="eventsForm"
+      [sourceTypeControl]="sourceTypeControl"
+      [events]="events"
+      [type]="type"
+      (addEventSource)="addEvent()"
+      (updateEventSource)="updateEvent($event)"
+      (removeEventSource)="removeEvent($event)"
+    ></app-invitation-events>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions *ngIf="isMobile">
+  <div
+    fxLayout
+    [fxLayoutAlign]="selectedTab?.title !== tabs[0]?.title ? 'space-between center' : 'end center'"
+    class="tabs__actions"
+  >
+    <button
+      *ngIf="selectedTab?.title !== tabs[0]?.title"
+      mat-button
+      color="primary"
+      (click)="backStep()"
+    >
+      Back
+    </button>
+    <button
+      *ngIf="selectedTab?.title !== tabs[2]?.title"
+      mat-flat-button
+      color="primary"
+      (click)="nextStep()"
+    >
+      Next
+    </button>
+  </div>
+</mat-dialog-actions>

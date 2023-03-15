@@ -1,0 +1,60 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+:host {
+    position: fixed;
+    bottom: 64px;
+    left: 0;
+    right: 0;
+    @include mq.layout-bp(gt-xs) {
+        bottom: 0;
+    }
+}
+
+.audio-card {
+    padding: 0 16px !important;
+    border-radius: 14px 14px 0px 0px;
+    position: relative;
+
+    &__select {
+        margin-left: 12px;
+        width: 70px;
+
+        ::ng-deep .mat-select-arrow {
+            border: none;
+        }
+
+        ::ng-deep .mat-form-field-wrapper {
+            padding-bottom: 15px;
+        }
+
+        ::ng-deep .mat-form-field-underline {
+            display: none;
+        }
+    }
+
+    &__volume {
+        position: absolute;
+        top: -165px;
+        right: 15px;
+        border-radius: 35px;
+        padding: 10px 0;
+    }
+}
+
+.icon-size {
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+}
+
+.select-icon {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    cursor: pointer;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+}

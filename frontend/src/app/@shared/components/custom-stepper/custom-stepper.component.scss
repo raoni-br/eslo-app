@@ -1,0 +1,56 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+@use '../../../../styles/abstracts/variables' as vars;
+
+.stepper__navigation {
+    position: fixed;
+    top: 120px;
+    bottom: 56px;
+    padding: 5px;
+
+    &--has-audio {
+        bottom: 125px;
+    }
+
+    @include mq.layout-bp(gt-xs) {
+        position: fixed;
+        top: 100px;
+        bottom: 0;
+
+        &--has-audio {
+            bottom: 65px;
+        }
+    }
+}
+
+@mixin custom-stepper-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary), 500);
+    $accent: mat.get-color-from-palette(map-get($theme, accent), 300);
+
+    .custom-stepper__step-number {
+        cursor: pointer;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+
+        border: 2px solid vars.$text-black-fade;
+        color: vars.$text-black-fade;
+        text-align: center;
+
+        &--active {
+            border: 2px solid $primary;
+            color: $primary;
+        }
+    }
+
+    .custom-stepper__content {
+        width: 100vw;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .custom-stepper__counter {
+        color: $primary;
+    }
+}

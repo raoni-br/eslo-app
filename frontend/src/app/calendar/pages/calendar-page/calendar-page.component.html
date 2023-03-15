@@ -1,0 +1,31 @@
+<ng-template tpAttach="topBarStart">
+  <app-eslo-letter-logo></app-eslo-letter-logo>
+  <app-top-bar-title text="Calendar"></app-top-bar-title>
+</ng-template>
+
+<ng-template tpAttach="topBarEnd">
+  <button
+    mat-button
+    (click)="openAvailabilityDialog()"
+    aria-label="Check Availability"
+    class="button"
+  >
+    <mat-icon>date_range</mat-icon>
+    availability
+  </button>
+</ng-template>
+
+<!-- <div *ngIf="isMobile">
+  <ng-template tpAttach="topBarCenter">
+    <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+  </ng-template>
+  <router-outlet></router-outlet>
+</div>
+
+<div *ngIf="!isMobile">
+  <app-calendar></app-calendar>
+</div> -->
+
+
+
+<app-calendar-view></app-calendar-view>

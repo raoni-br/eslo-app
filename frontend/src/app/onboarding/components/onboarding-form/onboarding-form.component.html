@@ -1,0 +1,15 @@
+<form (ngSubmit)="onSubmit()" #onboardingForm="ngForm">
+  <div *ngIf="formStructure">
+    <app-onboarding-stepper #onboardingStepper>
+      <cdk-step *ngFor="let section of formStructure.sections; let i = index">
+        <ng-container *ngIf="section.type === SECTION_TYPE.DIALOG">
+          <app-onboarding-dialog [dialog]="section"></app-onboarding-dialog>
+        </ng-container>
+
+        <ng-container *ngIf="section.type === SECTION_TYPE.QUESTION">
+          <app-onboarding-question [question]="section"></app-onboarding-question>
+        </ng-container>
+      </cdk-step>
+    </app-onboarding-stepper>
+  </div>
+</form>

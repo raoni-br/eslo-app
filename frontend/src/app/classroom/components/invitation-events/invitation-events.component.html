@@ -1,0 +1,99 @@
+<form [formGroup]="eventsForm">
+  <div *ngIf="type === 'group' || sourceTypeControl.value === 'oneOnOne'">
+    <div class="invitation-events__container__content__form__events">
+      <ng-container formArrayName="events" *ngIf="events.controls">
+        <ng-container *ngIf="events.getError('hasSameDate')">
+          <button
+            mat-icon-button
+            type="button"
+            color="warn"
+            matTooltip="Events with same date"
+            matTooltipClass="custom-mat-tooltip"
+          >
+            <mat-icon>error</mat-icon>
+          </button>
+        </ng-container>
+        <div fxLayout="column">
+          <ng-container
+            *ngFor="let eventControl of events.controls; let index = index; let first = first"
+          >
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *ngIf="
+                eventControl.value.changeStatus !== 'DELETED' && !eventControl.value.completedAt
+              "
+              [style.margin-top]="first ? '0' : '24px'"
+            >
+              <app-schedule-input
+                [event]="eventControl.value"
+                [eventControl]="eventControl"
+                (eventChange)="updateEvent($event, index)"
+              >
+                <div daysButtons>
+                  <ng-container *ngIf="getEventHasErrorMessage(eventControl) as errorMessage">
+                    <button
+                      mat-icon-button
+                      type="button"
+                      color="warn"
+                      [matTooltip]="errorMessage"
+                      matTooltipClass="custom-mat-tooltip"
+                    >
+                      <mat-icon>error</mat-icon>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="!getEventHasErrorMessage(eventControl)">
+                    <button mat-icon-button type="button" color="primary">
+                      <mat-icon>check_circle</mat-icon>
+                    </button>
+                  </ng-container>
+                </div>
+
+                <div timesButtons>
+                  <button
+                    [ngClass]="{
+                      hidden: (events.controls | checkEventsControls: eventControl)
+                    }"
+                    mat-icon-button
+                    type="button"
+                    color="warn"
+                    (click)="removeEvent(index)"
+                    matTooltip="Remove recurrence"
+                  >
+                    <mat-icon>remove_circle</mat-icon>
+                  </button>
+                </div>
+              </app-schedule-input>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <div
+      fxLayout
+      fxLayoutAlign="center center"
+      class="invitation-events__container__content__form__add-schedule"
+      [class.invitation-events__container__content__form__add-schedule--has-event]="
+        events.controls.length
+      "
+    >
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+        <button
+          mat-mini-fab
+          (click)="addEvent()"
+          type="button"
+          color="primary"
+          matTooltip="Add more"
+        >
+          <mat-icon>more_time</mat-icon>
+        </button>
+
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div style="margin-bottom: 24px"></div>
+  </div>
+  <div style="margin-top: 24px"></div>
+
+  <!-- <app-weekly-availability [eventsToAdd]="events.value"></app-weekly-availability> -->
+</form>

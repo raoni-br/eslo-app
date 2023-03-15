@@ -1,0 +1,22 @@
+<div *ngIf="enrollment$ | async as enrollment">
+  <ng-template tpAttach="topBarStart">
+    <app-back-button></app-back-button>
+    <app-top-bar-title
+      *ngIf="enrollment?.student?.firstName"
+      [text]="enrollment?.student?.firstName + ' ' + enrollment?.student?.familyName | titlecase"
+    ></app-top-bar-title>
+  </ng-template>
+
+  <div class="container">
+    <app-class-record-list
+      [student]="false"
+      [enrollment]="enrollment"
+      [classInProgress]="classInProgress$ | async"
+      [lessonTrackerList]="enrollment?.lessonTrackerList"
+      (startClassEvent)="onStartClass(enrollment, $event)"
+      (resumeClassEvent)="onResumeClass($event)"
+      (revertLessonEvent)="onRevertLesson($event, enrollment)"
+      (goToLessonEvent)="onGoToLesson($event)"
+    ></app-class-record-list>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.text-card {
+    &--only-text {
+        padding: 16px 20px;
+    }
+
+    &--button {
+        padding: 0 12px;
+    }
+
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 7px;
+}
+
+.mt-24 {
+    margin-top: 24px;
+}

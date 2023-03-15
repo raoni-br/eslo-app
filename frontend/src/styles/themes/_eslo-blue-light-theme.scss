@@ -1,0 +1,272 @@
+@use '~@angular/material' as mat;
+
+@use 'src/styles/base/typography' as typo;
+
+// Import app and page component themes here to enable theming for them
+@use 'src/app/layout/components/navigation-bar/navigation-bar.component.scss' as navbar;
+@use 'src/app/layout/components/top-bar/top-bar.component.scss' as topbar;
+@use 'src/app/@shared/components/eslo-letter-logo/eslo-letter-logo.component.scss' as esloletter;
+@use 'src/app/@shared/components/calendar/weekly-availability/weekly-availability.component.scss' as weekly;
+@use 'src/app/@shared/components/calendar/schedule-input/schedule-input.component.scss' as schedule;
+@use 'src/app/@shared/components/top-bar-title/top-bar-title.component.scss' as topbartitle;
+@use 'src/app/@shared/components/user-button/user-button.component.scss' as userbutton;
+@use 'src/app/@shared/components/avatar/avatar.component.scss' as avatar;
+@use 'src/app/@shared/components/navigation-tabs/navigation-tabs.component.scss' as navtabs;
+@use 'src/app/@shared/components/pill-tabs/pill-tabs.component.scss' as pilltabs;
+@use 'src/app/@shared/components/custom-stepper/custom-stepper.component.scss' as customstepper;
+@use 'src/app/@shared/components/class-record-timer/class-record-timer.component.scss' as classrecordtimer;
+@use 'src/styles/layout/custom-angular-theme.scss' as customangulartheme;
+
+@use 'src/app/calendar/calendar/calendar.component.scss' as calendar;
+@use 'src/app/calendar/calendar-mobile/calendar-mobile.component.scss' as calendarmobile;
+@use 'src/app/calendar/components/edit-event-bottom-sheet/edit-event-bottom-sheet.component.scss' as editevent;
+@use 'src/app/lms/lms.theme' as lms;
+@use 'src/app/lms/components/lessons-list/lessons-list.component.scss' as lessonslist;
+@use 'src/app/lms/components/slides-stepper/slides-stepper.component.scss' as slidesstepper;
+@use 'src/app/classroom/components/invitation-events/invitation-events.component.scss' as invitationevents;
+@use 'src/app/classroom/components/select-program/select-program.component.scss' as select-program;
+@use 'src/app/classroom/components/group-empty-members/group-empty-members.component.scss' as groupempty;
+@use 'src/app/classroom/components/empty-list/empty-list.component.scss' as emptylist;
+@use 'src/app/classroom/components/invitation-dialog/invitation-dialog.component.scss' as invitationdialog;
+@use 'src/app/classroom/pages/create-invitation-page/create-invitation-page.component.scss' as create-invitation-page;
+@use 'src/app/@shared/components/class-record-list/class-record-list.component.scss' as classrecordlist;
+@use 'src/app/onboarding/components/onboarding-input/onboarding-input.component.scss' as onboarding-input;
+
+
+@use 'src/app/main/invitation/welcome/welcome.theme' as welcome;
+@use 'src/app/main/invitation/message/message.theme' as message;
+@use 'src/app/main/user-account/user-account.theme' as useraccount;
+
+@use '../abstracts/variables';
+
+$eslo-white: (
+    500: white,
+    contrast: (
+        500: rgba(black, 0.87),
+    ),
+);
+
+$eslo-black: (
+    500: black,
+    contrast: (
+        500: white,
+    ),
+);
+
+// eslo colour palette
+$eslo-blue: (
+    50: #e4f6fa,
+    100: #beeaf2,
+    200: #99dce9,
+    300: #7dcddd,
+    400: #72c3d4,
+    500: #71b8ca,
+    600: #6aa8b7,
+    700: #61939e,
+    800: #597f86,
+    900: #4c5b5d,
+    A100: #beeaf2,
+    A200: #99dce9,
+    A400: #72c3d4,
+    A700: #61939e,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: white,
+        400: white,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: rgba(black, 0.87),
+        A200: white,
+        A400: white,
+        A700: white,
+    ),
+);
+
+$eslo-orange: (
+    50: #f9eae8,
+    100: #facec0,
+    200: #f8af97,
+    300: #f6906e,
+    400: #f5794f,
+    500: #f66230,
+    600: #eb5c2c,
+    700: #dd5527,
+    800: #cf4e23,
+    900: #b7411b,
+    A100: #ffffff,
+    A200: #ffedeb,
+    A400: #ffc0b8,
+    A700: #ffaa9e,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: rgba(black, 0.87),
+        A200: rgba(black, 0.87),
+        A400: rgba(black, 0.87),
+        A700: rgba(black, 0.87),
+    ),
+);
+
+$eslo-red: (
+    50: #f6e0e4,
+    100: #e7b3bc,
+    200: #d88090,
+    300: #c84d63,
+    400: #bc2641,
+    500: #b00020,
+    600: #a9001c,
+    700: #a00018,
+    800: #970013,
+    900: #87000b,
+    A100: #ffb3b6,
+    A200: #ff8085,
+    A400: #ff4d53,
+    A700: #ff343b,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: white,
+        400: white,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: rgba(black, 0.87),
+        A200: rgba(black, 0.87),
+        A400: rgba(black, 0.87),
+        A700: white,
+    ),
+);
+
+// -----------------------------------------------------------------------------------------------------
+// @ Component theming
+// -----------------------------------------------------------------------------------------------------
+
+// Define a mixin for easier access
+@mixin components-theme($theme) {
+    // Global
+    @include variables.theme($theme);
+    @include customangulartheme.global-progress-bar-theme($theme);
+
+    // Layout components
+    @include navbar.navigation-bar-theme($theme);
+    @include topbar.top-bar-theme($theme);
+    @include topbartitle.top-bar-title-theme($theme);
+    @include esloletter.eslo-letter-logo-theme($theme);
+    @include userbutton.user-button-theme($theme);
+    @include avatar.avatar-theme($theme);
+    @include navtabs.navigation-tabs-theme($theme);
+    // @include a.pill-tabs-theme($theme);
+    @include invitationdialog.invitation-dialog-theme($theme);
+    @include classrecordtimer.class-record-timer-theme($theme);
+
+    // Apps
+    @include lms.lms-theme($theme);
+    @include calendar.calendar-theme($theme);
+    @include calendarmobile.calendar-mobile-theme($theme);
+    @include editevent.edit-event-bottom-sheet-theme($theme);
+    @include invitationevents.invitation-events-theme($theme);
+    @include select-program.theme($theme);
+    @include groupempty.group-empty-members-theme($theme);
+    @include emptylist.empty-list-theme($theme);
+    @include weekly.weekly-availability-theme($theme);
+    @include schedule.schedule-input-theme($theme);
+    @include lessonslist.lessons-list-theme($theme);
+    @include classrecordlist.class-record-list-theme($theme);
+    @include customstepper.custom-stepper-theme($theme);
+    @include slidesstepper.slides-stepper-theme($theme);
+    @include onboarding-input.theme($theme);
+    @include create-invitation-page.theme($theme);
+
+    // Pages
+    @include welcome.invitation-welcome-theme($theme);
+    @include message.invitation-message-theme($theme);
+
+    @include useraccount.user-account-theme($theme);
+
+    // Material Components
+    @include customangulartheme.mat-fab-button-theme($theme);
+    @include customangulartheme.mat-checkbox-custom-theme($theme);
+    @include customangulartheme.custom-mat-calendar-theme($theme);
+    @include customangulartheme.text-colors-theme($theme);
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ Define Eslo Blue theme
+// -----------------------------------------------------------------------------------------------------
+
+// Define the primary, accent and warn palettes
+$eslo-blue-theme-primary-palette: mat.define-palette($eslo-blue, 500, 400, 700);
+$eslo-blue-theme-accent-palette: mat.define-palette($eslo-orange, 500, 400, 700);
+$eslo-blue-theme-warn-palette: mat.define-palette($eslo-red, 500);
+
+// Create the Material theme object
+
+$light-background-color: white;
+
+$eslo-blue-theme: mat.define-light-theme(
+    $eslo-blue-theme-primary-palette,
+    $eslo-blue-theme-accent-palette,
+    $eslo-blue-theme-warn-palette
+);
+$background: map-get($eslo-blue-theme, background);
+$background: map-merge(
+    $background,
+    (
+        background: $light-background-color,
+    )
+);
+$light-theme: map-merge(
+    $eslo-blue-theme,
+    (
+        background: $background,
+    )
+);
+
+
+$eslo-blue-dark-theme-primary-palette: mat.define-palette($eslo-blue, 500, 400, 700);
+$eslo-blue-dark-theme-accent-palette: mat.define-palette($eslo-orange, 500, 400, 700);
+$eslo-blue-dark-theme-warn-palette: mat.define-palette($eslo-red, 300);
+
+$eslo-blue-dark-theme: mat.define-dark-theme(
+    $eslo-blue-dark-theme-primary-palette,
+    $eslo-blue-dark-theme-accent-palette,
+    $eslo-blue-dark-theme-warn-palette
+);
+
+@include mat.core(typo.$eslo-typography);
+
+.light-theme {
+    @include mat.all-component-themes($light-theme);
+    @include components-theme($light-theme);
+}
+
+.dark-theme {
+    @include mat.all-component-themes($eslo-blue-dark-theme);
+    @include components-theme($eslo-blue-dark-theme);
+}
+
+// Add ".theme-eslo-blue" class to the body to activate this theme.
+// Class name must start with "theme-" !!!
+// .theme-eslo-blue {
+//     // Generate the Angular Material theme
+//     @include mat.all-component-themes($eslo-blue-theme);
+
+//     // Apply the theme to the user components
+//     @include components-theme($eslo-blue-theme);
+// }

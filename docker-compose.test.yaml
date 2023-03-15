@@ -1,0 +1,55 @@
+version: '2'
+networks:
+  test_network:
+services:
+  backend_test:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    links:
+      - test_db
+      - iam-agent
+    ports:
+     - "3001:3000"
+    depends_on:
+     - "test_db"
+    networks:
+      - test_network
+    volumes:
+     - ./backend:/opt/eslo/backend
+     - /opt/eslo/backend/node_modules
+    environment:
+      ESLO_APP_DATABASE_URL: "postgresql://eslo:eslo@test_db:5432/pgdb?schema=public"
+      NODE_ENV: test
+  test_db:
+    image: postgres:12-alpine
+    # volumes:
+    #   - ./docker/volumes/postgresql:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - test_network
+    environment:
+      POSTGRES_DB: pgdb
+      POSTGRES_USER: eslo
+      POSTGRES_PASSWORD: eslo
+  iam-agent:
+      image: openpolicyagent/opa:0.30.1
+      command:
+        - "run"
+        - "--server"
+        - "--authentication=token"
+        - "--authorization=basic"
+        - "--format=json"
+        - "--log-level=debug"
+        - "/data"
+        - "/policies"
+      ports:
+        - "8182:8181"
+      networks:
+        - test_network
+      environment:
+        IDENTITY_TOKEN: "local-token"
+      volumes:
+        - ./iam-agent/policies:/policies
+        - ./iam-agent/data:/data

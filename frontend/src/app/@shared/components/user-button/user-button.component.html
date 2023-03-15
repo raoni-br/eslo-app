@@ -1,0 +1,25 @@
+<button *ngIf="loggedUser" mat-button class="user-button" [matMenuTriggerFor]="menu">
+  <app-avatar
+    color="accent"
+    [text]="loggedUser.firstName[0] + ' ' + loggedUser.familyName[0]"
+  ></app-avatar>
+</button>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="profile/account">
+    <mat-icon>account_circle</mat-icon>
+    Profile
+  </button>
+  <button mat-menu-item (click)="redirectToHelpPage()">
+    <mat-icon>help</mat-icon>
+    Help
+  </button>
+  <button mat-menu-item (click)="redirectToTermsPage()">
+    <mat-icon>gavel</mat-icon>
+    Terms of Service
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    Log out
+  </button>
+</mat-menu>

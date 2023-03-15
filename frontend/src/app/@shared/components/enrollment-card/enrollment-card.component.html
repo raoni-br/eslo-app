@@ -1,0 +1,140 @@
+<mat-card
+  class="enrollment-card mat-elevation-z2"
+  [style.backgroundColor]="color"
+  (mouseenter)="hover = true"
+  (mouseleave)="hover = false"
+  [class.mat-elevation-z8]="hover"
+>
+  <div fxLayout="column" fxLayoutAlign="space-between stretch" style="height: 100%">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      *ngIf="
+        type === ENROLLMENT_CARD_TYPES.ENROLLMENT ||
+        type === ENROLLMENT_CARD_TYPES.SUBSCRIPTION_RENEWAL
+      "
+    >
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <span class="mat-overline">{{ enrollment?.level?.module?.program?.name | uppercase }}</span>
+        <span class="mat-title">{{ enrollment?.level?.label }}</span>
+      </div>
+      <mat-icon>{{ enrollment?.level?.module?.program?.icon }}</mat-icon>
+    </div>
+
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      *ngIf="
+        type === ENROLLMENT_CARD_TYPES.CURRENT_HOMEWORK || type === ENROLLMENT_CARD_TYPES.NEXT_CLASS
+      "
+    >
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <!-- <span class="mat-overline">{{
+          enrollment?.level?.module?.program?.name + ' - ' + enrollment?.level?.label | uppercase
+        }}</span> -->
+        <span class="mat-overline">{{
+          (enrollment?.level?.module?.program?.label || studyGroup?.level?.module?.program?.label) +
+            ' - ' +
+            (enrollment?.level?.label || studyGroup?.level?.label) | uppercase
+        }}</span>
+        <span
+          *ngIf="type === ENROLLMENT_CARD_TYPES.CURRENT_HOMEWORK"
+          class="mat-title"
+          style="max-width: 236px"
+        >
+          current homework
+        </span>
+        <span
+          *ngIf="type === ENROLLMENT_CARD_TYPES.NEXT_CLASS"
+          class="mat-title"
+          style="max-width: 236px"
+        >
+          {{ enrollment?.nextLesson?.title || studyGroup?.nextLesson?.title }}
+        </span>
+      </div>
+      <mat-icon>{{
+        enrollment?.level?.module?.program?.icon || studyGroup?.level?.module?.program?.icon
+      }}</mat-icon>
+    </div>
+
+    <div
+      *ngIf="
+        (type !== ENROLLMENT_CARD_TYPES.CURRENT_HOMEWORK &&
+          (enrollment?.status === ENROLLMENT_STATUS.ACTIVE ||
+            enrollment?.status === ENROLLMENT_STATUS.CANCELLED)) ||
+        studyGroup
+      "
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <span
+        class="mat-overline"
+        [fxFlexAlign]="type === ENROLLMENT_CARD_TYPES.NEXT_CLASS ? 'end' : ''"
+      >
+        {{
+          enrollment?.classRecords || studyGroup?.studyGroupClassRecords | parseCompletedLessons
+        }}
+        /
+        {{ enrollment?.lessons?.length || studyGroup?.lessons?.length }}
+      </span>
+      <span *ngIf="type === ENROLLMENT_CARD_TYPES.ENROLLMENT" class="mat-overline">
+        {{ enrollment?.level?.code.split('-').pop() || studyGroup?.level?.code.split('-').pop() }}
+      </span>
+      <div
+        *ngIf="type === ENROLLMENT_CARD_TYPES.NEXT_CLASS"
+        [innerHTML]="nextEvent?.startDateTime | formatNextClassDate | safe: 'html'"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      ></div>
+      <span *ngIf="type === ENROLLMENT_CARD_TYPES.SUBSCRIPTION_RENEWAL" class="mat-overline">
+        expired date
+      </span>
+    </div>
+
+    <div
+      *ngIf="type === ENROLLMENT_CARD_TYPES.CURRENT_HOMEWORK"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <span class="mat-overline">due date</span>
+      <span class="mat-overline">homework</span>
+      <span class="mat-overline">p. practice</span>
+      <mat-icon color="primary">assignment_late</mat-icon>
+    </div>
+
+    <div
+      *ngIf="
+        type === ENROLLMENT_CARD_TYPES.ENROLLMENT &&
+        enrollment?.status === ENROLLMENT_STATUS.ACTIVE
+      "
+      fxLayout="column"
+      fxLayoutAlign="stretch center"
+      fxLayoutGap="16px"
+    >
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="32px">
+        <button
+          mat-flat-button
+          [style.color]="strokeColor"
+          (click)="onAcceptEnrollment('activate')"
+        >
+          activate
+        </button>
+        <!-- <button mat-stroked-button (click)="onAcceptEnrollment('decline')">decline</button> -->
+      </div>
+      <span class="mat-subheading-2"
+        >Teacher {{ enrollment?.teacher?.firstName | titlecase }}
+        {{ enrollment?.teacher?.familyName | titlecase }}</span
+      >
+    </div>
+  </div>
+
+  <div class="enrollment-card__background">
+    <app-svg-icon
+      *ngIf="enrollment?.level?.layoutSettings?.svgImageUrl as svg"
+      [svg]="svg"
+      [fill]="color"
+      [stroke]="strokeColor"
+      style="transform: rotate(-8deg); width: 12.5rem; height: 12.5rem"
+    ></app-svg-icon>
+  </div>
+</mat-card>

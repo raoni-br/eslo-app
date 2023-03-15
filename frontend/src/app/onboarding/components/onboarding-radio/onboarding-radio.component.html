@@ -1,0 +1,51 @@
+<app-onboarding-dialog-text [text]="radio.text"></app-onboarding-dialog-text>
+
+<ng-container *ngIf="vm$ | async as vm">
+  <div class="onboarding__options-container" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="32px">
+    <ng-container *ngFor="let property of radio.objects">
+      <ng-container *ngIf="property.type === PROPERTY_TYPE.OPTION">
+        <input
+          type="radio"
+          [value]="property.value"
+          [(ngModel)]="vm[radio.key]"
+          [name]="radio.key"
+          hidden
+        />
+        <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="4px">
+          <div
+            class="onboarding-radio__option"
+            [class.onboarding-radio__option--default-border]="vm[radio.key] !== property.value"
+            [class.bg-primary--500]="vm[radio.key] === property.value"
+            [class.border-primary--200]="vm[radio.key] === property.value"
+            (click)="vm[radio.key] = property.value"
+          >
+            <p
+              class="mat-body-1"
+              [class.text-primary-contrast--500]="vm[radio.key] === property.value"
+            >
+              {{ property.text }}
+            </p>
+          </div>
+          <p class="mat-caption" [class.text-primary--500]="vm[radio.key] === property.value">
+            {{ property.hint }}
+          </p>
+        </div>
+      </ng-container>
+    </ng-container>
+    <div
+      class="onboarding-buttons-container"
+      *ngIf="buttons.length"
+      fxLayout
+      fxLayoutAlign="center center"
+      fxLayoutGap="20px"
+    >
+      <ng-container *ngFor="let button of buttons">
+        <app-onboarding-button
+          [property]="radio"
+          [vm]="vm"
+          [button]="button"
+        ></app-onboarding-button>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

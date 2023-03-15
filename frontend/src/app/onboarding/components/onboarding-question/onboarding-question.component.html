@@ -1,0 +1,26 @@
+<div *ngFor="let property of question.steps; let i = index">
+  <ng-container *ngIf="property.type === PROPERTY_TYPE.RADIO">
+    <app-onboarding-radio
+      [stepIndex]="i"
+      [sectionOrder]="question.order"
+      [key]="question.key"
+      [radio]="$any(property)"
+    ></app-onboarding-radio>
+  </ng-container>
+  <ng-container *ngIf="property.type === PROPERTY_TYPE.DIALOG_BOX">
+    <app-onboarding-dialog-box
+      [stepIndex]="i"
+      [sectionOrder]="question.order"
+      [key]="question.key"
+      [dialogBox]="$any(property)"
+    ></app-onboarding-dialog-box>
+  </ng-container>
+  <ng-container *ngIf="property.type === PROPERTY_TYPE.CHECKBOX">
+    <app-onboarding-checkbox
+      [stepIndex]="i"
+      [sectionOrder]="question.order"
+      [key]="question.key"
+      [checkbox]="$any(property)"
+    ></app-onboarding-checkbox>
+  </ng-container>
+</div>

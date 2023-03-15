@@ -1,0 +1,33 @@
+@use '~@angular/material' as mat;
+@use '~@angular/flex-layout/mq' as mq;
+
+@mixin lessons-list-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+    $accent: mat.get-color-from-palette(map-get($theme, accent));
+
+    $accent-500: mat.get-color-from-palette(map-get($theme, accent), 500);
+    $primary-50: mat.get-color-from-palette(map-get($theme, primary), 50);
+
+    .lessons__container {
+        padding: 24px 8px;
+
+        @include mq.layout-bp(gt-xs) {
+            padding: 32px 24px;
+        }
+    }
+
+    .lessons__filters {
+        padding-bottom: 24px;
+
+        mat-chip-list {
+            mat-chip {
+                cursor: pointer;
+                background-color: $primary-50 !important;
+
+                &.mat-standard-chip.mat-chip-selected.mat-primary {
+                    color: $accent-500 !important;
+                }
+            }
+        }
+    }
+}

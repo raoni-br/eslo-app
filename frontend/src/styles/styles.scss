@@ -1,0 +1,53 @@
+@use './abstracts/variables';
+@use './abstracts/functions';
+@use './abstracts/mixins';
+@use './abstracts/placeholders';
+
+@use './base/reset';
+@use './base/typography';
+
+@use './layout/grid';
+
+// Import app.theme.scss
+@use './themes/eslo-blue-light-theme';
+
+@use './layout/custom-angular-theme';
+
+@use 'node_modules/angular-calendar/scss/angular-calendar';
+// material icons self hosted
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'), local('MaterialIcons-Regular'),
+        url(../assets/icons/material/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.cal-week-view,.cal-month-view {
+    background-color: transparent !important;
+}

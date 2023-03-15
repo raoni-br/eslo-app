@@ -1,0 +1,69 @@
+<p class="mat-subheading-1 mb-16">{{ event?.title }}</p>
+
+<mat-calendar
+  class="custom-mat-calendar"
+  [selected]="selectedDate"
+  (selectedChange)="onSelect($event)"
+  [startAt]="selectedDate"
+></mat-calendar>
+
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="32px" style="margin-bottom: 32px">
+  <mat-form-field appearance="outline" style="width: 118px">
+    <input
+      matInput
+      [ngxTimepicker]="startPicker"
+      [ngModel]="eventStart"
+      (ngModelChange)="updateTimeStart($event)"
+      [step]="60 * 15"
+      class="time-field__input"
+    />
+    <ngx-material-timepicker #startPicker [theme]="timePickerTheme"></ngx-material-timepicker>
+    <mat-icon matSuffix class="text-default--fade">schedule</mat-icon>
+    <mat-hint class="mat-caption">Starting time</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="width: 118px">
+    <input
+      matInput
+      [ngxTimepicker]="endPicker"
+      [(ngModel)]="eventEnd"
+      (ngModelChange)="updateTimeEnd($event)"
+      [step]="60 * 15"
+      class="time-field__input"
+    />
+    <ngx-material-timepicker #endPicker [theme]="timePickerTheme"></ngx-material-timepicker>
+    <mat-icon matSuffix class="text-default--fade">schedule</mat-icon>
+    <mat-hint *ngIf="eventStart < eventEnd" class="mat-caption">Ending time</mat-hint>
+    <mat-hint *ngIf="eventStart > eventEnd" class="mat-caption">Change time</mat-hint>
+  </mat-form-field>
+</div>
+
+<div fxLayout fxLayoutAlign="center center" class="edit-event__delete-button">
+  <button mat-button color="warn" (click)="onDelete()">delete class</button>
+</div>
+
+<div *ngIf="hasDateConflict" class="mt-8">
+  <p class="mat-caption text-center text-warn--500">
+    The date selected has a conflict with the schedule. <br />
+    Check the availability.
+  </p>
+</div>
+
+<div fxLayout fxLayoutAlign="space-between center">
+  <button mat-icon-button (click)="openAvailabilityDialog()">
+    <mat-icon class="text-default--fade">date_range</mat-icon>
+  </button>
+  <div fxLayout fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button mat-button color="primary" matDialogClose>cancel</button>
+    <button
+      mat-button
+      color="primary"
+      (click)="onConfirm()"
+      [disabled]="eventStart > eventEnd || hasDateConflict"
+    >
+      ok
+    </button>
+  </div>
+</div>
+
+

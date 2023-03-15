@@ -1,0 +1,63 @@
+<ng-container *ngIf="lesson$ | async as lesson">
+  <ng-template tpAttach="topBarStart">
+    <app-back-button></app-back-button>
+    <app-top-bar-title [text]="lesson.title"></app-top-bar-title>
+  </ng-template>
+
+  <ng-template tpAttach="topBarCenter">
+    <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+  </ng-template>
+
+  <div class="class-container">
+    <app-custom-stepper
+      [hasWarmUp]="true"
+      [hasAudio]="lesson.lessonMaterial.audio.length > 0"
+      #sectionStepper
+      (selectionChange)="onStepperChange($event, lesson, true)"
+    >
+      <cdk-step
+        *ngFor="
+          let activity of lesson.lessonMaterial.activities;
+          let i = index;
+          let first = first;
+          let last = last
+        "
+      >
+        <div style="margin-left: 50px"></div>
+        <app-slides-stepper
+          #slideStepper
+          (selectionChange)="onStepperChange($event, lesson, false)"
+          [isLastSlide]="isLastSlide"
+          [isFirstSlide]="isFirstSlide"
+          [isFirstSection]="first"
+          [isLastSection]="last"
+          (lastStepEvent)="onLastStep()"
+          (firstStepEvent)="onFirstStep()"
+        >
+          <cdk-step *ngFor="let slide of activity.activitySlides">
+            <img
+              #imgElement
+              class="slide-image"
+              [src]="slide.media.rootUri"
+              (click)="checkFullscreen()"
+            />
+            <button
+              color="primary"
+              class="class-container__fullscreen-button"
+              *ngIf="isMobile"
+              mat-icon-button
+              (click)="onFullscreen(imgElement)"
+            >
+              <mat-icon>fullscreen</mat-icon>
+            </button>
+          </cdk-step>
+        </app-slides-stepper>
+      </cdk-step>
+    </app-custom-stepper>
+  </div>
+
+  <app-audio-control-card
+    *ngIf="lesson.lessonMaterial.audio.length > 0"
+    [audioList]="lesson.lessonMaterial.audio"
+  ></app-audio-control-card>
+</ng-container>

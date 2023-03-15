@@ -1,0 +1,141 @@
+@use '~@angular/material' as mat;
+@mixin calendar-theme($theme) {
+    $primaryColor: map-get($theme, primary);
+    $primary: mat.get-color-from-palette($primaryColor);
+    $primary-50: mat.get-color-from-palette($primaryColor, 50);
+    $primary-100: mat.get-color-from-palette($primaryColor, 100);
+
+    
+
+    .calendar-container {
+        margin-top: 32px;
+    }
+
+    .calendar-change-month {
+        padding: 0 80px;
+    }
+
+    .cal-week-view {
+        height: 100%;
+        border-top: none !important;
+
+        .cal-today {
+            background-color: $primary-50 !important;
+        }
+
+        .cal-header {
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.6);
+
+            b {
+                font-weight: 400;
+            }
+        }
+        .cal-day-headers {
+            margin-right: 15px;
+            margin-bottom: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 14px;
+        }
+
+        .cal-day-headers .cal-header.cal-weekend span {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .cal-time-events {
+            max-height: 78vh;
+            overflow-y: auto;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 14px;
+            display: none;
+        }
+
+        .cal-day-column {
+            border: none;
+        }
+
+        // .cal-time-label-column {
+        //     display: none;
+        // }
+
+        .cal-all-day-events {
+            height: 100%;
+            border: none;
+
+            .cal-events-row {
+                margin-left: 0;
+                margin-bottom: 32px;
+            }
+
+            .cal-event {
+                width: 86%;
+                height: 60px;
+                padding: 10px 8px;
+                margin-left: 5.5px;
+                margin-right: 0;
+
+                &--old {
+                    opacity: 0.5;
+                }
+
+                &--hover {
+                    background-color: $primary-100 !important;
+                }
+            }
+        }
+
+        .cal-day-columns {
+            height: 100%;
+            gap: 20px;
+
+            div.cal-day-column {
+                height: 100%;
+                // margin-left: 5px;
+                // margin-right: 21px;
+                // max-width: 142px;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            div.cal-time-label-column {
+                display: none;
+                // width: 40px;
+                // width: 5px;
+            }
+        }
+
+        .cal-hour:not(:last-child) .cal-hour-segment,
+        .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+            border-bottom: none;
+        }
+
+        .cal-hour:not(:last-child) .cal-hour-segment,
+        .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+            border-bottom: none;
+        }
+
+        .cal-hour .cal-hour-segment {
+            border: 1px solid #e0e0e0;
+        }
+
+        .cal-hour-odd {
+            background-color: unset !important;
+        }
+
+        .cal-event-container:not(.notActive) .cal-event {
+            background-color: transparent;
+            border: none;
+        }
+
+        .cal-event-container .cal-event {
+            background-color: transparent;
+            border: none;
+        }
+
+        .cal-time {
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+        }
+    }
+}

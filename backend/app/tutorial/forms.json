@@ -1,0 +1,285 @@
+[
+    {
+        "id": "8b9afa2f-2326-4279-beb6-fbf1b457e7f2",
+        "title": "Onboarding form",
+        "description": "Onboard form with questions.",
+        "slug": "onboarding-form",
+        "type": "form",
+        "version": 1,
+        "sections": [
+            {
+                "title": "Leslo welcome.",
+                "type": "dialog",
+                "key": "onboarding-leslo-introduction",
+                "order": 1,
+                "animation": "hello",
+                "steps": [
+                    {
+                        "type": "dialogBox",
+                        "text": "`Hi, ${user.primaryName}! \n We’re really glad to have you here!`",
+                        "key": "onboarding-leslo-introduction-dialog",
+                        "objects": [
+                            {
+                                "type": "delay",
+                                "time": 3000,
+                                "index": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Leslo introduction.",
+                "type": "dialog",
+                "animation": "hand-chest",
+                "steps": [
+                    {
+                        "type": "dialogBox",
+                        "text": "`I'm Leslo! \n eslo's little helper.`",
+                        "objects": [
+                            {
+                                "type": "delay",
+                                "time": 3000,
+                                "index": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Leslo warn",
+                "type": "dialog",
+                "key": "onboarding-leslo-warn",
+                "order": 2,
+                "animation": "hand-back-forward",
+                "steps": [
+                    {
+                        "type": "dialogBox",
+                        "text": "Before you start, i'd like to ask you some questions. \n It will only take a minute. I promise.",
+                        "key": "onboarding-leslo-warn-dialog",
+                        "objects": [
+                            {
+                                "type": "button",
+                                "text": "Let's go!",
+                                "action": "next"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Question 1 - Experience",
+                "type": "question",
+                "key": "onboarding-experience",
+                "order": 3,
+                "animation": "hand-back-up",
+                "steps": [
+                    {
+                        "type": "radio",
+                        "text": "How experienced are you at teaching?",
+                        "key": "onboarding-experience-question",
+                        "required": true,
+                        "objects": [
+                            {
+                                "type": "option",
+                                "text": "Experience? What experience?",
+                                "hint": "I have never taught before.",
+                                "value": "A"
+                            },
+                            {
+                                "type": "option",
+                                "text": "I'm taking my first steps...",
+                                "hint": "0 - 2 years.",
+                                "value": "B"
+                            },
+                            {
+                                "type": "option",
+                                "text": "I've been around.",
+                                "hint": "3 - 10 years",
+                                "value": "C"
+                            },
+                            {
+                                "type": "option",
+                                "text": "I'm living legend!",
+                                "hint": "10+ years.",
+                                "value": "D"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Previous",
+                                "action": "back"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Next",
+                                "action": "next"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Question 2 - How many students",
+                "type": "question",
+                "key": "onboarding-how-many-students",
+                "order": 4,
+                "animation": "hand-back-forward-foot-side",
+                "steps": [
+                    {
+                        "type": "dialogBox",
+                        "text": "How many students do you have?",
+                        "key": "onboarding-how-many-students-question",
+                        "required": true,
+                        "objects": [
+                            {
+                                "type": "input",
+                                "placeholder": "Type your answer here..."
+                            },
+                            {
+                                "type": "button",
+                                "text": "Previous",
+                                "action": "back"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Next",
+                                "action": "next"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Question 3 - What features",
+                "type": "question",
+                "key": "onboarding-what-features",
+                "order": 5,
+                "animation": "doubt",
+
+                "steps": [
+                    {
+                        "type": "checkbox",
+                        "text": "What features are you most eager to use?",
+                        "key": "onboarding-what-features-question",
+                        "required": true,
+                        "objects": [
+                            {
+                                "type": "option",
+                                "text": "Ready-made lessons.",
+                                "value": "A"
+                            },
+                            {
+                                "type": "option",
+                                "text": "Smart reporting.",
+                                "value": "B"
+                            },
+                            {
+                                "type": "option",
+                                "text": "Teacher's dashboard.",
+                                "value": "C"
+                            },
+                            {
+                                "type": "option",
+                                "text": "Scheduling.",
+                                "value": "D"
+                            },
+                            {
+                                "type": "option",
+                                "text": "Payment gateway.",
+                                "value": "E"
+                            },
+                            {
+                                "type": "option",
+                                "text": "Nothing in specific.",
+                                "value": "F"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Previous",
+                                "action": "back"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Next",
+                                "action": "next"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Question 4 - How did you find eslo?",
+                "type": "question",
+                "key": "onboarding-how-find-eslo",
+                "order": 6,
+                "animation": "hand-back-forward",
+                "steps": [
+                    {
+                        "type": "radio",
+                        "text": "How did you find eslo?",
+                        "key": "onboarding-how-find-eslo-question",
+                        "required": true,
+                        "objects": [
+                            {
+                                "type": "option",
+                                "text": "Google",
+                                "value": "A"
+                            },
+                            {
+                                "type": "option",
+                                "text": "Social media",
+                                "value": "B"
+                            },
+                            {
+                                "type": "option",
+                                "text": "Friends",
+                                "value": "C"
+                            },
+                            {
+                                "type": "option",
+                                "text": "Other",
+                                "value": "D"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Previous",
+                                "action": "back"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Next",
+                                "action": "next"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Thanks",
+                "type": "dialog",
+                "key": "onboarding-thanks",
+                "order": 7,
+                "animation": "bye",
+                "steps": [
+                    {
+                        "type": "dialogBox",
+                        "text": "That's all. Thank you! \n It wasn't so bad, was it?",
+                        "key": "onboarding-thanks-dialog",
+                        "objects": [
+                            {
+                                "type": "button",
+                                "text": "Previous",
+                                "action": "back"
+                            },
+                            {
+                                "type": "button",
+                                "text": "Finish",
+                                "action": "submit"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

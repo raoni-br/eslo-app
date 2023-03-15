@@ -1,0 +1,39 @@
+{
+  "programs": [
+    {
+      "id": "5be68e4a-fcfe-4a99-9ae7-ad459b4482b7",
+      "modules": [
+        {
+          "id": "bc383eaa-3b77-4937-a7bc-f8a7093516cd",
+          "levels": [
+            {
+              "id": "1cc42205-ace0-4b9d-99f6-d7586b02e8e6"
+            },
+            {
+              "id": "e0803552-37f9-4a67-ac1a-82bfa5ad7843"
+            }
+          ]
+        },
+        {
+          "id": "2bd97fdf-536d-4b87-8319-b59a55e00552",
+          "levels": [
+            {
+              "id": "92af529b-8d11-4ab9-bbc6-85d8ad575ed3"
+            },
+            {
+              "id": "2f715333-b852-4914-9187-92ee9bc395fd"
+            }
+          ]
+        },
+        {
+          "id": "47fa9f8a-25d1-4e6f-b415-251fa684c817",
+          "levels": [
+            {
+              "id": "d6d2c547-f2fd-49fe-8112-cdac56fed4ee"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

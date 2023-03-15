@@ -1,0 +1,81 @@
+<ng-template tpAttach="topBarEnd">
+  <button
+    mat-icon-button
+    color="primary"
+    mwlCalendarToday
+    [(viewDate)]="viewDate"
+    (viewDateChange)="selectedDay = { date: $event }"
+    aria-label="Today"
+    matTooltip="Today"
+    class="button"
+  >
+    <mat-icon>today</mat-icon>
+  </button>
+</ng-template>
+
+<div class="header-bottom" fxLayoutAlign="center center" fxLayout="row">
+  <button
+    mat-icon-button
+    class="arrow"
+    mwlCalendarPreviousView
+    [view]="view"
+    [(viewDate)]="viewDate"
+    (viewDateChange)="selectedDay = { date: $event }"
+    aria-label="Previous"
+  >
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+
+  <div class="mat-subheading-1 calendar-change-month">
+    {{ viewDate | calendarDate: view + 'ViewTitle':'en' | uppercase }}
+  </div>
+
+  <button
+    mat-icon-button
+    class="arrow"
+    mwlCalendarNextView
+    [view]="view"
+    [(viewDate)]="viewDate"
+    (viewDateChange)="selectedDay = { date: $event }"
+    aria-label="Next"
+  >
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>
+<mat-divider></mat-divider>
+<div class="calendar-container">
+  <ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top" fxLayout fxLayoutAlign="center center">
+      <span class="cal-day-number">{{ day.date | calendarDate: 'monthViewDayNumber':locale }}</span>
+    </div>
+  </ng-template>
+
+  <ng-template
+    #openDayEventsTemplate
+    let-date="date"
+    let-events="events"
+    let-locale="locale"
+    let-isOpen="isOpen"
+  >
+    <ng-container *ngIf="isOpen">
+      <ng-container *ngFor="let event of events">
+        <div fxLayout fxLayoutAlign="space-between center" class="event-detail" (click)="onEditEvent(event)">
+          <p>{{ event.title | formatEventTitle }}</p>
+          <p>{{ event.start | formatEventTime | date: 'hh:mm aa' }}</p>
+        </div>
+        <mat-divider> </mat-divider>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+
+  <mwl-calendar-month-view
+    [viewDate]="viewDate"
+    [refresh]="refresh"
+    [activeDayIsOpen]="activeDayIsOpen"
+    [events]="events"
+    [cellTemplate]="customCellTemplate"
+    [openDayEventsTemplate]="openDayEventsTemplate"
+    (dayClicked)="dayClicked($event.day)"
+  >
+  </mwl-calendar-month-view>
+</div>

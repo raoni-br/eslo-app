@@ -1,0 +1,100 @@
+steps:
+  ##### BACKEND #####
+
+  # install
+  - id: "install-backend"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        ./Dockerfile-pull-request,
+        "-t",
+        "eslo-backend:$SHORT_SHA",
+        ".",
+      ]
+    dir: "backend"
+    waitFor: ["-"]
+
+  # lint
+  - id: "lint-backend"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["run", "eslo-backend:$SHORT_SHA", "lint"]
+    dir: "backend"
+    waitFor: ["install-backend"]
+
+  # build
+  - id: "build-backend"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["run", "eslo-backend:$SHORT_SHA", "build"]
+    dir: "backend"
+    waitFor: ["install-backend"]
+
+  ##### FRONTEND #####
+  # npm install
+  - id: "install-frontend"
+    name: node:16-alpine
+    entrypoint: npm
+    args: ["install"]
+    dir: "frontend"
+    waitFor: ["-"]
+
+  # lint and format
+  - id: "lint-frontend"
+    name: node:16-alpine
+    entrypoint: npm
+    args: ["run", "lint"]
+    dir: "frontend"
+    waitFor:
+      - "install-frontend"
+
+  # TODO: add tests
+
+  # TODO: frontend build takes too long
+
+  # # build
+  # - id: 'build frontend'
+  #   name: node:16-alpine
+  #   entrypoint: npm
+  #   args: ['run', 'build']
+  #   dir: 'frontend'
+
+  ##### Terraform (IaC) #####
+  # Deploy aniy changes in infrastrucure
+  # Also, deploy apps with new images (commit SHA tags)
+
+  # # [START tf set up]
+  # - id: 'tf setup'
+  #   name: ${_DOCKER_REGISTRY_FULL_PATH}/terraform:0.14.7
+  #   dir: 'terraform'
+  #   entrypoint: /bin/bash
+  #   secretEnv: ['BACKEND_TF_VARS']
+  #   args:
+  #   - -c
+  #   - |
+  #       echo "$$BACKEND_TF_VARS" > ./envs/non-production/secrets.auto.tfvars
+
+  # # [START tf-init]
+  # - id: 'tf init'
+  #   name: ${_DOCKER_REGISTRY_FULL_PATH}/terraform:0.14.7
+  #   dir: 'terraform'
+  #   entrypoint: /bin/bash
+  #   args:
+  #   - -c
+  #   - |
+  #       ./tf-wrapper.sh init non-production
+
+  # # [START tf-plan]
+  # - id: 'tf plan'
+  #   name: ${_DOCKER_REGISTRY_FULL_PATH}/terraform:0.14.7
+  #   dir: 'terraform'
+  #   entrypoint: /bin/bash
+  #   env:
+  #   - 'TF_VAR_backend_image_tag=$SHORT_SHA'
+  #   - 'TF_VAR_frontend_image_tag=$SHORT_SHA'
+  #   - 'TF_VAR_iam_agent_image_tag=$SHORT_SHA'
+  #   args:
+  #   - -c
+  #   - |
+  #       ./tf-wrapper.sh plan non-production
+timeout: 900s

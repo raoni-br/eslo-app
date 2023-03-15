@@ -1,0 +1,29 @@
+@use '~@angular/material' as mat;
+@mixin class-record-timer-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary), 50);
+    $primary-700: mat.get-color-from-palette(map-get($theme, primary), 700);
+    $accent: mat.get-color-from-palette(map-get($theme, accent), 300);
+
+    .class-record-card {
+        background-color: $primary;
+        width: 230px;
+        padding: 0;
+        height: 48px;
+        border-radius: 14px;
+        position: relative;
+        pointer-events: all;
+        z-index: 10;
+
+        &__timer {
+            width: 40px;
+        }
+
+        &__drag-handle {
+            color: $primary-700;
+            position: absolute;
+            left: -4px;
+            top: 13px;
+            cursor: move;
+        }
+    }
+}

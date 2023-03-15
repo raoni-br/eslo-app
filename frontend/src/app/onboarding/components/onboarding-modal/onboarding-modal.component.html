@@ -1,0 +1,99 @@
+<app-display-card
+  [borderRadius]="isMobile ? '0px' : '14px'"
+  [padding]="isMobile ? '16px 16px 16px 16px' : '40px 40px 40px 40px'"
+>
+  <div
+    fxLayout.xs="column"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="40px"
+    style="position: relative; height: 100%"
+  >
+    <!-- <app-leslo></app-leslo> -->
+
+    <div fxShow.gt-xs fxHide.xs *ngIf="animation">
+      <img
+        [src]="'../../../../assets/leslo/' + animation + '.svg'"
+        [alt]="'leslo ' + animation"
+      />
+    </div>
+
+    <svg
+      fxHide.gt-xs
+      fxShow.xs
+      width="101"
+      height="150"
+      viewBox="0 0 101 150"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="leslo"
+    >
+      <g clip-path="url(#clip0)">
+        <path
+          d="M78.4145 175.282C78.4145 172.305 77.351 167.988 75.4231 163.063C73.5132 158.185 70.8225 152.881 67.7226 147.983C64.617 143.075 61.1439 138.643 57.6928 135.463C54.1744 132.221 50.9824 130.56 48.4145 130.56C45.8911 130.56 42.9825 132.177 39.8926 135.383C36.8544 138.536 33.9172 142.944 31.344 147.848C28.7778 152.739 26.6147 158.044 25.0966 162.933C23.5688 167.853 22.7345 172.225 22.7345 175.282C22.7345 181.216 25.918 186.442 30.8214 190.25C35.7338 194.064 42.221 196.32 48.4145 196.32C54.6422 196.32 62.2652 194.041 68.3056 190.152C74.3889 186.235 78.4145 181.005 78.4145 175.282Z"
+          fill="#71B8CA"
+          stroke="black"
+          stroke-width="3.84"
+        />
+        <path
+          d="M52.0143 194.17C41.5291 192.751 31.3048 184.729 31.3048 173.975C31.3048 163.222 41.3847 138.121 51.87 133.441C50.9474 132.918 49.7326 132.48 48.6457 132.48C37.1274 132.48 24.9973 162.001 24.6616 173.975C24.3044 186.716 37.1274 194.4 48.6457 194.4C49.7326 194.4 50.8613 194.318 52.0143 194.17Z"
+          fill="#6AA8B7"
+        />
+        <circle
+          cx="50.5742"
+          cy="81.1172"
+          r="46.5599"
+          fill="white"
+          stroke="black"
+          stroke-width="2.88009"
+        />
+        <path
+          d="M53.7285 37.1206C31.126 39.0607 13.3859 58.0177 13.3859 81.117C13.3859 104.216 31.126 123.173 53.7285 125.113C52.4667 125.222 51.1897 125.277 49.8998 125.277C25.5047 125.277 5.72852 105.506 5.72852 81.117C5.72852 56.7281 25.5047 36.957 49.8998 36.957C51.1897 36.957 52.4667 37.0123 53.7285 37.1206Z"
+          fill="#EEEEEE"
+        />
+        <line
+          x1="35.2141"
+          y1="59.9973"
+          x2="35.2141"
+          y2="92.6371"
+          stroke="black"
+          stroke-width="5.76019"
+          stroke-linecap="round"
+        />
+        <line
+          x1="64.0149"
+          y1="59.9973"
+          x2="64.0149"
+          y2="92.6371"
+          stroke="black"
+          stroke-width="5.76019"
+          stroke-linecap="round"
+        />
+        <path
+          d="M76.7524 164.179L76.7524 149.17C76.7524 148.656 76.4779 148.18 76.0324 147.923L63.0345 140.419"
+          stroke="black"
+          stroke-width="3.84"
+          stroke-linecap="round"
+        />
+        <path
+          d="M20.7945 164.179L20.7945 149.17C20.7945 148.656 21.0689 148.18 21.5145 147.923L34.5124 140.419"
+          stroke="black"
+          stroke-width="3.84"
+          stroke-linecap="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0">
+          <rect width="100" height="150" fill="white" transform="translate(0.5)" />
+        </clipPath>
+      </defs>
+    </svg>
+
+    <div
+      [fxFlexAlign]="isMobile ? 'center' : 'start'"
+      [style.padding-top]="isMobile ? '40px' : '0'"
+    >
+      <app-onboarding-form-container></app-onboarding-form-container>
+    </div>
+  </div>
+</app-display-card>

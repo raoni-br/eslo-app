@@ -1,0 +1,161 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+  ##### BACKEND #####
+  # Build the backend container image
+  - id: "build-backend"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        ./Dockerfile-prod,
+        "-t",
+        "${_DOCKER_REGISTRY_FULL_PATH}/eslo-backend:$SHORT_SHA",
+        ".",
+      ]
+    dir: "backend"
+    waitFor: ["-"]
+
+  # Push the backend container image to Container Registry
+  - id: "push-backend"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "${_DOCKER_REGISTRY_FULL_PATH}/eslo-backend:$SHORT_SHA"]
+    dir: "backend"
+    waitFor:
+      - "build-backend"
+
+  ##### FRONTEND #####
+  # Build the frontend container image
+  - id: "build-frontend"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "--build-arg",
+        "BUILD_ENVIRONMENT=non-production",
+        "-f",
+        ./Dockerfile-cicd,
+        "-t",
+        "${_DOCKER_REGISTRY_FULL_PATH}/eslo-frontend:$SHORT_SHA",
+        ".",
+      ]
+    dir: "frontend"
+    waitFor: ["-"]
+
+  # Push the frontend container image to Container Registry
+  - id: "push-frontend"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "${_DOCKER_REGISTRY_FULL_PATH}/eslo-frontend:$SHORT_SHA"]
+    dir: "frontend"
+    waitFor:
+      - "build-frontend"
+
+  ##### OPA IAM Agent #####
+  # Build the opa iam agent container image
+  - id: "build-iam-agent"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        ./Dockerfile-prod,
+        "-t",
+        "${_DOCKER_REGISTRY_FULL_PATH}/opa-iam-agent:$SHORT_SHA",
+        ".",
+      ]
+    dir: "iam-agent"
+    waitFor: ["-"]
+
+  # Push the opa iam agent container image to Container Registry
+  - id: "push-iam-agent"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "${_DOCKER_REGISTRY_FULL_PATH}/opa-iam-agent:$SHORT_SHA"]
+    dir: "iam-agent"
+    waitFor:
+      - "build-iam-agent"
+
+  ##### Terraform (IaC) #####
+  # Deploy aniy changes in infrastrucure
+  # Also, deploy apps with new images (commit SHA tags)
+
+  # [START tf set up]
+  - id: "tf-setup"
+    name: ${_DOCKER_REGISTRY_FULL_PATH}/terraform:0.14.7
+    dir: "terraform"
+    entrypoint: /bin/bash
+    secretEnv: ["BACKEND_TF_VARS"]
+    args:
+      - -c
+      - |
+        echo "$$BACKEND_TF_VARS" > ./envs/non-production/secrets.auto.tfvars
+    waitFor: ["-"]
+
+  # [START tf-init]
+  - id: "tf-init"
+    name: ${_DOCKER_REGISTRY_FULL_PATH}/terraform:0.14.7
+    dir: "terraform"
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        ./tf-wrapper.sh init non-production
+    waitFor:
+      - "tf-setup"
+
+  # [START tf-plan]
+  - id: "tf-plan"
+    name: ${_DOCKER_REGISTRY_FULL_PATH}/terraform:0.14.7
+    dir: "terraform"
+    entrypoint: /bin/bash
+    env:
+      - "TF_VAR_backend_image_tag=$SHORT_SHA"
+      - "TF_VAR_frontend_image_tag=$SHORT_SHA"
+      - "TF_VAR_iam_agent_image_tag=$SHORT_SHA"
+    args:
+      - -c
+      - |
+        ./tf-wrapper.sh plan non-production
+    waitFor:
+      - "tf-init"
+
+  # [START tf-apply]
+  - id: "tf apply"
+    name: ${_DOCKER_REGISTRY_FULL_PATH}/terraform:0.14.7
+    dir: "terraform"
+    entrypoint: /bin/bash
+    env:
+      - "TF_VAR_backend_image_tag=$SHORT_SHA"
+      - "TF_VAR_frontend_image_tag=$SHORT_SHA"
+      - "TF_VAR_iam_agent_image_tag=$SHORT_SHA"
+    args:
+      - -c
+      - |
+        ./tf-wrapper.sh apply non-production
+    waitFor:
+      - "tf-plan"
+      - "push-backend"
+      - "push-frontend"
+      - "push-iam-agent"
+timeout: 2700s
+# TODO: secret project is hard-coded for now
+availableSecrets:
+  secretManager:
+    - versionName: projects/prj-n-secrets-0df3/secrets/eslo-platform-backend-tf-vars/versions/latest
+      env: BACKEND_TF_VARS
+images:
+  - "${_DOCKER_REGISTRY_FULL_PATH}/eslo-backend:$SHORT_SHA"
+  - "${_DOCKER_REGISTRY_FULL_PATH}/eslo-frontend:$SHORT_SHA"
+  - "${_DOCKER_REGISTRY_FULL_PATH}/opa-iam-agent:$SHORT_SHA"

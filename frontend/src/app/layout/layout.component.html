@@ -1,0 +1,43 @@
+<div class="layout">
+  <header class="layout__top-bar" [class.mat-elevation-z4]="isMobile">
+    <app-top-bar></app-top-bar>
+
+    <ng-container *ngIf="subscriptions$ | async as subscriptions">
+      <ng-container *ngIf="subscriptions[0]?.freeTrial">
+        <div class="layout__system-banner">
+          <app-system-banner [subscriptions]="subscriptions"></app-system-banner>
+        </div>
+      </ng-container>
+    </ng-container>
+  </header>
+
+  <main class="layout__content" (scroll)="onScroll($event)">
+    <router-outlet></router-outlet>
+    <ng-content></ng-content>
+  </main>
+
+  <nav class="layout__navigation-bar border-right-fade" *ngIf="showNavigationBar">
+    <app-navigation-bar
+      [links]="links"
+      [hasAdminRole]="hasAdminRole"
+      [hasTeacherRole]="hasTeacherRole"
+      [hasStudentRole]="hasStudentRole"
+    ></app-navigation-bar>
+  </nav>
+
+  <aside class="layout__float-action-button">
+    <ng-container tpTarget="floatActionButton"></ng-container>
+  </aside>
+
+  <div
+    class="layout__timer"
+    *ngIf="classInProgress$ | async as classInProgress"
+    [style.top]="classInProgressPosition?.top + 'px' || '70px'"
+    [style.left]="classInProgressPosition?.left + 'px' || '30%'"
+  >
+    <app-class-record-timer
+      [classInProgress]="classInProgress"
+      (doneEvent)="onDoneLesson(classInProgress)"
+    ></app-class-record-timer>
+  </div>
+</div>

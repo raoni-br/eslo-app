@@ -1,0 +1,71 @@
+<div [fxLayout]="isMobile ? 'column' : 'row'" [fxLayoutAlign]="isMobile ? '' : 'center start'">
+  <div
+    [fxLayout]="isMobile ? 'row' : 'column'"
+    [fxLayoutAlign]="isMobile ? 'center center' : 'start stretch'"
+  >
+    <!-- [fxLayoutGap]="isMobile ? '0px' : '50px'" -->
+    <ng-container *ngFor="let step of steps; let i = index">
+      <ng-container
+        *ngIf="step.stepLabel; else showLabelText"
+        [ngTemplateOutlet]="step.stepLabel.template"
+      >
+        {{ step.state }}
+      </ng-container>
+      <ng-template #showLabelText>
+        {{ step.stepLabel }}
+      </ng-template>
+    </ng-container>
+  </div>
+
+  <div class="stepper-content">
+    <p
+      class="mat-caption"
+      style="margin-bottom: 10px !important"
+      *ngIf="selectedIndex !== steps.length - 1"
+    >
+      Step {{ selectedIndex + 1 }} of {{ steps.length - 1 }}
+    </p>
+    <p
+      class="mat-caption mb-32"
+      [style.text-align]="isMobile ? 'start' : 'center'"
+      *ngIf="selectedIndex === steps.length - 1"
+    >
+      Review before sending.
+    </p>
+
+    <div [ngTemplateOutlet]="selected ? selected.content : null"></div>
+
+    <div class="stepper-actions" [class.bg-card]="isMobile" fxLayout fxLayoutAlign="space-between center">
+      <button
+        *ngIf="selectedIndex !== 0"
+        mat-stroked-button
+        color="primary"
+        (click)="previousStep()"
+      >
+        back
+      </button>
+      <!-- spacer for first step -->
+      <span *ngIf="selectedIndex === 0"></span>
+      <button
+        *ngIf="selectedIndex !== steps.length - 1"
+        mat-flat-button
+        color="primary"
+        (click)="nextStep()"
+        [disabled]="!selected.completed"
+      >
+        next
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        *ngIf="selectedIndex === steps.length - 1"
+        (click)="onSubmit()"
+      >
+        <mat-icon>
+          {{ entity === 'student' ? 'person' : 'group' }}{{ isEditing ? '' : '_add' }}
+        </mat-icon>
+        {{ isEditing ? 'edit' : 'add' }} {{ entity }}
+      </button>
+    </div>
+  </div>
+</div>

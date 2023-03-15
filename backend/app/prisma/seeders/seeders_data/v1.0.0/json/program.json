@@ -1,0 +1,12 @@
+[
+    {
+        "provider_id": "47e0d359-78b6-434b-bab0-896127f40492", 
+        "code": "EE", 
+        "provider_code": "REX", 
+        "description": "A general English course for elementary to advanced level learners that helps students improve their core English skills in the most efficient way possible.", 
+        "name": "Extensive English", 
+        "label": "Extensive", 
+        "id": "5be68e4a-fcfe-4a99-9ae7-ad459b4482b7", 
+        "icon": "backpack"
+    }
+]

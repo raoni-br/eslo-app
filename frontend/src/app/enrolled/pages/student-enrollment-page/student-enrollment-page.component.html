@@ -1,0 +1,22 @@
+<div *ngIf="enrollment$ | async as enrollment">
+  <ng-template tpAttach="topBarStart">
+    <app-eslo-letter-logo></app-eslo-letter-logo>
+    <app-top-bar-title
+      *ngIf="enrollment?.level.name"
+      [text]="enrollment?.level.name"
+    ></app-top-bar-title>
+  </ng-template>
+
+  <ng-template tpAttach="topBarCenter">
+    <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+  </ng-template>
+
+  <div class="container">
+    <app-class-record-list
+      [student]="true"
+      [enrollment]="enrollment"
+      [lessonTrackerList]="enrollment?.lessonTrackerList"
+      (openStudentBookEvent)="onOpenStudentBook($event)"
+    ></app-class-record-list>
+  </div>
+</div>

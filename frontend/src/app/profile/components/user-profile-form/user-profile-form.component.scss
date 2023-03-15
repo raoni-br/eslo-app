@@ -1,0 +1,9 @@
+@use '~@angular/flex-layout/mq' as mq;
+
+.user-profile-form {
+    margin-top: 16px;
+
+    @include mq.layout-bp(gt-xs) {
+        margin-top: 24px;
+    }
+}

@@ -1,0 +1,7 @@
+@use '~@angular/material' as mat;
+@mixin eslo-letter-logo-theme($theme) {
+    $primary: mat.get-color-from-palette(map-get($theme, primary));
+    .eslo-letter-logo {
+        fill: $primary;
+    }
+}

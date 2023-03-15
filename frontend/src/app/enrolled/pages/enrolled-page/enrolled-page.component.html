@@ -1,0 +1,25 @@
+<ng-template tpAttach="topBarStart">
+  <app-eslo-letter-logo></app-eslo-letter-logo>
+  <app-top-bar-title text="Enrolled"></app-top-bar-title>
+</ng-template>
+
+<ng-template tpAttach="topBarCenter">
+  <app-navigation-tabs [navigationTabsConfig]="navigationTabsConfig"></app-navigation-tabs>
+</ng-template>
+
+<div *ngIf="studentEnrollmentsByStatus$ | async as studentEnrollments">
+  <app-student-enrollment-list
+    [enrollments]="studentEnrollments"
+    (goToEnrollmentEvent)="goToEnrollment($event)"
+    (acceptEnrollmentEvent)="onAcceptEnrollment($event)"
+  ></app-student-enrollment-list>
+
+  <app-student-empty-enrollments
+    *ngIf="(routeStatus$ | async) === 'active' && studentEnrollments.length === 0"
+    text="There are no active courses."
+  ></app-student-empty-enrollments>
+
+  <app-student-empty-enrollments
+    *ngIf="(routeStatus$ | async) === 'archive' && studentEnrollments.length === 0"
+  ></app-student-empty-enrollments>
+</div>

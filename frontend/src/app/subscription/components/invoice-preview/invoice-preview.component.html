@@ -1,0 +1,160 @@
+<div class="invoice__wrapper">
+  <div class="invoice__header">
+    <div
+      fxLayout="column"
+      fxLayoutGap.xs="24px"
+      fxLayoutAlign="space-between start"
+      fxLayout.gt-xs="row"
+    >
+      <div class="invoice__company-details" fxFlexOrder="1" fxFlexOrder.gt-xs="2">
+        <img
+          class="invoice__company-details__image"
+          src="../../../../assets/images/logos/eslo-logo-round.svg"
+          alt="eslo round logo"
+        />
+        <div class="invoice__company-details__info mat-subheading-2">
+          <span>{{ invoice?.companyDetails.name }}.</span>
+          <span>{{ invoice?.companyDetails.address }}</span>
+          <span>{{ invoice?.companyDetails.phone }}</span>
+          <span>{{ invoice?.companyDetails.email }}</span>
+          <span>{{ invoice?.companyDetails.webSite }}</span>
+        </div>
+      </div>
+
+      <div fxLayout fxLayoutGap="24px" fxFlexOrder="2" fxFlexOrder.gt-xs="1">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <div class="mat-display-1 mb-12">INVOICE</div>
+          <div class="mat-subheading-1 text-color mb-4">INVOICE DATE</div>
+          <div class="mat-subheading-1 text-color mb-4">DUE DATE</div>
+          <div class="mat-subheading-1 text-color">TOTAL DUE</div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <div class="mat-display-1 mb-12">#0-0001</div>
+          <div class="mat-subheading-1 text-color mb-4">{{ invoice?.processedAt | invoiceDate }}</div>
+          <div class="mat-subheading-1 text-color mb-4">{{ invoice?.dueDate | invoiceDate }}</div>
+          <div class="mat-subheading-1 text-color">
+            {{ invoice?.balanceSummary?.totalAmount | currency: 'BRL' }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="column" class="mt-24">
+      <span class="mat-title mb-4">{{ invoice?.customerDetails.name }}</span>
+      <span class="mat-subheading-2 text-color">{{ invoice?.customerDetails.address }}</span>
+      <span class="mat-subheading-2 text-color">{{ invoice?.customerDetails.email }}</span>
+      <span class="mat-subheading-2 text-color">{{
+        invoice?.customerDetails.phone | mask: '00 00 00000 0000'
+      }}</span>
+    </div>
+  </div>
+
+  <div class="invoice-items__container">
+    <div>
+      <!-- ITEMS HEADER -->
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxFlex="100%"
+          class="invoice-items__container__header border-bottom text-color mat-subheading-1"
+        >
+          <span fxFlex.gt-xs="70">Description</span>
+          <span fxFlex.gt-xs="10" class="text-center" fxHide fxShow.gt-xs>RATE</span>
+          <span fxFlex.gt-xs="10" class="text-center" fxHide fxShow.gt-xs>DAYS</span>
+          <span fxFlex.gt-xs="10" class="text-center pr-items-header">TOTAL</span>
+        </div>
+      </div>
+
+      <!-- ITEMS -->
+      <div *ngFor="let item of invoice?.invoiceItems" class="invoice-items__container__item">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            fxFlex="100%"
+            class="border-bottom"
+          >
+            <div
+              fxLayout="column"
+              fxLayoutAlign="start start"
+              class="invoice-items__container__item__info"
+              fxFlex.gt-xs="70"
+            >
+              <span class="mat-subheading-1 text-color">{{ item?.productName }}</span>
+              <span class="mat-body-2 text-color-2">{{ item?.productDescription }}</span>
+            </div>
+            <span fxFlex.gt-xs="10" class="text-center text-color" fxHide fxShow.gt-xs>{{
+              item?.balance?.unitPrice | currency: 'BRL'
+            }}</span>
+            <span fxFlex.gt-xs="10" class="text-center text-color" fxHide fxShow.gt-xs>{{
+              item?.balance?.quantity | invoiceDays
+            }}</span>
+            <span fxFlex.gt-xs="10" class="text-center text-color pr-items-header">{{
+              item?.balance?.totalAmount | currency: 'BRL'
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBTOTAL -->
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxFlex="100%"
+          class="invoice-items__container__header border-bottom"
+        >
+          <span class="mat-subheading-1 text-color-2">SUBTOTAL</span>
+          <span class="pr mat-subheading-1 text-color-2">{{
+            invoice?.balanceSummary?.totalAmount -
+              invoice?.balanceSummary?.discountAmount -
+              invoice?.balanceSummary?.taxAmount | currency: 'BRL'
+          }}</span>
+        </div>
+      </div>
+      <!-- TAX -->
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxFlex="100%"
+          class="invoice-items__container__header border-bottom"
+        >
+          <span class="mat-subheading-1 text-color-2">TAX</span>
+          <span class="pr mat-subheading-1 text-color-2">{{
+            invoice?.balanceSummary?.taxAmount | currency: 'BRL'
+          }}</span>
+        </div>
+      </div>
+      <!-- DISCOUNT -->
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxFlex="100%"
+          class="invoice-items__container__header border-bottom"
+        >
+          <span class="mat-subheading-1 text-color-2">DISCOUNT</span>
+          <span class="pr mat-subheading-1 text-color-2">{{
+            invoice?.balanceSummary?.discountAmount | currency: 'BRL'
+          }}</span>
+        </div>
+      </div>
+      <!-- TOTAL -->
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxFlex="100%"
+          class="invoice-items__container__header border-bottom"
+        >
+          <span class="mat-title text-color-2 mb-0">TOTAL</span>
+          <span class="mat-title text-color-2 mb-0 pr">{{
+            invoice?.balanceSummary?.totalAmount | currency: 'BRL'
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

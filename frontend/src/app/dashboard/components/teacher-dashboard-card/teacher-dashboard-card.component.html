@@ -1,0 +1,33 @@
+<div class="teacher-dashboard-card">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="20px"
+    class="teacher-dashboard-card__header"
+  >
+    <mat-icon color="primary">{{ icon }}</mat-icon>
+    <span class="mat-subheading-1">{{ title | titlecase }}</span>
+  </div>
+
+  <div
+    *ngIf="!contentList || contentList?.length === 0"
+    class="teacher-dashboard-card__content-list"
+    fxLayout
+    fxLayoutAlign="center center"
+  >
+    <span class="mat-subheading-1 text-default--fade">{{ emptyMessage }}</span>
+  </div>
+  <div *ngIf="contentList?.length > 0" class="teacher-dashboard-card__content-list">
+    <div *ngFor="let content of contentList">
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        class="teacher-dashboard-card__content-list__item"
+        (click)="goTo(content)"
+      >
+        <span class="mat-subheading-1 text-black-opacity-06">{{ content.name }}</span>
+        <span class="mat-subheading-1 text-black-opacity-06">{{ content.time }}</span>
+      </div>
+    </div>
+  </div>
+</div>

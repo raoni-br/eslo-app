@@ -1,0 +1,136 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+
+$text-black: rgba(0, 0, 0, 0.87);
+$text-black-fade: rgba(0, 0, 0, 0.6);
+$text-white: rgba(255, 255, 255, 1);
+$text-white-fade: rgba(255, 255, 255, 0.87);
+$border-color-white-fade: rgba(255, 255, 255, 0.12);
+$border-color-black-fade: rgba(0, 0, 0, 0.12);
+
+.mb-32.mb-32 {
+    margin-bottom: 32px !important;
+}
+
+.mb-0.mb-0 {
+    margin-bottom: 0px !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-alias {
+    cursor: alias;
+}
+
+.cursor-auto {
+    cursor: auto;
+}
+
+.cursor-disabled {
+    cursor: not-allowed;
+}
+
+@mixin theme($theme) {
+    $background: map.get($theme, background);
+    $foreground: map.get($theme, foreground);
+    $is-dark: map.get($theme, is-dark);
+
+    $background-color: mat.get-color-from-palette($background, background);
+
+    .bg-default {
+        background-color: $background-color;
+    }
+
+    .bg-card {
+        background-color: mat.get-color-from-palette($background, card);
+    }
+
+    .bg-foreground {
+        background-color: mat.get-color-from-palette($foreground, foreground);
+    }
+
+    .bg-text {
+        @if ($is-dark) {
+            background-color: $text-white;
+        } @else {
+            background-color: $text-black;
+        }
+
+        &--fade {
+            @if ($is-dark) {
+                background-color: $text-white-fade;
+            } @else {
+                background-color: $text-black-fade;
+            }
+        }
+    }
+
+    .text-default {
+        @if ($is-dark) {
+            color: $text-white;
+        } @else {
+            color: $text-black;
+        }
+
+        &--fade {
+            @if ($is-dark) {
+                color: $text-white-fade;
+            } @else {
+                color: $text-black-fade;
+            }
+        }
+    }
+
+    .border-right-fade {
+        border-right-width: 1px;
+        border-right-style: solid;
+
+        @if ($is-dark) {
+            border-right-color: $border-color-white-fade;
+        } @else {
+            border-right-color: $border-color-black-fade;
+        }
+    }
+
+    $colors: 'primary', 'accent', 'warn';
+    $shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400, A700;
+    
+
+    @each $color in $colors {
+        @each $shade in $shades {
+            $colorFromPalette: mat.get-color-from-palette(map.get($theme, $color), $shade);
+            $colorContrastFromPalette: mat.get-color-from-palette(map.get($theme, $color), $shade + '-contrast');
+
+            .text-#{$color}--#{$shade} {
+                color: $colorFromPalette;
+            }
+    
+            .text-#{$color}-contrast--#{$shade} {
+                color: $colorContrastFromPalette;
+            }
+
+            .bg-#{$color}--#{$shade} {
+                background-color: $colorFromPalette;
+            }
+
+            .bg-#{$color}--#{$shade}--fade {
+                background-color: $colorFromPalette;
+                opacity: 0.5;
+            }
+
+            .fill-#{$color}--#{$shade} {
+                fill: $colorFromPalette;
+            }
+
+            .border-#{$color}-lg--#{$shade} {
+                border: 4px solid $colorFromPalette;
+            }
+
+            .border-#{$color}--#{$shade} {
+                border: 1px solid $colorFromPalette;
+            }
+        }
+    }
+}
